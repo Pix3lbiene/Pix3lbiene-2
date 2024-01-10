@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://dg20ly5ek1o3n"]
+
+[ext_resource type="Texture2D" uid="uid://d3jwm15et3t22" path="res://Assets/Sprites/Mario_Small_Idle.png" id="1_oogo6"]
+[ext_resource type="Shape2D" uid="uid://co1df083pxnq1" path="res://Resources/CollisionShapes/SmallMarioCollisionShape.tres" id="2_84ci4"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_58rr8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_oogo6")
+}],
+"loop": true,
+"name": &"small_idle",
+"speed": 5.0
+}]
+
+[node name="Player" type="CharacterBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_58rr8")
+animation = &"small_idle"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="AreaCollisionShape" type="CollisionShape2D" parent="Area2D"]
+shape = ExtResource("2_84ci4")
+
+[node name="BodyCollisionShape" type="CollisionShape2D" parent="."]
+shape = ExtResource("2_84ci4")

@@ -1,0 +1,44 @@
+[gd_scene load_steps=10 format=3 uid="uid://dbcxy2mcp1622"]
+
+[ext_resource type="Texture2D" uid="uid://bh2i2pbd72n30" path="res://Assets/Sprites/GroundBlock.png" id="1_vvove"]
+[ext_resource type="Texture2D" uid="uid://8as4lix1a8pr" path="res://Assets/Sprites/HardBlock.png" id="2_hvalx"]
+[ext_resource type="Texture2D" uid="uid://dbhkvad8kmca" path="res://Assets/Sprites/UndergroundBlock.png" id="3_xgvs6"]
+[ext_resource type="Texture2D" uid="uid://dtkrgfs1x5qrr" path="res://Assets/Sprites/UndergroundBrick.png" id="4_xqlkf"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0ym4f"]
+texture = ExtResource("1_vvove")
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5ojei"]
+texture = ExtResource("2_hvalx")
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_eu43m"]
+texture = ExtResource("3_xgvs6")
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fbhwp"]
+texture = ExtResource("4_xqlkf")
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSet" id="TileSet_y7ojl"]
+physics_layer_0/collision_layer = 2
+sources/1 = SubResource("TileSetAtlasSource_0ym4f")
+sources/2 = SubResource("TileSetAtlasSource_5ojei")
+sources/3 = SubResource("TileSetAtlasSource_eu43m")
+sources/4 = SubResource("TileSetAtlasSource_fbhwp")
+
+[node name="main" type="Node"]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_y7ojl")
+format = 2
+layer_0/tile_data = PackedInt32Array(65534, 1, 0, 131070, 1, 0, 196606, 1, 0, 65535, 1, 0, 131071, 1, 0, 196607, 1, 0, 0, 1, 0, 65536, 1, 0, 131072, 1, 0, 1, 1, 0, 65537, 1, 0, 131073, 1, 0, 2, 1, 0, 65538, 1, 0, 131074, 1, 0, 3, 1, 0, 65539, 1, 0, 131075, 1, 0, 4, 1, 0, 65540, 1, 0, 131076, 1, 0, 5, 1, 0, 65541, 1, 0, 131077, 1, 0, 6, 1, 0, 65542, 1, 0, 131078, 1, 0, 7, 1, 0, 65543, 1, 0, 131079, 1, 0, 8, 1, 0, 65544, 1, 0, 131080, 1, 0, 9, 1, 0, 65545, 1, 0, 131081, 1, 0, 10, 1, 0, 65546, 1, 0, 131082, 1, 0, 11, 1, 0, 65547, 1, 0, 131083, 1, 0, 12, 1, 0, 65548, 1, 0, 131084, 1, 0, 13, 1, 0, 65549, 1, 0, 131085, 1, 0, 14, 1, 0, 65550, 1, 0, 131086, 1, 0, 15, 1, 0, 65551, 1, 0, 131087, 1, 0, 16, 1, 0, 65552, 1, 0, 131088, 1, 0, 17, 1, 0, 65553, 1, 0, 131089, 1, 0, 18, 1, 0, 65554, 1, 0, 131090, 1, 0, 19, 1, 0, 65555, 1, 0, 131091, 1, 0, 20, 1, 0, 65556, 1, 0, 131092, 1, 0, 21, 1, 0, 65557, 1, 0, 131093, 1, 0, 22, 1, 0, 65558, 1, 0, 131094, 1, 0, 23, 1, 0, 65559, 1, 0, 131095, 1, 0, 24, 1, 0, 65560, 1, 0, 131096, 1, 0, 25, 1, 0, 65561, 1, 0, 131097, 1, 0, 26, 1, 0, 65562, 1, 0, 131098, 1, 0, 27, 1, 0, 65563, 1, 0, 131099, 1, 0, 28, 1, 0, 65564, 1, 0, 131100, 1, 0, 29, 1, 0, 65565, 1, 0, 131101, 1, 0, 30, 1, 0, 65566, 1, 0, 131102, 1, 0)
