@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://bdvmvw5kdlgkt"]
+
+[ext_resource type="Texture2D" uid="uid://dl0kuv8e1o6n3" path="res://Assets/Sprites/Goomba_Flat.png" id="1_sw003"]
+[ext_resource type="Script" path="res://Scripts/goomba.gd" id="1_tls54"]
+[ext_resource type="Texture2D" uid="uid://dhmodocnsu7ds" path="res://Assets/Sprites/Goomba_Walk1.png" id="2_0wtf4"]
+[ext_resource type="Texture2D" uid="uid://cxtty1fuwy5ab" path="res://Assets/Sprites/Goomba_Walk2.png" id="3_dgcy6"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tpm4e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_sw003")
+}],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_0wtf4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_dgcy6")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oejgn"]
+size = Vector2(16, 16)
+
+[node name="Goomba" type="Area2D"]
+collision_layer = 4
+script = ExtResource("1_tls54")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_tpm4e")
+animation = &"walk"
+autoplay = "walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_oejgn")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 8)
+collision_mask = 18
