@@ -72,14 +72,18 @@ func handle_enemy_collision(enemy: Enemy):
 	if enemy == null:
 		return
 	
-	var angle_of_collision = rad_to_deg(position.angle_to_point(enemy.position))
-	
-	if angle_of_collision > min_stomp_degree && max_stomp_degree > angle_of_collision:
-		enemy.die()
-		on_enemy_stomped()
+	if is_instance_of(enemy, Koopa) and (enemy as Koopa).in_a_shell:
+		(enemy as Koopa).on_stomp(global_position)
 		spawn_points_label(enemy)
 	else:
-		die()
+		var angle_of_collision = rad_to_deg(position.angle_to_point(enemy.position))
+		
+		if angle_of_collision > min_stomp_degree && max_stomp_degree > angle_of_collision:
+			enemy.die()
+			on_enemy_stomped()
+			spawn_points_label(enemy)
+		else:
+			die()
 		
 func die():
 	print("ED")

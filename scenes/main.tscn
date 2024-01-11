@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dbhkvad8kmca" path="res://Assets/Sprites/UndergroundBlock.png" id="3_xgvs6"]
 [ext_resource type="Texture2D" uid="uid://dtkrgfs1x5qrr" path="res://Assets/Sprites/UndergroundBrick.png" id="4_xqlkf"]
 [ext_resource type="PackedScene" uid="uid://dg20ly5ek1o3n" path="res://scenes/player.tscn" id="5_3njsc"]
-[ext_resource type="Texture2D" path="res://Assets/tilemap/tilemap_ground.png" id="5_lo323"]
+[ext_resource type="Texture2D" uid="uid://cprndnywie6c2" path="res://Assets/tilemap/tilemap_ground.png" id="5_lo323"]
 [ext_resource type="PackedScene" uid="uid://bdvmvw5kdlgkt" path="res://scenes/goomba.tscn" id="7_ehcf3"]
 [ext_resource type="PackedScene" uid="uid://vtbdytksr0ju" path="res://scenes/koopa.tscn" id="8_puqto"]
 
