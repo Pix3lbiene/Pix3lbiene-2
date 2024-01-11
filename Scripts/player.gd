@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 class_name Player
 
+signal points_scored(points: int)
+
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -10,6 +12,10 @@ enum PlayerMode {
 	BIG,
 	SHOOTING
 }
+
+# On ready
+const POINTS_LABEL_SCENE = preload("res://scenes/points_label.tscn")
+
 
 # References
 @onready var animated_sprite_2d = $AnimatedSprite2D as PlayerAnimatedSprite
@@ -71,6 +77,7 @@ func handle_enemy_collision(enemy: Enemy):
 	if angle_of_collision > min_stomp_degree && max_stomp_degree > angle_of_collision:
 		enemy.die()
 		on_enemy_stomped()
+		spawn_points_label(enemy)
 	else:
 		die()
 		
@@ -79,4 +86,10 @@ func die():
 	
 func on_enemy_stomped():
 	velocity.y = stomp_y_velocity
+	
+func spawn_points_label(enemy):
+	var points_label = POINTS_LABEL_SCENE.instantiate()
+	points_label.position = enemy.position + Vector2(-20, -20)
+	get_tree().root.add_child(points_label)
+	points_scored.emit(100)
 	
