@@ -14,9 +14,11 @@ enum PlayerMode {
 }
 
 # References
-const POINTS_LABEL_SCENE = preload("res://scenes/points_label.tscn")
+const POINTS_LABEL_SCENE = preload("res://Scenes/points_label.tscn")
 const SMALL_MARIO_COLLISION_SHAPE = preload("res://Resources/CollisionShapes/small_mario_collision_shape.tres")
 const BIG_MARIO_COLLISION_SHAPE = preload("res://Resources/CollisionShapes/big_mario_collision_shape.tres")
+const FIREBALL_SCENE = preload("res://Scenes/fireball.tscn")
+
 
 # On ready
 @onready var animated_sprite_2d = $AnimatedSprite2D as PlayerAnimatedSprite
@@ -24,6 +26,7 @@ const BIG_MARIO_COLLISION_SHAPE = preload("res://Resources/CollisionShapes/big_m
 @onready var area_collision_shape = $Area2D/AreaCollisionShape
 @onready var body_collision_shape = $BodyCollisionShape
 @onready var death_sound = $DeathSound
+@onready var shooting_point = $ShootingPoint
 
 
 @export_group("Locomotion")
@@ -64,8 +67,11 @@ func _physics_process(delta):
 		velocity.x = lerpf(velocity.x, speed * direction, run_speed_damping * delta)
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed * delta)
-		
-	animated_sprite_2d.trigger_animation(velocity, direction, player_mode)
+	
+	if Input.is_action_just_pressed("shoot") && player_mode == PlayerMode.SHOOTING:
+		shoot()
+	else:
+		animated_sprite_2d.trigger_animation(velocity, direction, player_mode)
 	
 	var collision = get_last_slide_collision()
 	if collision != null:
@@ -79,6 +85,9 @@ func _on_area_2d_area_entered(area):
 		handle_enemy_collision(area)
 	if area is Shroom:
 		handle_shroom_collision(area)
+		area.queue_free()
+	if area is ShootingFlower:
+		handle_flower_collision()
 		area.queue_free()
 		
 func handle_enemy_collision(enemy: Enemy):
@@ -132,11 +141,17 @@ func handle_movement_collision(collision: KinematicCollision2D):
 		if roundf(collision_angle) == 180:
 			(collision.get_collider() as Block).bump(player_mode)
 	
-func handle_shroom_collision(area: Node2D):
+func handle_shroom_collision(_area: Node2D):
 	if player_mode == PlayerMode.SMALL:
 		set_physics_process(false)
 		animated_sprite_2d.play("small_to_big")
 		set_collision_shapes(false)
+
+func handle_flower_collision():
+	set_physics_process(false)
+	var animation_name = "small_to_shooting" if player_mode == PlayerMode.SMALL else "big_to_shooting"
+	animated_sprite_2d.play(animation_name)
+	set_collision_shapes(false)
 
 func set_collision_shapes(is_small: bool):
 	var collision_shape = SMALL_MARIO_COLLISION_SHAPE if is_small else BIG_MARIO_COLLISION_SHAPE
@@ -150,4 +165,11 @@ func big_to_small():
 	animated_sprite_2d.play(animation_name, 1.0, true)
 	set_collision_shapes(true)
 
-
+func shoot():
+	animated_sprite_2d.play("shoot")
+	set_physics_process(false)
+	
+	var fireball = FIREBALL_SCENE.instantiate()
+	fireball.direction = sign(animated_sprite_2d.scale.x)
+	fireball.global_position = shooting_point.global_position
+	get_tree().root.add_child(fireball)

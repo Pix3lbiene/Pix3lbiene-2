@@ -37,6 +37,12 @@ func _on_animation_finished():
 				get_parent().player_mode = Player.PlayerMode.SMALL
 			Player.PlayerMode.SMALL:
 				get_parent().player_mode = Player.PlayerMode.BIG
+	if animation == "small_to_shooting" || "big_to_shooting":
+		reset_player_properties()
+		get_parent().player_mode = Player.PlayerMode.SHOOTING
+	
+	if animation == "shoot":
+		get_parent().set_physics_process(true)
 				
 
 func _on_frame_changed():

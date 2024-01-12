@@ -2,7 +2,7 @@ extends Area2D
 
 class_name Enemy
 
-const POINTS_LABEL_SCENE = preload("res://scenes/points_label.tscn")
+const POINTS_LABEL_SCENE = preload("res://Scenes/points_label.tscn")
 @export var horizontal_speed = 20
 @export var vertical_speed = 100
 

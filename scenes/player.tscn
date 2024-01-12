@@ -263,7 +263,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("9_2pubx")
 }],
-"loop": true,
+"loop": false,
 "name": &"small_to_shooting",
 "speed": 5.0
 }]
@@ -274,7 +274,7 @@ script = ExtResource("1_cqfcf")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_58rr8")
-animation = &"big_idle"
+animation = &"shoot"
 script = ExtResource("24_wd5v6")
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -285,6 +285,9 @@ shape = ExtResource("25_5dkwh")
 
 [node name="BodyCollisionShape" type="CollisionShape2D" parent="."]
 shape = ExtResource("25_5dkwh")
+
+[node name="ShootingPoint" type="Marker2D" parent="."]
+position = Vector2(7, -5)
 
 [node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("26_t3746")
