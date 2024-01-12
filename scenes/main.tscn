@@ -6,8 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://dtkrgfs1x5qrr" path="res://Assets/Sprites/UndergroundBrick.png" id="4_xqlkf"]
 [ext_resource type="PackedScene" uid="uid://dg20ly5ek1o3n" path="res://scenes/player.tscn" id="5_3njsc"]
 [ext_resource type="Texture2D" uid="uid://cprndnywie6c2" path="res://Assets/tilemap/tilemap_ground.png" id="5_lo323"]
+[ext_resource type="PackedScene" uid="uid://kserhg5ixm4u" path="res://scenes/brick.tscn" id="7_53xsy"]
 [ext_resource type="PackedScene" uid="uid://bdvmvw5kdlgkt" path="res://scenes/goomba.tscn" id="7_ehcf3"]
-[ext_resource type="PackedScene" uid="uid://vtbdytksr0ju" path="res://scenes/koopa.tscn" id="8_puqto"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0ym4f"]
 texture = ExtResource("1_vvove")
@@ -104,10 +104,8 @@ position = Vector2(-93, 64)
 [node name="Enemies" type="Node" parent="."]
 
 [node name="Goomba" parent="Enemies" instance=ExtResource("7_ehcf3")]
-position = Vector2(12, 29)
+position = Vector2(-42, -4)
+horizontal_speed = 0
 
-[node name="Koopa" parent="Enemies" instance=ExtResource("8_puqto")]
-position = Vector2(95, 49)
-
-[node name="Koopa2" parent="Enemies" instance=ExtResource("8_puqto")]
-position = Vector2(63, 50)
+[node name="Brick" parent="." instance=ExtResource("7_53xsy")]
+position = Vector2(-42, 30)

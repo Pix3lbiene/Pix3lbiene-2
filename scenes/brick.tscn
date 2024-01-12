@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://kserhg5ixm4u"]
+
+[ext_resource type="Script" path="res://Scripts/brick.gd" id="1_irv3v"]
+[ext_resource type="Texture2D" uid="uid://co3bdq1m4vg4f" path="res://Assets/Sprites/Brick.png" id="2_oumhh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ll126"]
+size = Vector2(16, 16)
+
+[node name="Brick" type="StaticBody2D"]
+collision_layer = 16
+collision_mask = 13
+script = ExtResource("1_irv3v")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_oumhh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ll126")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, -10)
+collision_mask = 4
