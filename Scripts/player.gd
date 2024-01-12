@@ -41,6 +41,8 @@ const FIREBALL_SCENE = preload("res://Scenes/fireball.tscn")
 @export var stomp_y_velocity = -150
 @export_group("")
 
+@export_group("Camera Sync")
+
 var player_mode = PlayerMode.SMALL
 
 # Player state flags
