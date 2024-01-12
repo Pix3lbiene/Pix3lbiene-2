@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="Pix3lbiene"
-run/main_scene="res://scenes/main.tscn"
+run/main_scene="res://Scenes/main.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://icon.svg"
 
 [autoload]
 
-BackgroundMusic="*res://scenes/background_music.tscn"
+BackgroundMusic="*res://Scenes/background_music.tscn"
 
 [display]
 

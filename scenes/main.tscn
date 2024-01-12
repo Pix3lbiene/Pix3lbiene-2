@@ -1,13 +1,14 @@
-[gd_scene load_steps=15 format=3 uid="uid://dbcxy2mcp1622"]
+[gd_scene load_steps=16 format=3 uid="uid://dbcxy2mcp1622"]
 
 [ext_resource type="Texture2D" uid="uid://bh2i2pbd72n30" path="res://Assets/Sprites/GroundBlock.png" id="1_vvove"]
 [ext_resource type="Texture2D" uid="uid://8as4lix1a8pr" path="res://Assets/Sprites/HardBlock.png" id="2_hvalx"]
 [ext_resource type="Texture2D" uid="uid://dbhkvad8kmca" path="res://Assets/Sprites/UndergroundBlock.png" id="3_xgvs6"]
 [ext_resource type="Texture2D" uid="uid://dtkrgfs1x5qrr" path="res://Assets/Sprites/UndergroundBrick.png" id="4_xqlkf"]
-[ext_resource type="PackedScene" uid="uid://dg20ly5ek1o3n" path="res://scenes/player.tscn" id="5_3njsc"]
+[ext_resource type="PackedScene" uid="uid://dg20ly5ek1o3n" path="res://Scenes/player.tscn" id="5_3njsc"]
 [ext_resource type="Texture2D" uid="uid://cprndnywie6c2" path="res://Assets/tilemap/tilemap_ground.png" id="5_lo323"]
-[ext_resource type="PackedScene" uid="uid://kserhg5ixm4u" path="res://scenes/brick.tscn" id="7_53xsy"]
-[ext_resource type="PackedScene" uid="uid://bdvmvw5kdlgkt" path="res://scenes/goomba.tscn" id="7_ehcf3"]
+[ext_resource type="PackedScene" uid="uid://kserhg5ixm4u" path="res://Scenes/brick.tscn" id="7_53xsy"]
+[ext_resource type="PackedScene" uid="uid://bdvmvw5kdlgkt" path="res://Scenes/goomba.tscn" id="7_ehcf3"]
+[ext_resource type="PackedScene" uid="uid://cvgndqh5bvlmq" path="res://Scenes/mystery_box.tscn" id="9_7unkk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0ym4f"]
 texture = ExtResource("1_vvove")
@@ -104,8 +105,11 @@ position = Vector2(-93, 64)
 [node name="Enemies" type="Node" parent="."]
 
 [node name="Goomba" parent="Enemies" instance=ExtResource("7_ehcf3")]
-position = Vector2(-42, -4)
+position = Vector2(27, 6)
 horizontal_speed = 0
 
 [node name="Brick" parent="." instance=ExtResource("7_53xsy")]
 position = Vector2(-42, 30)
+
+[node name="MysteryBox" parent="." instance=ExtResource("9_7unkk")]
+position = Vector2(27.4614, 31.3892)
