@@ -108,3 +108,6 @@ position = Vector2(12, 29)
 
 [node name="Koopa" parent="Enemies" instance=ExtResource("8_puqto")]
 position = Vector2(95, 49)
+
+[node name="Koopa2" parent="Enemies" instance=ExtResource("8_puqto")]
+position = Vector2(63, 50)

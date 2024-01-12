@@ -19,8 +19,11 @@ const POINTS_LABEL_SCENE = preload("res://scenes/points_label.tscn")
 
 # References
 @onready var animated_sprite_2d = $AnimatedSprite2D as PlayerAnimatedSprite
+@onready var area_2d = $Area2D
 @onready var area_collision_shape = $Area2D/AreaCollisionShape
 @onready var body_collision_shape = $BodyCollisionShape
+@onready var death_sound = $DeathSound
+
 
 @export_group("Locomotion")
 @export var run_speed_damping = 0.5
@@ -35,6 +38,9 @@ const POINTS_LABEL_SCENE = preload("res://scenes/points_label.tscn")
 @export_group("")
 
 var player_mode = PlayerMode.SMALL
+
+# Player state flags
+var is_dead = false
 
 func _physics_process(delta):
 	 
@@ -69,7 +75,7 @@ func _on_area_2d_area_entered(area):
 		handle_enemy_collision(area)
 		
 func handle_enemy_collision(enemy: Enemy):
-	if enemy == null:
+	if enemy == null && is_dead:
 		return
 	
 	if is_instance_of(enemy, Koopa) and (enemy as Koopa).in_a_shell:
@@ -86,7 +92,20 @@ func handle_enemy_collision(enemy: Enemy):
 			die()
 		
 func die():
-	print("ED")
+	if player_mode == PlayerMode.SMALL:
+		is_dead = true
+		animated_sprite_2d.play("death")
+		area_2d.set_collision_mask_value(3, false)
+		set_collision_layer_value(1, false)
+		set_physics_process(false)
+		death_sound.play()
+		var death_tween = get_tree().create_tween()
+		death_tween.tween_property(self, "position", position + Vector2(0, -48), .5)
+		death_tween.chain().tween_property(self, "position", position + Vector2(0, 256), 1)
+		death_tween.tween_callback(func (): get_tree().reload_current_scene())
+		
+	else:
+		print("Big to small")
 	
 func on_enemy_stomped():
 	velocity.y = stomp_y_velocity

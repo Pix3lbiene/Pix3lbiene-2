@@ -15,6 +15,10 @@ run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+BackgroundMusic="*res://scenes/background_music.tscn"
+
 [display]
 
 window/stretch/mode="canvas_items"
@@ -61,4 +65,5 @@ shoot={
 
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true
 environment/defaults/default_clear_color=Color(0.14902, 0.513726, 0.886275, 1)

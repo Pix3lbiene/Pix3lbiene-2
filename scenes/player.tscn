@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dg20ly5ek1o3n"]
+[gd_scene load_steps=28 format=3 uid="uid://dg20ly5ek1o3n"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_4errm"]
 [ext_resource type="Texture2D" uid="uid://d3jwm15et3t22" path="res://Assets/Sprites/Mario_Small_Idle.png" id="1_oogo6"]
@@ -25,6 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://d01eopk6c4cx1" path="res://Assets/Sprites/Mario_Small_Run3.png" id="22_d7k76"]
 [ext_resource type="Texture2D" uid="uid://cal7r48xqmfrt" path="res://Assets/Sprites/Mario_Small_Slide.png" id="23_1uncg"]
 [ext_resource type="Script" path="res://Scripts/player_animated_sprite.gd" id="24_38g2o"]
+[ext_resource type="AudioStream" uid="uid://gbqg7agdb10u" path="res://Assets/Sound/Effects/death_01.wav" id="26_wafna"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_58rr8"]
 animations = [{
@@ -284,5 +285,9 @@ shape = ExtResource("2_84ci4")
 
 [node name="BodyCollisionShape" type="CollisionShape2D" parent="."]
 shape = ExtResource("2_84ci4")
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("26_wafna")
+bus = &"SoundEffects"
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
