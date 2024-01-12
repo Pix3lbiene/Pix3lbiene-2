@@ -24,7 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://d01eopk6c4cx1" path="res://Assets/Sprites/Mario_Small_Run3.png" id="22_orrnq"]
 [ext_resource type="Texture2D" uid="uid://cal7r48xqmfrt" path="res://Assets/Sprites/Mario_Small_Slide.png" id="23_8vr0q"]
 [ext_resource type="Script" path="res://Scripts/player_animated_sprite.gd" id="24_wd5v6"]
-[ext_resource type="Shape2D" uid="uid://co1df083pxnq1" path="res://Resources/CollisionShapes/SmallMarioCollisionShape.tres" id="25_wcniu"]
+[ext_resource type="Shape2D" uid="uid://co1df083pxnq1" path="res://Resources/CollisionShapes/small_mario_collision_shape.tres" id="25_5dkwh"]
 [ext_resource type="AudioStream" uid="uid://gbqg7agdb10u" path="res://Assets/Sound/Effects/death_01.wav" id="26_t3746"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_58rr8"]
@@ -100,7 +100,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("9_2pubx")
 }],
-"loop": true,
+"loop": false,
 "name": &"big_to_shooting",
 "speed": 5.0
 }, {
@@ -234,7 +234,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("2_0kyi5")
 }],
-"loop": true,
+"loop": false,
 "name": &"small_to_big",
 "speed": 5.0
 }, {
@@ -274,20 +274,22 @@ script = ExtResource("1_cqfcf")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_58rr8")
-animation = &"big_to_shooting"
+animation = &"big_idle"
 script = ExtResource("24_wd5v6")
 
 [node name="Area2D" type="Area2D" parent="."]
-collision_mask = 4
+collision_mask = 60
 
 [node name="AreaCollisionShape" type="CollisionShape2D" parent="Area2D"]
-shape = ExtResource("25_wcniu")
+shape = ExtResource("25_5dkwh")
 
 [node name="BodyCollisionShape" type="CollisionShape2D" parent="."]
-shape = ExtResource("25_wcniu")
+shape = ExtResource("25_5dkwh")
 
 [node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("26_t3746")
 bus = &"SoundEffects"
 
+[connection signal="animation_finished" from="AnimatedSprite2D" to="AnimatedSprite2D" method="_on_animation_finished"]
+[connection signal="frame_changed" from="AnimatedSprite2D" to="AnimatedSprite2D" method="_on_frame_changed"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

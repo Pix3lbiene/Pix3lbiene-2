@@ -10,7 +10,7 @@ size = Vector2(16, 16)
 size = Vector2(18, 18)
 
 [node name="Shroom" type="Area2D"]
-collision_mask = 32
+collision_layer = 32
 script = ExtResource("1_qbfdh")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

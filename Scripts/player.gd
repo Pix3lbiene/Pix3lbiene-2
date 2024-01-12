@@ -13,11 +13,12 @@ enum PlayerMode {
 	SHOOTING
 }
 
-# On ready
-const POINTS_LABEL_SCENE = preload("res://scenes/points_label.tscn")
-
-
 # References
+const POINTS_LABEL_SCENE = preload("res://scenes/points_label.tscn")
+const SMALL_MARIO_COLLISION_SHAPE = preload("res://Resources/CollisionShapes/small_mario_collision_shape.tres")
+const BIG_MARIO_COLLISION_SHAPE = preload("res://Resources/CollisionShapes/big_mario_collision_shape.tres")
+
+# On ready
 @onready var animated_sprite_2d = $AnimatedSprite2D as PlayerAnimatedSprite
 @onready var area_2d = $Area2D
 @onready var area_collision_shape = $Area2D/AreaCollisionShape
@@ -76,6 +77,9 @@ func _physics_process(delta):
 func _on_area_2d_area_entered(area):
 	if area is Enemy:
 		handle_enemy_collision(area)
+	if area is Shroom:
+		handle_shroom_collision(area)
+		area.queue_free()
 		
 func handle_enemy_collision(enemy: Enemy):
 	if enemy == null && is_dead:
@@ -111,7 +115,7 @@ func die():
 		
 		
 	else:
-		print("Big to small")
+		big_to_small()
 	
 func on_enemy_stomped():
 	velocity.y = stomp_y_velocity
@@ -128,6 +132,22 @@ func handle_movement_collision(collision: KinematicCollision2D):
 		if roundf(collision_angle) == 180:
 			(collision.get_collider() as Block).bump(player_mode)
 	
+func handle_shroom_collision(area: Node2D):
+	if player_mode == PlayerMode.SMALL:
+		set_physics_process(false)
+		animated_sprite_2d.play("small_to_big")
+		set_collision_shapes(false)
 
+func set_collision_shapes(is_small: bool):
+	var collision_shape = SMALL_MARIO_COLLISION_SHAPE if is_small else BIG_MARIO_COLLISION_SHAPE
+	area_collision_shape.set_deferred("shape", collision_shape)
+	body_collision_shape.set_deferred("shape", collision_shape)
+
+func big_to_small():
+	set_collision_layer_value(1, false)
+	set_physics_process(false)
+	var animation_name = "small_to_big" if player_mode == PlayerMode.BIG else "small_to_shooting"
+	animated_sprite_2d.play(animation_name, 1.0, true)
+	set_collision_shapes(true)
 
 
