@@ -35,11 +35,10 @@ animations = [{
 size = Vector2(16, 16)
 
 [node name="MysteryBox" type="StaticBody2D"]
+z_index = 2
 collision_layer = 16
 collision_mask = 13
 script = ExtResource("1_nt4va")
-bonus_type = null
-invisible = null
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ps778")
