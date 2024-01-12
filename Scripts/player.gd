@@ -42,6 +42,12 @@ const FIREBALL_SCENE = preload("res://Scenes/fireball.tscn")
 @export_group("")
 
 @export_group("Camera Sync")
+@export var camera_sync: Camera2D
+@export var start_position: Marker2D
+@export var end_position: Marker2D
+@export var should_camera_sync = true
+@export var camera_tolerance = 40
+@export_group("")
 
 var player_mode = PlayerMode.SMALL
 
@@ -50,10 +56,23 @@ var is_dead = false
 
 func _physics_process(delta):
 	 
+	# Calculate the x-coordinates of the Viewport
+	var camera_left_bound = camera_sync.global_position.x - camera_sync.get_viewport_rect().size.x / 2 / camera_sync.zoom.x
+	var camera_right_bound = camera_sync.global_position.x + camera_sync.get_viewport_rect().size.x / 2 / camera_sync.zoom.x
+	
 	# Apply gravity
 	if not is_on_floor():
 		velocity.y += gravity * delta
+		
+	# When the player wants to move outside the camera, stop him
+	if 	global_position.x < camera_left_bound + 8 && sign(velocity.x) == -1:
+		velocity = Vector2.ZERO
+		return
+	elif global_position.x > camera_right_bound - 8 && sign(velocity.x) == 1:		
+		velocity = Vector2.ZERO
+		return
 	
+		
 	# Handle jumps
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = jump_velocity
@@ -81,6 +100,17 @@ func _physics_process(delta):
 	
 	move_and_slide()
 
+func _process(delta):
+	# Camera only moves when player goes outside given area
+	if should_camera_sync:
+		# Right camera movement
+		if global_position.x > camera_sync.global_position.x +camera_tolerance && end_position.global_position.x > camera_sync.global_position.x:
+			camera_sync.global_position.x = global_position.x -camera_tolerance
+		
+		# Left camera movement
+		elif global_position.x < camera_sync.global_position.x -camera_tolerance && start_position.global_position.x < camera_sync.global_position.x:
+			camera_sync.global_position.x = global_position.x +camera_tolerance
+	
 
 func _on_area_2d_area_entered(area):
 	if area is Enemy:
