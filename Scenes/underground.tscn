@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cd541nfwjiwrl"]
+[gd_scene load_steps=8 format=3 uid="uid://cd541nfwjiwrl"]
 
 [ext_resource type="TileSet" uid="uid://d0s7u36k35fya" path="res://Resources/TileSets/ground_mario.tres" id="1_7l4fw"]
 [ext_resource type="Script" path="res://Scripts/level_manager.gd" id="1_i5miy"]
@@ -6,11 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://c2khee3yug1e5" path="res://Scenes/pipe_connector.tscn" id="3_vqjn1"]
 [ext_resource type="PackedScene" uid="uid://bei1c0pe6xtcd" path="res://Scenes/pipe.tscn" id="4_6c7jc"]
 [ext_resource type="PackedScene" uid="uid://dmsetu713bew3" path="res://Scenes/collectable_coin.tscn" id="6_rv1e8"]
+[ext_resource type="Script" path="res://Scripts/ui.gd" id="7_mq00y"]
 
 [node name="Underground" type="Node"]
-
-[node name="LevelManager" type="Node" parent="." groups=["level_manager"]]
-script = ExtResource("1_i5miy")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_left = -377.0
@@ -31,12 +29,6 @@ layer_0/tile_data = PackedInt32Array(-458760, 2, 0, -458759, 2, 0, -458758, 2, 0
 
 [node name="Player" parent="." node_paths=PackedStringArray("camera_sync") instance=ExtResource("2_lef8q")]
 position = Vector2(-148, -117)
-run_speed_damping = 0.5
-speed = 200.0
-jump_velocity = -350
-min_stomp_degree = 35
-max_stomp_degree = 145
-stomp_y_velocity = -150
 camera_sync = NodePath("../Camera2D")
 should_camera_sync = false
 
@@ -48,6 +40,14 @@ return_point = Vector2(256, 24)
 z_index = 1
 position = Vector2(176, -136)
 height = 176
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("7_mq00y")
+
+[node name="LevelManager" type="Node" parent="." node_paths=PackedStringArray("ui", "player") groups=["level_manager"]]
+script = ExtResource("1_i5miy")
+ui = NodePath("../UI")
+player = NodePath("../Player")
 
 [node name="Coins" type="Node" parent="."]
 

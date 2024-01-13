@@ -28,6 +28,7 @@ const FIREBALL_SCENE = preload("res://Scenes/fireball.tscn")
 @onready var area_collision_shape = $Area2D/AreaCollisionShape
 @onready var body_collision_shape = $BodyCollisionShape
 @onready var death_sound = $DeathSound
+@onready var power_up_sound = $PowerUpSound
 @onready var shooting_point = $ShootingPoint
 
 
@@ -57,10 +58,20 @@ var player_mode = PlayerMode.SMALL
 var is_dead = false
 
 func _ready():
+	print_debug(player_mode)
 	if SceneData.return_point != null && SceneData.return_point != Vector2.ZERO:
 		global_position = SceneData.return_point
 		player_mode = SceneData.player_mode
+		print_debug(player_mode)
 		set_collision_shapes(false if player_mode == PlayerMode.BIG || player_mode == PlayerMode.SHOOTING else true)
+	
+	print_debug(player_mode)
+	set_physics_process(false)
+	animated_sprite_2d.play("spawn")
+	power_up_sound.play()
+	
+	
+
 
 func _physics_process(delta):
 	 
@@ -162,6 +173,7 @@ func die():
 		set_collision_layer_value(1, false)
 		set_physics_process(false)
 		
+		BackgroundMusic.stop()
 		death_sound.play()
 		
 		var death_tween = get_tree().create_tween()
@@ -242,9 +254,13 @@ func handle_pipe_connector_entrance_collision():
 	pipe_tween.tween_callback(switch_to_main)
 
 func switch_to_underground():
-	get_tree().change_scene_to_file("res://Scenes/underground.tscn")
+	var level_manager = get_tree().get_first_node_in_group("level_manager")
+	SceneData.coins = level_manager.coins
+	SceneData.points = level_manager.points
 	SceneData.player_mode = player_mode
 	SceneData.return_point = Vector2(-148,-117)
+	get_tree().change_scene_to_file("res://Scenes/underground.tscn")
+	
 	
 func switch_to_main():
 	get_tree().change_scene_to_file("res://Scenes/main.tscn")

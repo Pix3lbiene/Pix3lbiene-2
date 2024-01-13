@@ -24,13 +24,13 @@ layout_mode = 2
 size_flags_vertical = 0
 theme_override_constants/separation = 42
 
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
+[node name="CoinsLabel" type="Label" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_momgp")
 theme_override_font_sizes/font_size = 20
 text = "COINS: 000000"
 
-[node name="Label2" type="Label" parent="MarginContainer/HBoxContainer"]
+[node name="ScoreLabel" type="Label" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_momgp")
 theme_override_font_sizes/font_size = 20

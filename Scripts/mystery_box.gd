@@ -48,15 +48,15 @@ func make_empty():
 func spawn_coin():
 	var coin = COIN_SCENE.instantiate()
 	coin.global_position = global_position + Vector2(0, -16)
-	get_tree().root.add_child(coin)
+	get_parent().add_child(coin)
 	get_tree().get_first_node_in_group("level_manager").on_coin_collected()
 	
 func spawn_shroom():
 	var shroom = SHROOM_SCENE.instantiate()
 	shroom.global_position = global_position
-	get_tree().root.add_child(shroom)
+	get_parent().add_child(shroom)
 	
 func spawn_flower():
 	var flower = SHOOTING_FLOWER_SCENE.instantiate()
 	flower.global_position = global_position
-	get_tree().root.add_child(flower)
+	get_parent().add_child(flower)

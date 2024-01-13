@@ -63,10 +63,12 @@ position = Vector2(-32, 32)
 [node name="MysteryBox" parent="." instance=ExtResource("9_7unkk")]
 position = Vector2(8, 32)
 bonus_type = 2
+invisible = null
 
 [node name="MysteryBox2" parent="." instance=ExtResource("9_7unkk")]
 position = Vector2(40, 32)
 bonus_type = 1
+invisible = null
 
 [node name="UI" parent="." instance=ExtResource("8_fxhdr")]
 

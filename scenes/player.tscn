@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://dg20ly5ek1o3n"]
+[gd_scene load_steps=30 format=3 uid="uid://dg20ly5ek1o3n"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_cqfcf"]
 [ext_resource type="Texture2D" uid="uid://ct8uqpacoxaq1" path="res://Assets/Sprites/Mario_Big_Idle.png" id="2_0kyi5"]
@@ -23,9 +23,11 @@
 [ext_resource type="Texture2D" uid="uid://dlhg7nbxeials" path="res://Assets/Sprites/Mario_Small_Run2.png" id="21_wugvx"]
 [ext_resource type="Texture2D" uid="uid://d01eopk6c4cx1" path="res://Assets/Sprites/Mario_Small_Run3.png" id="22_orrnq"]
 [ext_resource type="Texture2D" uid="uid://cal7r48xqmfrt" path="res://Assets/Sprites/Mario_Small_Slide.png" id="23_8vr0q"]
+[ext_resource type="Texture2D" uid="uid://d2r1f4s1maaa4" path="res://Assets/Sprites/Mario_Small_Idle_Spawn.png" id="24_hrpby"]
 [ext_resource type="Script" path="res://Scripts/player_animated_sprite.gd" id="24_wd5v6"]
 [ext_resource type="Shape2D" uid="uid://co1df083pxnq1" path="res://Resources/CollisionShapes/small_mario_collision_shape.tres" id="25_5dkwh"]
 [ext_resource type="AudioStream" uid="uid://gbqg7agdb10u" path="res://Assets/Sound/Effects/death_01.wav" id="26_t3746"]
+[ext_resource type="AudioStream" uid="uid://f53218f3fisb" path="res://Assets/Sound/Effects/powerup.wav" id="28_8ko6c"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_58rr8"]
 animations = [{
@@ -266,23 +268,40 @@ animations = [{
 "loop": false,
 "name": &"small_to_shooting",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("24_hrpby")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_uckpb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_hrpby")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_uckpb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_hrpby")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_uckpb")
+}],
+"loop": false,
+"name": &"spawn",
+"speed": 10.0
 }]
 
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 22
 script = ExtResource("1_cqfcf")
-run_speed_damping = null
-speed = null
-jump_velocity = null
-min_stomp_degree = null
-max_stomp_degree = null
-stomp_y_velocity = null
-should_camera_sync = null
-camera_tolerance = null
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_58rr8")
-animation = &"shoot"
+animation = &"spawn"
+frame = 5
+frame_progress = 1.0
 script = ExtResource("24_wd5v6")
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -300,6 +319,10 @@ position = Vector2(7, -5)
 [node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("26_t3746")
 bus = &"SoundEffects"
+
+[node name="PowerUpSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("28_8ko6c")
+volume_db = 11.0
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="AnimatedSprite2D" method="_on_animation_finished"]
 [connection signal="frame_changed" from="AnimatedSprite2D" to="AnimatedSprite2D" method="_on_frame_changed"]
