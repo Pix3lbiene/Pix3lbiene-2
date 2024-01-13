@@ -101,6 +101,12 @@ func _physics_process(delta):
 	move_and_slide()
 
 func _process(delta):
+	# Cheat Mode
+	#if Input.is_action_just_pressed("cheat"):
+	#	set_physics_process(false)
+	#	var fly_tween = get_tree().create_tween()
+	#	fly_tween.tween_property(self, "position", position + Vector2(1200, 0), 20)
+	
 	# Camera only moves when player goes outside given area
 	if should_camera_sync:
 		# Right camera movement
@@ -110,6 +116,7 @@ func _process(delta):
 		# Left camera movement
 		elif global_position.x < camera_sync.global_position.x -camera_tolerance && start_position.global_position.x < camera_sync.global_position.x:
 			camera_sync.global_position.x = global_position.x +camera_tolerance
+	
 	
 
 func _on_area_2d_area_entered(area):

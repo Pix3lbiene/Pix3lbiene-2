@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dbcxy2mcp1622"]
+[gd_scene load_steps=18 format=3 uid="uid://dbcxy2mcp1622"]
 
 [ext_resource type="Script" path="res://Scripts/level_manager.gd" id="1_ospw7"]
 [ext_resource type="Texture2D" uid="uid://bh2i2pbd72n30" path="res://Assets/Sprites/GroundBlock.png" id="1_vvove"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cprndnywie6c2" path="res://Assets/tilemap/tilemap_ground.png" id="5_lo323"]
 [ext_resource type="PackedScene" uid="uid://kserhg5ixm4u" path="res://Scenes/brick.tscn" id="7_53xsy"]
 [ext_resource type="PackedScene" uid="uid://bdvmvw5kdlgkt" path="res://Scenes/goomba.tscn" id="7_ehcf3"]
+[ext_resource type="PackedScene" uid="uid://bei1c0pe6xtcd" path="res://Scenes/pipe.tscn" id="8_icjxx"]
 [ext_resource type="PackedScene" uid="uid://cvgndqh5bvlmq" path="res://Scenes/mystery_box.tscn" id="9_7unkk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0ym4f"]
@@ -107,6 +108,13 @@ layer_0/tile_data = PackedInt32Array(524264, 1, 0, 458736, 1, 0, 458738, 1, 0, 5
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2.75, 2.75)
+
+[node name="Pipe" parent="." instance=ExtResource("8_icjxx")]
+position = Vector2(128, 24)
+height = 64
+
+[node name="Pipe2" parent="." instance=ExtResource("8_icjxx")]
+position = Vector2(184, 56)
 
 [node name="Player" parent="." node_paths=PackedStringArray("camera_sync", "start_position", "end_position") instance=ExtResource("5_3njsc")]
 position = Vector2(-93, 64)
