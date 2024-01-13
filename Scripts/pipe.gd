@@ -20,4 +20,4 @@ func _ready():
 	var shape = RectangleShape2D.new()
 	shape.size = Vector2(32, height)
 	collision_shape_2d.shape = shape
-	collision_shape_2d.position = Vector2(0, height /2 - TOP_PIPE_HEIGHT / 2)
+	collision_shape_2d.position = Vector2(0, height /2 - TOP_PIPE_HEIGHT / 2+1)

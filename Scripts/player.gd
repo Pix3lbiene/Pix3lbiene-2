@@ -13,6 +13,8 @@ enum PlayerMode {
 	SHOOTING
 }
 
+const PIPE_ENTER_THRESHOLD = 10
+
 # References
 const POINTS_LABEL_SCENE = preload("res://Scenes/points_label.tscn")
 const SMALL_MARIO_COLLISION_SHAPE = preload("res://Resources/CollisionShapes/small_mario_collision_shape.tres")
@@ -53,6 +55,12 @@ var player_mode = PlayerMode.SMALL
 
 # Player state flags
 var is_dead = false
+
+func _ready():
+	if SceneData.return_point != null && SceneData.return_point != Vector2.ZERO:
+		global_position = SceneData.return_point
+		player_mode = SceneData.player_mode
+		set_collision_shapes(false if player_mode == PlayerMode.BIG || player_mode == PlayerMode.SHOOTING else true)
 
 func _physics_process(delta):
 	 
@@ -122,7 +130,7 @@ func _process(delta):
 func _on_area_2d_area_entered(area):
 	if area is Enemy:
 		handle_enemy_collision(area)
-	if area is Shroom:
+	if (area is Shroom && area.get_tree().current_scene == get_tree().current_scene):
 		handle_shroom_collision(area)
 		area.queue_free()
 	if area is ShootingFlower:
@@ -180,6 +188,11 @@ func handle_movement_collision(collision: KinematicCollision2D):
 		if roundf(collision_angle) == 180:
 			(collision.get_collider() as Block).bump(player_mode)
 	
+	if collision.get_collider() is Pipe:
+		var collision_angle = rad_to_deg(collision.get_angle())
+		if roundf(collision_angle) == 0 && Input.is_action_just_pressed("down") && absf(collision.get_collider().position.x - position.x < PIPE_ENTER_THRESHOLD && collision.get_collider().is_traversable):
+			handle_pipe_collision(collision)
+	
 func handle_shroom_collision(_area: Node2D):
 	if player_mode == PlayerMode.SMALL:
 		set_physics_process(false)
@@ -212,3 +225,29 @@ func shoot():
 	fireball.direction = sign(animated_sprite_2d.scale.x)
 	fireball.global_position = shooting_point.global_position
 	get_tree().root.add_child(fireball)
+
+func handle_pipe_collision(pipe: KinematicCollision2D):
+	velocity = Vector2.ZERO
+	set_physics_process(false)
+	animated_sprite_2d.trigger_animation(Vector2.ZERO, 1, player_mode)
+	var pipe_tween = get_tree().create_tween()
+	pipe_tween.tween_property(self, "position", position + Vector2(pipe.get_collider().position.x - position.x, 0), .1)
+	pipe_tween.chain().tween_property(self, "position", position + Vector2(pipe.get_collider().position.x - position.x, 32), 1)
+	pipe_tween.tween_callback(switch_to_underground)
+	
+func handle_pipe_connector_entrance_collision():
+	set_physics_process(false)
+	var pipe_tween = get_tree().create_tween()
+	pipe_tween.tween_property(self, "position", position + Vector2(32, 0), 1)
+	pipe_tween.tween_callback(switch_to_main)
+
+func switch_to_underground():
+	get_tree().change_scene_to_file("res://Scenes/underground.tscn")
+	SceneData.player_mode = player_mode
+	SceneData.return_point = Vector2(-148,-117)
+	
+func switch_to_main():
+	get_tree().change_scene_to_file("res://Scenes/main.tscn")
+	SceneData.player_mode = player_mode
+
+

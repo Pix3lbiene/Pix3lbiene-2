@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 BackgroundMusic="*res://Scenes/background_music.tscn"
+SceneData="*res://Scripts/scene_data.gd"
 
 [display]
 
