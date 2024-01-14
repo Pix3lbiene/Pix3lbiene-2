@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dg50crmxes6v3"]
+
+[ext_resource type="PackedScene" uid="uid://b5h3u1lmd0xwt" path="res://Nodes/MainMenu/Title.tscn" id="1_8g4y3"]
+
+[node name="Main" type="Node"]
+
+[node name="ColorRect" parent="." instance=ExtResource("1_8g4y3")]

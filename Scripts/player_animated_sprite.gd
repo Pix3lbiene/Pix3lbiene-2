@@ -5,8 +5,16 @@ class_name PlayerAnimatedSprite
 
 var frame_count = 0
 func trigger_animation(velocity: Vector2, direction: int, player_mode: Player.PlayerMode):
-	var animation_prefix = Player.PlayerMode.keys()[player_mode].to_snake_case()
-	
+	var animation_prefix
+	match player_mode:
+		Player.PlayerMode.SMALL:
+			animation_prefix = "small"
+		Player.PlayerMode.BIG:
+			animation_prefix = "big"
+		Player.PlayerMode.SHOOTING:
+			animation_prefix = "shooting"
+	#print_debug(animation_prefix)
+	#print_debug(player_mode)
 	if not get_parent().is_on_floor():
 		play("%s_jump" % animation_prefix)
 		
@@ -38,18 +46,15 @@ func _on_animation_finished():
 				get_parent().player_mode = Player.PlayerMode.SMALL
 			Player.PlayerMode.SMALL:
 				get_parent().player_mode = Player.PlayerMode.BIG
+		print_debug(get_parent().player_mode)
 		
-	if animation == "small_to_shooting" || "big_to_shooting":
-		reset_player_properties()
-		get_parent().player_mode = Player.PlayerMode.SHOOTING
-	
-	if animation == "shoot":
-		get_parent().set_physics_process(true)
-	
-	if animation == "spawn":
-		get_parent().set_physics_process(true)
-		#get_parent().player_mode = Player.PlayerMode.SMALL
-		print_debug(get_parent().player_mode)	
+	#if animation == "small_to_shooting" || "big_to_shooting":
+		#reset_player_properties()
+		#get_parent().player_mode = Player.PlayerMode.SHOOTING
+	#
+	#if animation == "shoot":
+		#get_parent().set_physics_process(true)
+
 
 func _on_frame_changed():
 	if animation == "small_to_big" || animation == "small_to_shooting":

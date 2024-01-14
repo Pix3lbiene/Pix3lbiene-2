@@ -58,17 +58,17 @@ var player_mode = PlayerMode.SMALL
 var is_dead = false
 
 func _ready():
-	print_debug(player_mode)
+	#print_debug(player_mode)
 	if SceneData.return_point != null && SceneData.return_point != Vector2.ZERO:
 		global_position = SceneData.return_point
 		player_mode = SceneData.player_mode
-		print_debug(player_mode)
+		#print_debug(player_mode)
 		set_collision_shapes(false if player_mode == PlayerMode.BIG || player_mode == PlayerMode.SHOOTING else true)
 	
-	print_debug(player_mode)
-	set_physics_process(false)
-	animated_sprite_2d.play("spawn")
-	power_up_sound.play()
+	#print_debug(player_mode)
+	#set_physics_process(false)
+	#animated_sprite_2d.play("spawn")
+	#power_up_sound.play()
 	
 	
 

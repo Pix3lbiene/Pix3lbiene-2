@@ -41,18 +41,11 @@ camera_sync = NodePath("../Camera2D")
 start_position = NodePath("../CameraStart")
 end_position = NodePath("../CameraEnd")
 
-[node name="Koopa" type="VisibleOnScreenEnabler2D" parent="."]
-position = Vector2(424, 72)
-enable_node_path = NodePath("Koopa")
+[node name="Koopa2" parent="." instance=ExtResource("4_q7dr7")]
+position = Vector2(424, 68)
 
-[node name="Koopa" parent="Koopa" instance=ExtResource("4_q7dr7")]
-position = Vector2(0, -4)
-
-[node name="Goomba" type="VisibleOnScreenEnabler2D" parent="."]
+[node name="Goomba2" parent="." instance=ExtResource("7_ehcf3")]
 position = Vector2(344, 72)
-enable_node_path = NodePath("Goomba")
-
-[node name="Goomba" parent="Goomba" instance=ExtResource("7_ehcf3")]
 horizontal_speed = 30
 
 [node name="Enemies" type="Node" parent="."]
