@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cl4barmeq3p7j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3abuc"]
+
+[node name="viewport_collider" type="Area2D"]
+collision_layer = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(1, 60)
+shape = SubResource("RectangleShape2D_3abuc")

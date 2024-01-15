@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://b5h3u1lmd0xwt"]
+[gd_scene load_steps=5 format=3 uid="uid://b5h3u1lmd0xwt"]
 
 [ext_resource type="Texture2D" uid="uid://cbvvvoa1ij15k" path="res://Assets/Textures/background.png" id="1_d5xlf"]
+[ext_resource type="Script" path="res://Nodes/MainMenu/Title.gd" id="1_h1wgu"]
 [ext_resource type="FontFile" uid="uid://dvpj6k5ulpj0f" path="res://Assets/Fonts/PressStart2P-Regular.ttf" id="2_hhh7q"]
+[ext_resource type="AudioStream" uid="uid://f53218f3fisb" path="res://Assets/Sound/Effects/powerup.wav" id="4_jebwk"]
 
 [node name="Title" type="ColorRect"]
 z_index = -1
@@ -10,6 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_h1wgu")
 
 [node name="Background" type="TextureRect" parent="."]
 z_index = 1
@@ -40,3 +43,9 @@ theme_override_fonts/font = ExtResource("2_hhh7q")
 theme_override_font_sizes/font_size = 65
 toggle_mode = true
 text = "Start Game"
+
+[node name="StartSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_jebwk")
+volume_db = 10.895
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

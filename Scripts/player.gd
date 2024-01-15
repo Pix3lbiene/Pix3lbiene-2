@@ -57,13 +57,13 @@ var player_mode = PlayerMode.SMALL
 # Player state flags
 var is_dead = false
 
-func _ready():
+#func _ready():
 	#print_debug(player_mode)
-	if SceneData.return_point != null && SceneData.return_point != Vector2.ZERO:
-		global_position = SceneData.return_point
-		player_mode = SceneData.player_mode
+	#if SceneData.return_point != null && SceneData.return_point != Vector2.ZERO:
+		#global_position = SceneData.return_point
+		#player_mode = SceneData.player_mode
 		#print_debug(player_mode)
-		set_collision_shapes(false if player_mode == PlayerMode.BIG || player_mode == PlayerMode.SHOOTING else true)
+		#set_collision_shapes(false if player_mode == PlayerMode.BIG || player_mode == PlayerMode.SHOOTING else true)
 	
 	#print_debug(player_mode)
 	#set_physics_process(false)
@@ -80,18 +80,34 @@ func _physics_process(delta):
 	var camera_right_bound = camera_sync.global_position.x + camera_sync.get_viewport_rect().size.x / 2 / camera_sync.zoom.x
 	
 	# Apply gravity
-	if not is_on_floor():
-		velocity.y += gravity * delta
-		
-	# When the player wants to move outside the camera, stop him
-	if 	global_position.x < camera_left_bound + 8 && sign(velocity.x) == -1:
-		velocity = Vector2.ZERO
-		return
-	elif global_position.x > camera_right_bound - 8 && sign(velocity.x) == 1:		
-		velocity = Vector2.ZERO
-		return
+	
+	
+	# Durch den Input entscheiden, in welche Richtung gelaufen werden soll
+	var direction = Input.get_axis("left","right")
 	
 		
+	if direction:
+		#print_debug(direction)
+		#if 	!(global_position.x < camera_left_bound + 8 && sign(velocity.x) == -1) && sign(direction) == -1:
+			velocity.x = lerpf(velocity.x, speed * direction, run_speed_damping * delta)
+			
+		#elif !(global_position.x > camera_right_bound - 8 && sign(velocity.x) == 1) && sign(direction) == 1:
+			#velocity.x = lerpf(velocity.x, speed * direction, run_speed_damping * delta)
+			
+	else:
+		velocity.x = move_toward(velocity.x, 0, speed * delta)
+		
+	#When the player wants to move outside the camera, stop him
+	#if 	global_position.x < camera_left_bound + 8 && sign(velocity.x) == -1:
+		#velocity.x = 0.0
+		#return
+	#elif global_position.x > camera_right_bound - 8 && sign(velocity.x) == 1:		
+		#velocity.x = 0.0
+		#return
+	
+	if not is_on_floor():
+		velocity.y += gravity * delta
+	
 	# Handle jumps
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = jump_velocity
@@ -100,13 +116,10 @@ func _physics_process(delta):
 		velocity.y *= 0.5
 		
 	
-	# Handle axis movement
-	var direction = Input.get_axis("left","right")
 	
-	if direction:
-		velocity.x = lerpf(velocity.x, speed * direction, run_speed_damping * delta)
-	else:
-		velocity.x = move_toward(velocity.x, 0, speed * delta)
+	
+	
+	
 	
 	if Input.is_action_just_pressed("shoot") && player_mode == PlayerMode.SHOOTING:
 		shoot()
@@ -245,25 +258,25 @@ func handle_pipe_collision(pipe: KinematicCollision2D):
 	var pipe_tween = get_tree().create_tween()
 	pipe_tween.tween_property(self, "position", position + Vector2(pipe.get_collider().position.x - position.x, 0), .1)
 	pipe_tween.chain().tween_property(self, "position", position + Vector2(pipe.get_collider().position.x - position.x, 32), 1)
-	pipe_tween.tween_callback(switch_to_underground)
+	#pipe_tween.tween_callback(switch_to_underground)
 	
 func handle_pipe_connector_entrance_collision():
 	set_physics_process(false)
 	var pipe_tween = get_tree().create_tween()
 	pipe_tween.tween_property(self, "position", position + Vector2(32, 0), 1)
-	pipe_tween.tween_callback(switch_to_main)
+	#pipe_tween.tween_callback(switch_to_main)
 
-func switch_to_underground():
-	var level_manager = get_tree().get_first_node_in_group("level_manager")
-	SceneData.coins = level_manager.coins
-	SceneData.points = level_manager.points
-	SceneData.player_mode = player_mode
-	SceneData.return_point = Vector2(-148,-117)
-	get_tree().change_scene_to_file("res://Scenes/underground.tscn")
-	
-	
-func switch_to_main():
-	get_tree().change_scene_to_file("res://Scenes/main.tscn")
-	SceneData.player_mode = player_mode
+#func switch_to_underground():
+	#var level_manager = get_tree().get_first_node_in_group("level_manager")
+	#SceneData.coins = level_manager.coins
+	#SceneData.points = level_manager.points
+	#SceneData.player_mode = player_mode
+	#SceneData.return_point = Vector2(-148,-117)
+	#get_tree().change_scene_to_file("res://Scenes/underground.tscn")
+	#
+	#
+#func switch_to_main():
+	#get_tree().change_scene_to_file("res://Scenes/main.tscn")
+	#SceneData.player_mode = player_mode
 
 
