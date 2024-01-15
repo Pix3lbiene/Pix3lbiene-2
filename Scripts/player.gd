@@ -3,6 +3,8 @@ extends CharacterBody2D
 class_name Player
 
 signal points_scored(points: int)
+signal pipe_switch(destination: String)
+signal start_over
 
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -30,6 +32,9 @@ const FIREBALL_SCENE = preload("res://Scenes/fireball.tscn")
 @onready var death_sound = $DeathSound
 @onready var power_up_sound = $PowerUpSound
 @onready var shooting_point = $ShootingPoint
+@onready var animation_player = $AnimationPlayer
+@onready var game_world = $".."
+
 
 
 @export_group("Locomotion")
@@ -54,8 +59,12 @@ const FIREBALL_SCENE = preload("res://Scenes/fireball.tscn")
 
 var player_mode = PlayerMode.SMALL
 
+var next_destination: String
+
 # Player state flags
 var is_dead = false
+var invincible_time = 0.0
+var invincible = false
 
 #func _ready():
 	#print_debug(player_mode)
@@ -74,6 +83,14 @@ var is_dead = false
 
 
 func _physics_process(delta):
+	
+	if(!invincible_time == 0):
+		invincible = true
+		invincible_time -= delta
+		if(invincible_time < 0):
+			invincible_time = 0
+			invincible = false
+			animation_player.play("RESET")
 	 
 	# Calculate the x-coordinates of the Viewport
 	var camera_left_bound = camera_sync.global_position.x - camera_sync.get_viewport_rect().size.x / 2 / camera_sync.zoom.x
@@ -133,11 +150,14 @@ func _physics_process(delta):
 	move_and_slide()
 
 func _process(delta):
+	
 	# Cheat Mode
 	#if Input.is_action_just_pressed("cheat"):
 	#	set_physics_process(false)
 	#	var fly_tween = get_tree().create_tween()
 	#	fly_tween.tween_property(self, "position", position + Vector2(1200, 0), 20)
+	
+	
 	
 	# Camera only moves when player goes outside given area
 	if should_camera_sync:
@@ -179,24 +199,25 @@ func handle_enemy_collision(enemy: Enemy):
 			die()
 		
 func die():
-	if player_mode == PlayerMode.SMALL:
-		is_dead = true
-		animated_sprite_2d.play("death")
-		area_2d.set_collision_mask_value(3, false)
-		set_collision_layer_value(1, false)
-		set_physics_process(false)
+	print_debug("trying to die")
+	if(!invincible):
+		if player_mode == PlayerMode.SMALL:
+			is_dead = true
+			animated_sprite_2d.play("death")
+			area_2d.set_collision_mask_value(3, false)
+			set_collision_layer_value(1, false)
+			set_physics_process(false)
+			
+			BackgroundMusic.stop()
+			death_sound.play()
 		
-		BackgroundMusic.stop()
-		death_sound.play()
+			animation_player.play("death")
+			
 		
-		var death_tween = get_tree().create_tween()
-		death_tween.tween_property(self, "position", position + Vector2(0, -48), .5)
-		death_tween.chain().tween_property(self, "position", position + Vector2(0, 256), 1)
-		death_tween.tween_callback(func (): get_tree().reload_current_scene())
-		
-		
-	else:
-		big_to_small()
+		else:
+			big_to_small()
+			invincible_time = 2
+			invincible = true
 	
 func on_enemy_stomped():
 	velocity.y = stomp_y_velocity
@@ -228,6 +249,7 @@ func handle_flower_collision():
 	set_physics_process(false)
 	var animation_name = "small_to_shooting" if player_mode == PlayerMode.SMALL else "big_to_shooting"
 	animated_sprite_2d.play(animation_name)
+	player_mode = PlayerMode.SHOOTING
 	set_collision_shapes(false)
 
 func set_collision_shapes(is_small: bool):
@@ -240,6 +262,7 @@ func big_to_small():
 	set_physics_process(false)
 	var animation_name = "small_to_big" if player_mode == PlayerMode.BIG else "small_to_shooting"
 	animated_sprite_2d.play(animation_name, 1.0, true)
+	player_mode = PlayerMode.SMALL
 	set_collision_shapes(true)
 
 func shoot():
@@ -249,16 +272,17 @@ func shoot():
 	var fireball = FIREBALL_SCENE.instantiate()
 	fireball.direction = sign(animated_sprite_2d.scale.x)
 	fireball.global_position = shooting_point.global_position
-	get_tree().root.add_child(fireball)
+	game_world.current_level.add_child(fireball)
 
-func handle_pipe_collision(pipe: KinematicCollision2D):
+func handle_pipe_collision(pipe_collision: KinematicCollision2D):
 	velocity = Vector2.ZERO
 	set_physics_process(false)
 	animated_sprite_2d.trigger_animation(Vector2.ZERO, 1, player_mode)
+	next_destination = pipe_collision.get_collider().destination
 	var pipe_tween = get_tree().create_tween()
-	pipe_tween.tween_property(self, "position", position + Vector2(pipe.get_collider().position.x - position.x, 0), .1)
-	pipe_tween.chain().tween_property(self, "position", position + Vector2(pipe.get_collider().position.x - position.x, 32), 1)
-	#pipe_tween.tween_callback(switch_to_underground)
+	pipe_tween.tween_property(self, "position", position + Vector2(pipe_collision.get_collider().position.x - position.x, 0), abs(pipe_collision.get_collider().position.x - position.x) * 0.1 / 5)
+	pipe_tween.chain().tween_property(self, "position", position + Vector2(pipe_collision.get_collider().position.x - position.x, 32), 1)
+	pipe_tween.tween_callback(switch_to_underground)
 	
 func handle_pipe_connector_entrance_collision():
 	set_physics_process(false)
@@ -266,17 +290,18 @@ func handle_pipe_connector_entrance_collision():
 	pipe_tween.tween_property(self, "position", position + Vector2(32, 0), 1)
 	#pipe_tween.tween_callback(switch_to_main)
 
-#func switch_to_underground():
-	#var level_manager = get_tree().get_first_node_in_group("level_manager")
-	#SceneData.coins = level_manager.coins
-	#SceneData.points = level_manager.points
-	#SceneData.player_mode = player_mode
-	#SceneData.return_point = Vector2(-148,-117)
-	#get_tree().change_scene_to_file("res://Scenes/underground.tscn")
-	#
-	#
+func switch_to_underground():
+	if next_destination:
+		emit_signal("pipe_switch", next_destination)
 #func switch_to_main():
 	#get_tree().change_scene_to_file("res://Scenes/main.tscn")
 	#SceneData.player_mode = player_mode
 
 
+
+
+func _on_animation_player_animation_finished(anim_name):
+	if(anim_name == "death"):
+		velocity = Vector2.ZERO
+		animated_sprite_2d.reset_player_properties()
+		emit_signal("start_over")

@@ -1,7 +1,9 @@
 extends AnimatedSprite2D
 
-
 class_name PlayerAnimatedSprite
+
+@onready var animation_player = $"../AnimationPlayer"
+@onready var area_2d = $"../Area2D"
 
 var frame_count = 0
 func trigger_animation(velocity: Vector2, direction: int, player_mode: Player.PlayerMode):
@@ -41,19 +43,20 @@ func _on_animation_finished():
 	print_debug(get_parent().player_mode)
 	if animation == "small_to_big":
 		reset_player_properties()
-		match get_parent().player_mode:
-			Player.PlayerMode.BIG:
-				get_parent().player_mode = Player.PlayerMode.SMALL
-			Player.PlayerMode.SMALL:
-				get_parent().player_mode = Player.PlayerMode.BIG
+		#match get_parent().player_mode:
+			#Player.PlayerMode.BIG:
+				#get_parent().player_mode = Player.PlayerMode.SMALL
+			#Player.PlayerMode.SMALL:
+				#get_parent().player_mode = Player.PlayerMode.BIG
 		print_debug(get_parent().player_mode)
 		
-	#if animation == "small_to_shooting" || "big_to_shooting":
-		#reset_player_properties()
-		#get_parent().player_mode = Player.PlayerMode.SHOOTING
-	#
-	#if animation == "shoot":
-		#get_parent().set_physics_process(true)
+	elif animation == "small_to_shooting" || "big_to_shooting":
+		reset_player_properties()
+		if get_parent().invincible:
+			animation_player.play("invincible")
+	
+	elif animation == "shoot":
+		get_parent().set_physics_process(true)
 
 
 func _on_frame_changed():
@@ -72,6 +75,14 @@ func reset_player_properties():
 	offset = Vector2.ZERO
 	get_parent().set_physics_process(true)
 	get_parent().set_collision_layer_value(1, true)
+	get_parent().set_collision_mask_value(2, true)
+	get_parent().set_collision_mask_value(3, true)
+	get_parent().set_collision_mask_value(5, true)
+	area_2d.set_collision_layer_value(1, true)
+	area_2d.set_collision_mask_value(3, true)
+	area_2d.set_collision_mask_value(4, true)
+	area_2d.set_collision_mask_value(5, true)
+	area_2d.set_collision_mask_value(6, true)
 	frame_count = 0
 
 

@@ -13,7 +13,14 @@ var is_moving_up = false
 var direction
 var vertical_movement_start_position
 
+var lifetime = 0.0
+
 func _process(delta):
+	lifetime = lifetime + delta
+	if lifetime > 5:
+		queue_free()
+	
+	
 	position.x += delta * horizontal_speed * direction
 	if ray_cast_2d.is_colliding():
 		is_moving_up = true
