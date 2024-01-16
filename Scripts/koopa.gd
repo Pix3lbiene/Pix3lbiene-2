@@ -3,6 +3,7 @@ extends Enemy
 class_name Koopa
 
 var in_a_shell = false
+var sliding = false
 
 const KOOPA_SHELL_COLLISION_SHAPE_POSITION = Vector2(0, 5)
 const KOOPA_FULL_COLLISION_SHAPE = preload("res://Resources/CollisionShapes/koopa_full_collision_shape.tres")
@@ -30,5 +31,4 @@ func on_stomp(player_position: Vector2):
 	var movement_direction = 1 if player_position.x <= global_position.x else - 1
 	horizontal_speed = -movement_direction * slide_speed
 
-func _on_visible_on_screen_notifier_2d_screen_exited():
-	queue_free()
+

@@ -43,11 +43,18 @@ autoplay = "walk"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_oejgn")
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
+[node name="GroundRaycast" type="RayCast2D" parent="."]
 target_position = Vector2(0, 8)
 collision_mask = 18
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+[node name="LeftRaycast" type="RayCast2D" parent="."]
+position = Vector2(0, 1)
+target_position = Vector2(-8, 0)
+collision_mask = 18
+
+[node name="RightRaycast" type="RayCast2D" parent="."]
+position = Vector2(0, 1)
+target_position = Vector2(8, 0)
+collision_mask = 18
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
-[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
