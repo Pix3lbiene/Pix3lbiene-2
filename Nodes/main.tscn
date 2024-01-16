@@ -8,5 +8,7 @@ script = ExtResource("1_8bsdi")
 game_scene = "res://Nodes/game_world.tscn"
 
 [node name="Title" parent="." instance=ExtResource("1_8g4y3")]
+z_index = 4
+z_as_relative = false
 
 [connection signal="starting" from="Title" to="." method="_on_game_load"]

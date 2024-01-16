@@ -10,6 +10,8 @@ script = ExtResource("1_ov11p")
 layer = 0
 
 [node name="ScreenFader" parent="CanvasLayer" instance=ExtResource("2_layxh")]
+z_index = 10
+z_as_relative = false
 script = null
 
 [editable path="CanvasLayer/ScreenFader"]

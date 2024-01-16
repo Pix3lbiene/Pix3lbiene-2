@@ -28,7 +28,7 @@ func _on_game_load():
 	else:
 		add_child(game_world)
 	BackgroundMusic.play_music("res://Assets/Sound/Music/main_loop.wav")
-	ScreenFader.fade_in()
+	#ScreenFader.fade_in()
 	
 
 func open_main_menu():

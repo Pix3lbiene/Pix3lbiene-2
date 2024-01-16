@@ -1,0 +1,79 @@
+[gd_scene load_steps=3 format=3 uid="uid://dx0cv1fstva8n"]
+
+[ext_resource type="FontFile" uid="uid://dvpj6k5ulpj0f" path="res://Assets/Fonts/PressStart2P-Regular.ttf" id="1_07k4j"]
+[ext_resource type="Texture2D" uid="uid://8tia2a58yrw5" path="res://Assets/Sprites/Pixelbiene/idle_canvas.png" id="2_2r0wy"]
+
+[node name="Level-Announcer" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 90
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="WORLD" type="Label" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_07k4j")
+theme_override_font_sizes/font_size = 40
+text = "WORLD"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="level_path" type="Label" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_07k4j")
+theme_override_font_sizes/font_size = 40
+text = "1 - 1"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer"]
+z_as_relative = false
+layout_mode = 2
+texture = ExtResource("2_2r0wy")
+stretch_mode = 4
+
+[node name="times" type="Label" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_07k4j")
+theme_override_font_sizes/font_size = 40
+text = "x"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="life_counter" type="Label" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_07k4j")
+theme_override_font_sizes/font_size = 40
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://b622s05lge801"]
+[gd_scene load_steps=5 format=3 uid="uid://b622s05lge801"]
 
-[ext_resource type="PackedScene" uid="uid://dg20ly5ek1o3n" path="res://Scenes/player.tscn" id="1_76ldt"]
+[ext_resource type="PackedScene" uid="uid://dg20ly5ek1o3n" path="res://scenes/player.tscn" id="1_76ldt"]
 [ext_resource type="Script" path="res://Scripts/GameManager/game_world.gd" id="1_nn0fv"]
 [ext_resource type="Script" path="res://Scripts/timer.gd" id="2_2t84h"]
+[ext_resource type="PackedScene" uid="uid://dx0cv1fstva8n" path="res://Nodes/LevelAnnouncer/level_announcer.tscn" id="4_rla1e"]
 
 [node name="GameWorld" type="Node2D"]
 script = ExtResource("1_nn0fv")
@@ -18,12 +19,16 @@ should_camera_sync = false
 zoom = Vector2(2.75, 2.75)
 
 [node name="timer" type="Label" parent="."]
-offset_left = -10.0
-offset_top = 28.0
-offset_right = 30.0
-offset_bottom = 51.0
+offset_left = 107.0
+offset_top = -81.0
+offset_right = 147.0
+offset_bottom = -58.0
 text = "0000"
 script = ExtResource("2_2t84h")
 
+[node name="Level-Announcer" parent="." instance=ExtResource("4_rla1e")]
+
 [connection signal="pipe_switch" from="Player" to="." method="_on_pipe_switch"]
 [connection signal="start_over" from="Player" to="." method="_on_player_start_over"]
+
+[editable path="Level-Announcer"]
