@@ -24,4 +24,5 @@ position = Vector2(-184, -104)
 
 [node name="Goomba" parent="." instance=ExtResource("2_r0j0a")]
 position = Vector2(-23.0342, 15.7381)
+collision_mask = 11
 horizontal_speed = 0
