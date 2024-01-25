@@ -186,8 +186,21 @@ func handle_enemy_collision(enemy: Enemy):
 		return
 	
 	if is_instance_of(enemy, Koopa) and (enemy as Koopa).in_a_shell:
-		(enemy as Koopa).on_stomp(global_position)
-		spawn_points_label(enemy)
+		var angle_of_collision = rad_to_deg(position.angle_to_point(enemy.position))
+		print_debug(angle_of_collision)
+		print_debug((enemy as Koopa).sliding)
+		if angle_of_collision > min_stomp_degree && angle_of_collision < max_stomp_degree:
+			on_enemy_stomped()
+			spawn_points_label(enemy)
+			(enemy as Koopa).on_stomp(global_position)
+			print_debug("lmao")
+			
+		elif !(enemy as Koopa).sliding:
+			(enemy as Koopa).on_stomp(global_position)
+			
+		elif (enemy as Koopa).sliding:
+			die()
+
 	else:
 		var angle_of_collision = rad_to_deg(position.angle_to_point(enemy.position))
 		
@@ -204,8 +217,9 @@ func die():
 		if player_mode == PlayerMode.SMALL:
 			is_dead = true
 			animated_sprite_2d.play("death")
-			area_2d.set_collision_mask_value(3, false)
-			set_collision_layer_value(1, false)
+			area_collision_shape.process_mode = Node.PROCESS_MODE_DISABLED
+			body_collision_shape.process_mode = Node.PROCESS_MODE_DISABLED
+			game_world.stop_level()
 			set_physics_process(false)
 			
 			BackgroundMusic.stop()

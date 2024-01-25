@@ -11,10 +11,11 @@ const POINTS_LABEL_SCENE = preload("res://Scenes/points_label.tscn")
 @onready var right_raycast = $RightRaycast as RayCast2D
 @onready var animated_sprite_2d = $AnimatedSprite2D as AnimatedSprite2D
 
-
+@export var enemy_no_collision_frames = 0
 
 
 func _process(delta):
+		
 	position.x -= delta * horizontal_speed
 	
 	if sign(horizontal_speed) == 1 && left_raycast.is_colliding():
@@ -22,7 +23,6 @@ func _process(delta):
 	elif sign(horizontal_speed) == -1 && right_raycast.is_colliding():	
 		horizontal_speed = horizontal_speed*-1.0
 	
-	print_debug(horizontal_speed)
 	
 	if !ground_raycast.is_colliding():
 		position.y += gravity * delta 

@@ -58,3 +58,6 @@ func _on_player_start_over():
 	current_level = load(start_level).instantiate()
 	levels.add_child(current_level)
 	player.global_position = current_level.get_node('SpawnMarker').global_position
+	
+func stop_level():
+	levels.get_child(0).process_mode = Node.PROCESS_MODE_DISABLED
