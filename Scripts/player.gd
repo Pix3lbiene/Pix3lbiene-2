@@ -4,6 +4,7 @@ class_name Player
 
 signal points_scored(points: int)
 signal pipe_switch(destination: String)
+signal pipe_connector(return_vector: Vector2)
 signal start_over
 
 
@@ -34,6 +35,7 @@ const FIREBALL_SCENE = preload("res://Scenes/fireball.tscn")
 @onready var shooting_point = $ShootingPoint
 @onready var animation_player = $AnimationPlayer
 @onready var game_world = $".."
+@onready var levels = $"../Levels"
 
 
 
@@ -60,6 +62,7 @@ const FIREBALL_SCENE = preload("res://Scenes/fireball.tscn")
 var player_mode = PlayerMode.SMALL
 
 var next_destination: String
+var return_point: Vector2
 
 # Player state flags
 var is_dead = false
@@ -187,8 +190,6 @@ func handle_enemy_collision(enemy: Enemy):
 	
 	if is_instance_of(enemy, Koopa) and (enemy as Koopa).in_a_shell:
 		var angle_of_collision = rad_to_deg(position.angle_to_point(enemy.position))
-		print_debug(angle_of_collision)
-		print_debug((enemy as Koopa).sliding)
 		if angle_of_collision > min_stomp_degree && angle_of_collision < max_stomp_degree:
 			on_enemy_stomped()
 			spawn_points_label(enemy)
@@ -294,6 +295,7 @@ func shoot():
 func handle_pipe_collision(pipe_collision: KinematicCollision2D):
 	velocity = Vector2.ZERO
 	set_physics_process(false)
+	levels.process_mode = Node.PROCESS_MODE_DISABLED
 	animated_sprite_2d.trigger_animation(Vector2.ZERO, 1, player_mode)
 	next_destination = pipe_collision.get_collider().destination
 	var pipe_tween = get_tree().create_tween()
@@ -301,19 +303,21 @@ func handle_pipe_collision(pipe_collision: KinematicCollision2D):
 	pipe_tween.chain().tween_property(self, "position", position + Vector2(pipe_collision.get_collider().position.x - position.x, 32), 1)
 	pipe_tween.tween_callback(switch_to_underground)
 	
-func handle_pipe_connector_entrance_collision():
+func handle_pipe_connector_entrance_collision(return_to: Vector2):
 	set_physics_process(false)
+	levels.process_mode = Node.PROCESS_MODE_DISABLED
+	return_point = return_to
+	position.y -= 2
 	var pipe_tween = get_tree().create_tween()
 	pipe_tween.tween_property(self, "position", position + Vector2(32, 0), 1)
-	#pipe_tween.tween_callback(switch_to_main)
+	pipe_tween.tween_callback(switch_to_main)
 
 func switch_to_underground():
 	if next_destination:
 		emit_signal("pipe_switch", next_destination)
-#func switch_to_main():
-	#get_tree().change_scene_to_file("res://Scenes/main.tscn")
-	#SceneData.player_mode = player_mode
 
+func switch_to_main():
+	emit_signal("pipe_connector", return_point)
 
 
 

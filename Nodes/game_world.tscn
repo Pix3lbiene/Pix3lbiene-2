@@ -28,6 +28,7 @@ script = ExtResource("2_2t84h")
 
 [node name="Level-Announcer" parent="." instance=ExtResource("4_rla1e")]
 
+[connection signal="pipe_connector" from="Player" to="." method="_on_connector_switch"]
 [connection signal="pipe_switch" from="Player" to="." method="_on_pipe_switch"]
 [connection signal="start_over" from="Player" to="." method="_on_player_start_over"]
 
