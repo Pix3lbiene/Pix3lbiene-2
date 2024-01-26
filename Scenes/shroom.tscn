@@ -24,3 +24,13 @@ shape = SubResource("RectangleShape2D_066ih")
 target_position = Vector2(0, 0)
 collision_mask = 18
 collide_with_areas = true
+
+[node name="LeftRaycast" type="RayCast2D" parent="."]
+position = Vector2(0, 5)
+target_position = Vector2(-8, 0)
+collision_mask = 18
+
+[node name="RightRaycast" type="RayCast2D" parent="."]
+position = Vector2(0, 5)
+target_position = Vector2(8, 0)
+collision_mask = 18

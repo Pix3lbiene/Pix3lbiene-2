@@ -11,7 +11,7 @@ size = Vector2(32, 31)
 z_index = -1
 texture_repeat = 2
 collision_layer = 16
-collision_mask = 5
+collision_mask = 37
 script = ExtResource("1_1ohs0")
 
 [node name="PipeTopSprite" type="Sprite2D" parent="."]

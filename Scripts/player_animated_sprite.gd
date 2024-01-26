@@ -43,12 +43,8 @@ func _on_animation_finished():
 	print_debug(get_parent().player_mode)
 	if animation == "small_to_big":
 		reset_player_properties()
-		#match get_parent().player_mode:
-			#Player.PlayerMode.BIG:
-				#get_parent().player_mode = Player.PlayerMode.SMALL
-			#Player.PlayerMode.SMALL:
-				#get_parent().player_mode = Player.PlayerMode.BIG
-		print_debug(get_parent().player_mode)
+		if get_parent().invincible:
+			animation_player.play("invincible")
 		
 	elif animation == "small_to_shooting" || "big_to_shooting":
 		reset_player_properties()

@@ -235,6 +235,7 @@ func die():
 	
 func on_enemy_stomped():
 	velocity.y = stomp_y_velocity
+		
 	
 func spawn_points_label(enemy):
 	var points_label = POINTS_LABEL_SCENE.instantiate()
@@ -256,7 +257,9 @@ func handle_movement_collision(collision: KinematicCollision2D):
 func handle_shroom_collision(_area: Node2D):
 	if player_mode == PlayerMode.SMALL:
 		set_physics_process(false)
+		position.y -= 16
 		animated_sprite_2d.play("small_to_big")
+		player_mode = PlayerMode.BIG
 		set_collision_shapes(false)
 
 func handle_flower_collision():

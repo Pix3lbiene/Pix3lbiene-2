@@ -12,7 +12,7 @@ extends Node2D
 
 var current_level: Node2D
 var overworld: Node2D
-
+var paused = false
 
 signal end_game
 
@@ -24,7 +24,7 @@ func _ready():
 	announcer_level_label.text = current_level.level_name
 	ScreenFader.fade_in()
 	
-	var timer = get_tree().create_timer(6)
+	var timer = get_tree().create_timer(3)
 	await(timer.timeout)
 	ScreenFader.fade_out()
 	await(ScreenFader.faded_out)
@@ -41,7 +41,24 @@ func _process(delta):
 
 func _input(event):
 	if event.is_action_pressed("exit"):
-		emit_signal("end_game")
+		if(paused):
+			paused = false
+			ScreenFader.fade_from_gray_to_white()
+			await(ScreenFader.faded_in)
+			BackgroundMusic.process_mode = Node.PROCESS_MODE_INHERIT
+			levels.process_mode = Node.PROCESS_MODE_INHERIT
+			level_announcer.process_mode = Node.PROCESS_MODE_INHERIT
+			player.process_mode = Node.PROCESS_MODE_INHERIT
+			
+		else:
+			paused = true
+			BackgroundMusic.process_mode = Node.PROCESS_MODE_DISABLED
+			levels.process_mode = Node.PROCESS_MODE_DISABLED
+			level_announcer.process_mode = Node.PROCESS_MODE_DISABLED
+			player.process_mode = Node.PROCESS_MODE_DISABLED
+			ScreenFader.fade_to_gray()
+			await(ScreenFader.faded_out)
+		
 
 
 func _on_pipe_switch(destination):

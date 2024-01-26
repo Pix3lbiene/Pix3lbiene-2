@@ -21,4 +21,14 @@ func fade_in():
 func change_audio_bus_volume(value: float):
 	var index = AudioServer.get_bus_index("BackgroundMusic")
 	AudioServer.set_bus_volume_db(index, value)
+	
+func fade_to_gray():
+	fade_player.play("fade_to_gray")
+	await(fade_player.animation_finished)
+	emit_signal("faded_out")
+	
+func fade_from_gray_to_white():
+	fade_player.play("fade_from_gray_to_white")
+	await(fade_player.animation_finished)
+	emit_signal("faded_in")
 
