@@ -36,6 +36,8 @@ const FIREBALL_SCENE = preload("res://Scenes/fireball.tscn")
 @onready var animation_player = $AnimationPlayer
 @onready var game_world = $".."
 @onready var levels = $"../Levels"
+@onready var camera_collider_left = $"../Levels/camera_collider_left"
+@onready var camera_collider_right = $"../Levels/camera_collider_right"
 
 
 
@@ -69,18 +71,15 @@ var is_dead = false
 var invincible_time = 0.0
 var invincible = false
 
-#func _ready():
+func _ready():
 	#print_debug(player_mode)
-	#if SceneData.return_point != null && SceneData.return_point != Vector2.ZERO:
-		#global_position = SceneData.return_point
-		#player_mode = SceneData.player_mode
-		#print_debug(player_mode)
-		#set_collision_shapes(false if player_mode == PlayerMode.BIG || player_mode == PlayerMode.SHOOTING else true)
+	
 	
 	#print_debug(player_mode)
 	#set_physics_process(false)
 	#animated_sprite_2d.play("spawn")
 	#power_up_sound.play()
+	check_camera_setup()
 	
 	
 
@@ -96,8 +95,11 @@ func _physics_process(delta):
 			animation_player.play("RESET")
 	 
 	# Calculate the x-coordinates of the Viewport
-	var camera_left_bound = camera_sync.global_position.x - camera_sync.get_viewport_rect().size.x / 2 / camera_sync.zoom.x
-	var camera_right_bound = camera_sync.global_position.x + camera_sync.get_viewport_rect().size.x / 2 / camera_sync.zoom.x
+	camera_collider_left.global_position.x = camera_sync.global_position.x - camera_sync.get_viewport_rect().size.x / 2 / camera_sync.zoom.x
+	camera_collider_right.global_position.x = camera_sync.global_position.x + camera_sync.get_viewport_rect().size.x / 2 / camera_sync.zoom.x
+	
+	#Move viewport colliders
+	
 	
 	# Apply gravity
 	
@@ -252,8 +254,12 @@ func handle_movement_collision(collision: KinematicCollision2D):
 	
 	if collision.get_collider() is Pipe:
 		var collision_angle = rad_to_deg(collision.get_angle())
-		if roundf(collision_angle) == 0 && Input.is_action_just_pressed("down") && absf(collision.get_collider().position.x - position.x < PIPE_ENTER_THRESHOLD && collision.get_collider().is_traversable):
+		if Input.is_action_just_pressed("down") && absf(collision.get_collider().position.x - position.x < PIPE_ENTER_THRESHOLD && collision.get_collider().is_traversable):
 			handle_pipe_collision(collision)
+	if collision.get_collider() is PipeConnector:
+		if Input.is_action_just_pressed("right"):
+			handle_pipe_connector_entrance_collision(collision)
+			
 	
 func handle_shroom_collision(_area: Node2D):
 	if player_mode == PlayerMode.SMALL:
@@ -303,10 +309,12 @@ func handle_pipe_collision(pipe_collision: KinematicCollision2D):
 	pipe_tween.chain().tween_property(self, "position", position + Vector2(pipe_collision.get_collider().position.x - position.x, 32), 1)
 	pipe_tween.tween_callback(switch_to_underground)
 	
-func handle_pipe_connector_entrance_collision(return_to: String):
+func handle_pipe_connector_entrance_collision(pipe_collision: KinematicCollision2D):
+	velocity = Vector2.ZERO
 	set_physics_process(false)
 	levels.process_mode = Node.PROCESS_MODE_DISABLED
-	return_point = return_to
+	return_point = pipe_collision.get_collider().return_point
+	animated_sprite_2d.trigger_animation(Vector2.RIGHT, 1, player_mode)
 	position.y -= 2
 	var pipe_tween = get_tree().create_tween()
 	pipe_tween.tween_property(self, "position", position + Vector2(32, 0), 1)
@@ -326,3 +334,6 @@ func _on_animation_player_animation_finished(anim_name):
 		velocity = Vector2.ZERO
 		animated_sprite_2d.reset_player_properties()
 		emit_signal("start_over")
+		
+func check_camera_setup():
+	pass

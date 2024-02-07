@@ -365,6 +365,14 @@ _data = {
 z_as_relative = false
 collision_mask = 22
 script = ExtResource("1_cqfcf")
+run_speed_damping = null
+speed = null
+jump_velocity = null
+min_stomp_degree = null
+max_stomp_degree = null
+stomp_y_velocity = null
+should_camera_sync = null
+camera_tolerance = null
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_58rr8")

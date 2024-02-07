@@ -10,7 +10,7 @@ extends Node2D
 @onready var announcer_level_label = $"Level-Announcer/CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer2/level_path"
 
 
-var current_level: Node2D
+@export var current_level: Node2D
 var overworld: Node2D
 var underground: Node2D
 var paused = false
