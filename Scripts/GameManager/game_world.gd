@@ -75,13 +75,15 @@ func _on_pipe_switch(destination):
 	player.set_physics_process(true)
 	levels.process_mode = Node.PROCESS_MODE_INHERIT
 	
-func _on_connector_switch(return_point: Vector2):
+func _on_connector_switch(return_point: String):
+	print_debug(return_point)
 	underground = current_level
 	levels.remove_child(underground)
 	current_level = overworld
 	levels.add_child(current_level)
 	player.velocity = Vector2.ZERO
-	player.global_position = return_point
+	player.global_position = current_level.get_node(return_point).global_position
+	print_debug(player.global_position)
 	var timer = get_tree().create_timer(0.2)
 	await(timer.timeout)
 	player.set_physics_process(true)

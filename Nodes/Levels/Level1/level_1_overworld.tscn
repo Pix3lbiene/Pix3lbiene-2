@@ -42,3 +42,6 @@ position = Vector2(-8, 56)
 
 [node name="Koopa" parent="." instance=ExtResource("6_5g3pe")]
 position = Vector2(74, 68)
+
+[node name="return_point_1" type="Marker2D" parent="."]
+position = Vector2(144, 24)

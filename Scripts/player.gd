@@ -4,7 +4,7 @@ class_name Player
 
 signal points_scored(points: int)
 signal pipe_switch(destination: String)
-signal pipe_connector(return_vector: Vector2)
+signal pipe_connector(return_point_name: String)
 signal start_over
 
 
@@ -62,7 +62,7 @@ const FIREBALL_SCENE = preload("res://Scenes/fireball.tscn")
 var player_mode = PlayerMode.SMALL
 
 var next_destination: String
-var return_point: Vector2
+var return_point: String
 
 # Player state flags
 var is_dead = false
@@ -303,7 +303,7 @@ func handle_pipe_collision(pipe_collision: KinematicCollision2D):
 	pipe_tween.chain().tween_property(self, "position", position + Vector2(pipe_collision.get_collider().position.x - position.x, 32), 1)
 	pipe_tween.tween_callback(switch_to_underground)
 	
-func handle_pipe_connector_entrance_collision(return_to: Vector2):
+func handle_pipe_connector_entrance_collision(return_to: String):
 	set_physics_process(false)
 	levels.process_mode = Node.PROCESS_MODE_DISABLED
 	return_point = return_to
