@@ -25,7 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://cal7r48xqmfrt" path="res://Assets/Sprites/Mario_Small_Slide.png" id="23_8vr0q"]
 [ext_resource type="Texture2D" uid="uid://d2r1f4s1maaa4" path="res://Assets/Sprites/Mario_Small_Idle_Spawn.png" id="24_hrpby"]
 [ext_resource type="Script" path="res://Scripts/player_animated_sprite.gd" id="24_wd5v6"]
-[ext_resource type="Shape2D" uid="uid://co1df083pxnq1" path="res://Resources/CollisionShapes/small_mario_collision_shape.tres" id="25_5dkwh"]
+[ext_resource type="Shape2D" path="res://Resources/CollisionShapes/small_mario_collision_shape.tres" id="25_5dkwh"]
 [ext_resource type="AudioStream" uid="uid://gbqg7agdb10u" path="res://Assets/Sound/Effects/death_01.wav" id="26_t3746"]
 [ext_resource type="AudioStream" uid="uid://f53218f3fisb" path="res://Assets/Sound/Effects/powerup.wav" id="28_8ko6c"]
 

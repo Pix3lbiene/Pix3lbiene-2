@@ -28,10 +28,10 @@ layer_0/tile_data = PackedInt32Array(524264, 3, 0, 458736, 3, 0, 458738, 3, 0, 5
 [node name="Goomba" parent="." instance=ExtResource("2_r0j0a")]
 position = Vector2(40, 72)
 
-[node name="Pipe" parent="." instance=ExtResource("4_fecqc")]
-position = Vector2(136, -224)
-height = 170
-
 [node name="PipeConnector" parent="." instance=ExtResource("3_5pai4")]
 position = Vector2(120, 56)
 return_point = "return_point_1"
+
+[node name="Pipe" parent="." instance=ExtResource("4_fecqc")]
+position = Vector2(136, -224)
+height = 300

@@ -16,10 +16,9 @@ func _ready():
 	var region_rect = Rect2(pipe_body_sprite.region_rect)
 	region_rect.size = Vector2(32, height - TOP_PIPE_HEIGHT)
 	pipe_body_sprite.region_rect = region_rect
-	pipe_body_sprite.position.x = 0
-	pipe_body_sprite.position.y = height / 2.0
+	pipe_body_sprite.position = Vector2(0, height / 2)
 	
 	var shape = RectangleShape2D.new()
 	shape.size = Vector2(32, height)
 	collision_shape_2d.shape = shape
-	collision_shape_2d.position = Vector2(0, height /2.0 - TOP_PIPE_HEIGHT / 2.0+1.0)
+	collision_shape_2d.position = Vector2(0, height /2 - TOP_PIPE_HEIGHT / 2)
