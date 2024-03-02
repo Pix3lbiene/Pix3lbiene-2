@@ -73,14 +73,13 @@ var invincible = false
 
 func _ready():
 	#print_debug(player_mode)
-	
+	pass
 	
 	#print_debug(player_mode)
 	#set_physics_process(false)
 	#animated_sprite_2d.play("spawn")
 	#power_up_sound.play()
-	check_camera_setup()
-	
+
 	
 
 
@@ -167,12 +166,12 @@ func _process(delta):
 	# Camera only moves when player goes outside given area
 	if should_camera_sync:
 		# Right camera movement
-		if global_position.x > camera_sync.global_position.x +camera_tolerance && end_position.global_position.x > camera_sync.global_position.x:
-			camera_sync.global_position.x = global_position.x -camera_tolerance
 		
+		if global_position.x > camera_sync.global_position.x +camera_tolerance && end_position.global_position.x > camera_sync.global_position.x:
+			camera_sync.global_position.x = global_position.x -  camera_tolerance
 		# Left camera movement
 		elif global_position.x < camera_sync.global_position.x -camera_tolerance && start_position.global_position.x < camera_sync.global_position.x:
-			camera_sync.global_position.x = global_position.x +camera_tolerance
+			camera_sync.global_position.x = global_position.x +  camera_tolerance
 	
 	
 
@@ -215,20 +214,23 @@ func handle_enemy_collision(enemy: Enemy):
 			die()
 		
 func die():
-	print_debug("trying to die")
+	
 	if(!invincible):
 		if player_mode == PlayerMode.SMALL:
 			is_dead = true
-			animated_sprite_2d.play("death")
+			set_physics_process(false)
+			game_world.stop_level()
 			area_collision_shape.process_mode = Node.PROCESS_MODE_DISABLED
 			body_collision_shape.process_mode = Node.PROCESS_MODE_DISABLED
-			game_world.stop_level()
-			set_physics_process(false)
+			animated_sprite_2d.play("death")
+			
+			
 			
 			BackgroundMusic.stop()
 			death_sound.play()
 		
-			animation_player.play("death")
+			animation_player.play("player_death")
+			
 			
 		
 		else:
@@ -247,18 +249,19 @@ func spawn_points_label(enemy):
 	points_scored.emit(100)
 	
 func handle_movement_collision(collision: KinematicCollision2D):
-	if collision.get_collider() is Block:
-		var collision_angle = rad_to_deg(collision.get_angle())
-		if roundf(collision_angle) == 180:
-			(collision.get_collider() as Block).bump(player_mode)
-	
-	if collision.get_collider() is Pipe:
-		var collision_angle = rad_to_deg(collision.get_angle())
-		if Input.is_action_just_pressed("down") && absf(collision.get_collider().position.x - position.x < PIPE_ENTER_THRESHOLD && collision.get_collider().is_traversable):
-			handle_pipe_collision(collision)
-	if collision.get_collider() is PipeConnector:
-		if Input.is_action_just_pressed("right"):
-			handle_pipe_connector_entrance_collision(collision)
+	if(!is_dead):
+		if collision.get_collider() is Block:
+			var collision_angle = rad_to_deg(collision.get_angle())
+			if roundf(collision_angle) == 180:
+				(collision.get_collider() as Block).bump(player_mode)
+		
+		if collision.get_collider() is Pipe:
+			var collision_angle = rad_to_deg(collision.get_angle())
+			if Input.is_action_just_pressed("down") && absf(collision.get_collider().position.x - position.x < PIPE_ENTER_THRESHOLD && collision.get_collider().is_traversable):
+				handle_pipe_collision(collision)
+		if collision.get_collider() is PipeConnector:
+			if Input.is_action_just_pressed("right"):
+				handle_pipe_connector_entrance_collision(collision)
 			
 	
 func handle_shroom_collision(_area: Node2D):
@@ -330,10 +333,9 @@ func switch_to_main():
 
 
 func _on_animation_player_animation_finished(anim_name):
-	if(anim_name == "death"):
+	if(anim_name == "player_death"):
 		velocity = Vector2.ZERO
 		animated_sprite_2d.reset_player_properties()
 		emit_signal("start_over")
 		
-func check_camera_setup():
-	pass
+

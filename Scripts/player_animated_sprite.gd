@@ -68,6 +68,7 @@ func _on_frame_changed():
 		
 		
 func reset_player_properties():
+	animation_player.play("RESET")
 	offset = Vector2.ZERO
 	get_parent().set_physics_process(true)
 	get_parent().set_collision_layer_value(1, true)

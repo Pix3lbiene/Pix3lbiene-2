@@ -49,7 +49,7 @@ func spawn_coin():
 	var coin = COIN_SCENE.instantiate()
 	coin.global_position = global_position + Vector2(0, -16)
 	get_parent().add_child(coin)
-	get_tree().get_first_node_in_group("level_manager").on_coin_collected()
+	#get_tree().get_first_node_in_group("level_manager").on_coin_collected()
 	
 func spawn_shroom():
 	var shroom = SHROOM_SCENE.instantiate()

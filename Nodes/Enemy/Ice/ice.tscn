@@ -1,0 +1,147 @@
+[gd_scene load_steps=12 format=3 uid="uid://cn4mdlc8am053"]
+
+[ext_resource type="Script" path="res://Nodes/Enemy/Ice/ice.gd" id="1_jr0ty"]
+[ext_resource type="Texture2D" uid="uid://cw1mewnv0hogm" path="res://Assets/Sprites/Ice/dead.png" id="1_qgskb"]
+[ext_resource type="Texture2D" uid="uid://chf0csthn8jn" path="res://Assets/Sprites/Ice/idle_1.png" id="2_k1gwj"]
+[ext_resource type="Texture2D" uid="uid://biy2chqwwstf" path="res://Assets/Sprites/Ice/idle_2.png" id="3_yd2i0"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fsthk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_qgskb")
+}],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_k1gwj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_yd2i0")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 1.5
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bxtnq"]
+size = Vector2(20, 33)
+
+[sub_resource type="Animation" id="Animation_4k122"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_x8827"]
+resource_name = "player_death"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:offset")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -48), Vector2(0, 256)]
+}
+
+[sub_resource type="Animation" id="Animation_df7gq"]
+resource_name = "death"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:offset")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -20), Vector2(0, 256)]
+}
+
+[sub_resource type="Animation" id="Animation_eyrl3"]
+resource_name = "invincible"
+length = 0.1
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pxbvf"]
+_data = {
+"RESET": SubResource("Animation_4k122"),
+"enemy_death": SubResource("Animation_df7gq"),
+"invincible": SubResource("Animation_eyrl3"),
+"player_death": SubResource("Animation_x8827")
+}
+
+[node name="Ice" type="Area2D"]
+collision_layer = 4
+collision_mask = 9
+script = ExtResource("1_jr0ty")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_fsthk")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.394484
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_bxtnq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_pxbvf")
+}
+
+[node name="GroundRaycast" type="RayCast2D" parent="."]
+target_position = Vector2(0, 16)
+collision_mask = 18
+
+[node name="LeftRaycast" type="RayCast2D" parent="."]
+target_position = Vector2(-10, 0)
+collision_mask = 18
+
+[node name="RightRaycast" type="RayCast2D" parent="."]
+target_position = Vector2(10, 0)
+collision_mask = 18

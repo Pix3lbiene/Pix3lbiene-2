@@ -32,6 +32,7 @@ func _ready():
 	add_child(player)
 	player.global_position = current_level.get_node('SpawnMarker').global_position
 	levels.add_child(current_level)
+	check_camera_setup()
 	level_announcer_canvas.visible = false
 	ScreenFader.fade_in()
 
@@ -96,4 +97,13 @@ func _on_player_start_over():
 	player.global_position = current_level.get_node('SpawnMarker').global_position
 	
 func stop_level():
-	levels.get_child(0).process_mode = Node.PROCESS_MODE_DISABLED
+	current_level.process_mode = Node.PROCESS_MODE_DISABLED
+
+func check_camera_setup():
+	if current_level.find_child("camera_start") && current_level.find_child("camera_end"):
+		player.start_position=current_level.find_child("camera_start")
+		player.end_position=current_level.find_child("camera_end")
+		player.should_camera_sync = true
+	else:
+		player.should_camera_sync = false
+	
