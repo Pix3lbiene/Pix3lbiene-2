@@ -55,6 +55,6 @@ position = Vector2(74, 68)
 position = Vector2(144, 24)
 
 [node name="Ice" parent="." instance=ExtResource("7_w7q7n")]
-position = Vector2(-8, 16)
+position = Vector2(104, 48)
 horizontal_speed = 0
 vertical_speed = 0

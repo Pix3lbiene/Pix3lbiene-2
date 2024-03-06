@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://dg20ly5ek1o3n"]
+[gd_scene load_steps=36 format=3 uid="uid://dg20ly5ek1o3n"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_cqfcf"]
 [ext_resource type="Texture2D" uid="uid://ct8uqpacoxaq1" path="res://Assets/Sprites/Mario_Big_Idle.png" id="2_0kyi5"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://cipjmquw1tlrv" path="res://Assets/Sprites/Mario_Shooting_Run2.png" id="14_c8fbo"]
 [ext_resource type="Texture2D" uid="uid://daqnle02fss6v" path="res://Assets/Sprites/Mario_Shooting_Run3.png" id="15_qowbo"]
 [ext_resource type="Texture2D" uid="uid://1w6lqgnlyqo2" path="res://Assets/Sprites/Mario_Shooting-Slide.png" id="16_i5it8"]
+[ext_resource type="Texture2D" uid="uid://ckd2f2qku8jx1" path="res://Assets/Sprites/Pixelbiene/idle_final.png" id="17_c8kxn"]
 [ext_resource type="Texture2D" uid="uid://d3jwm15et3t22" path="res://Assets/Sprites/Mario_Small_Idle.png" id="17_uckpb"]
 [ext_resource type="Texture2D" uid="uid://bqfjqbv1vr2oq" path="res://Assets/Sprites/Mario_Small_Jump.png" id="18_s8dts"]
 [ext_resource type="Texture2D" uid="uid://ckd7ka2h150dt" path="res://Assets/Sprites/Mario_Small_Pole.png" id="19_00o7g"]
@@ -25,7 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://cal7r48xqmfrt" path="res://Assets/Sprites/Mario_Small_Slide.png" id="23_8vr0q"]
 [ext_resource type="Texture2D" uid="uid://d2r1f4s1maaa4" path="res://Assets/Sprites/Mario_Small_Idle_Spawn.png" id="24_hrpby"]
 [ext_resource type="Script" path="res://Scripts/player_animated_sprite.gd" id="24_wd5v6"]
-[ext_resource type="Shape2D" uid="uid://co1df083pxnq1" path="res://Resources/CollisionShapes/small_mario_collision_shape.tres" id="25_5dkwh"]
+[ext_resource type="Shape2D" uid="uid://s0jsgikxy4kd" path="res://Resources/CollisionShapes/small_mario_collision_shape.tres" id="25_5dkwh"]
 [ext_resource type="AudioStream" uid="uid://gbqg7agdb10u" path="res://Assets/Sound/Effects/death_01.wav" id="26_t3746"]
 [ext_resource type="AudioStream" uid="uid://f53218f3fisb" path="res://Assets/Sound/Effects/powerup.wav" id="28_8ko6c"]
 
@@ -167,7 +168,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("17_uckpb")
+"texture": ExtResource("17_c8kxn")
 }],
 "loop": true,
 "name": &"small_idle",
@@ -320,22 +321,6 @@ tracks/1/keys = {
 "values": [true]
 }
 
-[sub_resource type="Animation" id="Animation_x8827"]
-resource_name = "player_death"
-length = 2.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:offset")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 2.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, -48), Vector2(0, 256)]
-}
-
 [sub_resource type="Animation" id="Animation_df7gq"]
 resource_name = "death"
 tracks/0/type = "value"
@@ -369,6 +354,22 @@ tracks/0/keys = {
 "values": [true, false]
 }
 
+[sub_resource type="Animation" id="Animation_x8827"]
+resource_name = "player_death"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:offset")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -48), Vector2(0, 256)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pxbvf"]
 _data = {
 "RESET": SubResource("Animation_4k122"),
@@ -383,19 +384,21 @@ collision_mask = 22
 script = ExtResource("1_cqfcf")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-2.16667, -1.5)
+scale = Vector2(0.395833, 0.395833)
 sprite_frames = SubResource("SpriteFrames_58rr8")
-animation = &"small_to_shooting"
-frame = 7
-frame_progress = 1.0
+animation = &"small_idle"
 script = ExtResource("24_wd5v6")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_mask = 60
 
 [node name="AreaCollisionShape" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -1)
 shape = ExtResource("25_5dkwh")
 
 [node name="BodyCollisionShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
 shape = ExtResource("25_5dkwh")
 
 [node name="ShootingPoint" type="Marker2D" parent="."]
