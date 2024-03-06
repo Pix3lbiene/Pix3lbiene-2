@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://dg20ly5ek1o3n"]
+[gd_scene load_steps=35 format=3 uid="uid://dg20ly5ek1o3n"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_cqfcf"]
 [ext_resource type="Texture2D" uid="uid://ct8uqpacoxaq1" path="res://Assets/Sprites/Mario_Big_Idle.png" id="2_0kyi5"]
@@ -20,9 +20,8 @@
 [ext_resource type="Texture2D" uid="uid://d3jwm15et3t22" path="res://Assets/Sprites/Mario_Small_Idle.png" id="17_uckpb"]
 [ext_resource type="Texture2D" uid="uid://bqfjqbv1vr2oq" path="res://Assets/Sprites/Mario_Small_Jump.png" id="18_s8dts"]
 [ext_resource type="Texture2D" uid="uid://ckd7ka2h150dt" path="res://Assets/Sprites/Mario_Small_Pole.png" id="19_00o7g"]
-[ext_resource type="Texture2D" uid="uid://b7pkrn5h1n5lm" path="res://Assets/Sprites/Mario_Small_Run1.png" id="20_k1rap"]
-[ext_resource type="Texture2D" uid="uid://dlhg7nbxeials" path="res://Assets/Sprites/Mario_Small_Run2.png" id="21_wugvx"]
-[ext_resource type="Texture2D" uid="uid://d01eopk6c4cx1" path="res://Assets/Sprites/Mario_Small_Run3.png" id="22_orrnq"]
+[ext_resource type="Texture2D" uid="uid://cqtqlgvk4lx8a" path="res://Assets/Sprites/Pixelbiene/walking_1.png" id="20_vw8tj"]
+[ext_resource type="Texture2D" uid="uid://dchiauyo5xx5i" path="res://Assets/Sprites/Pixelbiene/walking_2.png" id="21_yakkk"]
 [ext_resource type="Texture2D" uid="uid://cal7r48xqmfrt" path="res://Assets/Sprites/Mario_Small_Slide.png" id="23_8vr0q"]
 [ext_resource type="Texture2D" uid="uid://d2r1f4s1maaa4" path="res://Assets/Sprites/Mario_Small_Idle_Spawn.png" id="24_hrpby"]
 [ext_resource type="Script" path="res://Scripts/player_animated_sprite.gd" id="24_wd5v6"]
@@ -192,13 +191,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("20_k1rap")
+"texture": ExtResource("20_vw8tj")
 }, {
 "duration": 1.0,
-"texture": ExtResource("21_wugvx")
-}, {
-"duration": 1.0,
-"texture": ExtResource("22_orrnq")
+"texture": ExtResource("21_yakkk")
 }],
 "loop": true,
 "name": &"small_run",
@@ -387,7 +383,7 @@ script = ExtResource("1_cqfcf")
 position = Vector2(-2.16667, -1.5)
 scale = Vector2(0.395833, 0.395833)
 sprite_frames = SubResource("SpriteFrames_58rr8")
-animation = &"small_idle"
+animation = &"small_run"
 script = ExtResource("24_wd5v6")
 
 [node name="Area2D" type="Area2D" parent="."]
