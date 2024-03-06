@@ -1,12 +1,13 @@
-[gd_scene load_steps=35 format=3 uid="uid://dg20ly5ek1o3n"]
+[gd_scene load_steps=36 format=3 uid="uid://dg20ly5ek1o3n"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_cqfcf"]
 [ext_resource type="Texture2D" uid="uid://ct8uqpacoxaq1" path="res://Assets/Sprites/Mario_Big_Idle.png" id="2_0kyi5"]
+[ext_resource type="Texture2D" uid="uid://cv2rr2w8rgo7u" path="res://Assets/Sprites/Pixelbiene/big_idle.png" id="2_spkrv"]
 [ext_resource type="Texture2D" uid="uid://c3njnoy5owfh3" path="res://Assets/Sprites/Mario_Big_Jump.png" id="3_egibs"]
 [ext_resource type="Texture2D" uid="uid://crqgheu7ndoxs" path="res://Assets/Sprites/Mario_Big_Pole.png" id="4_5v2m4"]
-[ext_resource type="Texture2D" uid="uid://dvnr77h30cjn6" path="res://Assets/Sprites/Mario_Big_Run1.png" id="5_rewlh"]
-[ext_resource type="Texture2D" uid="uid://biwgmc04ug3tt" path="res://Assets/Sprites/Mario_Big_Run2.png" id="6_1t7kq"]
-[ext_resource type="Texture2D" uid="uid://cxxi757iq1gnv" path="res://Assets/Sprites/Mario_Big_Run3.png" id="7_3gu0j"]
+[ext_resource type="Texture2D" uid="uid://bpylqwxr3puw2" path="res://Assets/Sprites/Pixelbiene/big_walking_1.png" id="5_me7fi"]
+[ext_resource type="Texture2D" uid="uid://cdpfi4t0p61be" path="res://Assets/Sprites/Pixelbiene/big_walking_2.png" id="6_8p6u7"]
+[ext_resource type="Texture2D" uid="uid://bywnw0pju1uhp" path="res://Assets/Sprites/Pixelbiene/big_walking_3.png" id="7_536sc"]
 [ext_resource type="Texture2D" uid="uid://k303fjvwyalc" path="res://Assets/Sprites/Mario_Big_Slide.png" id="8_t4lad"]
 [ext_resource type="Texture2D" uid="uid://4axg8se7m40x" path="res://Assets/Sprites/Mario_Shooting_Idle.png" id="9_2pubx"]
 [ext_resource type="Texture2D" uid="uid://d3uo5k25wnw3f" path="res://Assets/Sprites/Pixelbiene/dead.png" id="10_4ekud"]
@@ -33,7 +34,7 @@
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_0kyi5")
+"texture": ExtResource("2_spkrv")
 }],
 "loop": true,
 "name": &"big_idle",
@@ -57,13 +58,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("5_rewlh")
+"texture": ExtResource("5_me7fi")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_1t7kq")
+"texture": ExtResource("6_8p6u7")
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_3gu0j")
+"texture": ExtResource("2_spkrv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_536sc")
 }],
 "loop": true,
 "name": &"big_run",
@@ -389,7 +393,7 @@ script = ExtResource("1_cqfcf")
 position = Vector2(-2.16667, -1.5)
 scale = Vector2(0.395833, 0.395833)
 sprite_frames = SubResource("SpriteFrames_58rr8")
-animation = &"death"
+animation = &"shooting_idle"
 script = ExtResource("24_wd5v6")
 
 [node name="Area2D" type="Area2D" parent="."]
