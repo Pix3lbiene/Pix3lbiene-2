@@ -20,18 +20,13 @@ func trigger_animation(velocity: Vector2, direction: int, player_mode: Player.Pl
 	if not get_parent().is_on_floor():
 		play("%s_jump" % animation_prefix)
 		
-# Handle slide animations
-	elif sign(velocity.x) != sign(direction) && velocity.x != 0 && direction != 0:
-		play("%s_slide" % animation_prefix)
-		scale.x = direction
-		
-	else:
-	# Handle the sprite turning into the direction you're going
-		if sign(scale.x) == 1 && sign(velocity.x) == -1:
-			scale.x = scale.x * -1
-		elif sign(scale.x) -1 && sign (velocity.x) == 1:
-			scale.x = scale.x * 1
 	
+	# Handle the sprite turning into the direction you're going
+	if sign(scale.x) == 1 && sign(velocity.x) == -1:
+		scale.x = scale.x * -1
+	elif sign(scale.x) == -1 && sign (velocity.x) == 1:
+		scale.x = abs(scale.x)
+			
 	# Handle run and idle animations
 	if velocity.x != 0:
 		play("%s_run" % animation_prefix)
