@@ -27,10 +27,10 @@ func trigger_animation(velocity: Vector2, direction: int, player_mode: Player.Pl
 		
 	else:
 	# Handle the sprite turning into the direction you're going
-		if scale.x == 1 && sign(velocity.x) == -1:
-			scale.x = -1
-		elif scale.x == -1 && sign (velocity.x) == 1:
-			scale.x = 1
+		if sign(scale.x) == 1 && sign(velocity.x) == -1:
+			scale.x = scale.x * -1
+		elif sign(scale.x) -1 && sign (velocity.x) == 1:
+			scale.x = scale.x * 1
 	
 	# Handle run and idle animations
 	if velocity.x != 0:
