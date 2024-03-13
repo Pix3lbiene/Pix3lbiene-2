@@ -78,6 +78,7 @@ continue={
 2d_physics/layer_6="bonus"
 2d_physics/layer_7="fireball"
 2d_physics/layer_8="viewport_collider"
+2d_physics/layer_9="flag_pole"
 
 [rendering]
 

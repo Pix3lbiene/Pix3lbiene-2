@@ -6,6 +6,7 @@ extends Node2D
 @onready var player = $Player
 @onready var level_announcer = $"Level-Announcer"
 @onready var level_announcer_canvas = $"Level-Announcer/CanvasLayer"
+@onready var world_cam = $WorldCam
 
 @onready var announcer_level_label = $"Level-Announcer/CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer2/level_path"
 
@@ -71,6 +72,7 @@ func _on_pipe_switch(destination):
 	levels.add_child(current_level)
 	var spawn_location = current_level.get_node('SpawnMarker').global_position
 	player.global_position = spawn_location
+	check_camera_setup()
 	var timer = get_tree().create_timer(0.2)
 	await(timer.timeout)
 	player.set_physics_process(true)
@@ -85,6 +87,7 @@ func _on_connector_switch(return_point: String):
 	player.velocity = Vector2.ZERO
 	player.global_position = current_level.get_node(return_point).global_position
 	print_debug(player.global_position)
+	check_camera_setup()
 	var timer = get_tree().create_timer(0.2)
 	await(timer.timeout)
 	player.set_physics_process(true)
@@ -103,6 +106,7 @@ func resume_level():
 	current_level.process_mode = Node.PROCESS_MODE_INHERIT
 
 func check_camera_setup():
+	world_cam.global_position = Vector2.ZERO
 	if current_level.find_child("camera_start") && current_level.find_child("camera_end"):
 		player.start_position=current_level.find_child("camera_start")
 		player.end_position=current_level.find_child("camera_end")

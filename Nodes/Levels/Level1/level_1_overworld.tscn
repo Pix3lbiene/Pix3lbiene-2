@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://dyq1xtr7grww0"]
+[gd_scene load_steps=9 format=3 uid="uid://dyq1xtr7grww0"]
 
 [ext_resource type="Script" path="res://Nodes/Levels/Level1/level_1_overworld.gd" id="1_2cchp"]
 [ext_resource type="TileSet" uid="uid://d0s7u36k35fya" path="res://Resources/TileSets/ground_mario.tres" id="1_730if"]
 [ext_resource type="PackedScene" uid="uid://cvgndqh5bvlmq" path="res://Scenes/mystery_box.tscn" id="2_qvnaa"]
 [ext_resource type="PackedScene" uid="uid://bei1c0pe6xtcd" path="res://Scenes/pipe.tscn" id="3_cdrfy"]
+[ext_resource type="PackedScene" uid="uid://c3y0q3tjyb177" path="res://Nodes/Flag/flag_pole.tscn" id="3_xwgsg"]
 [ext_resource type="PackedScene" uid="uid://bdvmvw5kdlgkt" path="res://Scenes/goomba.tscn" id="4_asx7y"]
 [ext_resource type="PackedScene" uid="uid://vtbdytksr0ju" path="res://Scenes/koopa.tscn" id="6_5g3pe"]
 [ext_resource type="PackedScene" uid="uid://cn4mdlc8am053" path="res://Nodes/Enemy/Ice/ice.tscn" id="7_w7q7n"]
@@ -13,7 +14,7 @@ z_as_relative = false
 script = ExtResource("1_2cchp")
 level_name = "1 - 5"
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="solid_tilemap" type="TileMap" parent="."]
 z_index = -1
 z_as_relative = false
 tile_set = ExtResource("1_730if")
@@ -22,6 +23,9 @@ layer_0/tile_data = PackedInt32Array(524264, 3, 0, 458736, 3, 0, 458738, 3, 0, 5
 
 [node name="camera_start" type="Marker2D" parent="."]
 position = Vector2(-128, 56)
+
+[node name="Node2D" parent="camera_start" instance=ExtResource("3_xwgsg")]
+position = Vector2(400, -40)
 
 [node name="camera_end" type="Marker2D" parent="."]
 position = Vector2(384, 56)

@@ -26,7 +26,7 @@ const FIREBALL_SCENE = preload("res://Scenes/fireball.tscn")
 
 
 # On ready
-@onready var animated_sprite_2d = $AnimatedSprite2D as PlayerAnimatedSprite
+@onready var animated_sprite_2d = $AnimatedSprite2D
 @onready var area_2d = $Area2D
 @onready var area_collision_shape = $Area2D/AreaCollisionShape
 @onready var body_collision_shape = $BodyCollisionShape
@@ -184,6 +184,8 @@ func _on_area_2d_area_entered(area):
 	if area is ShootingFlower:
 		handle_flower_collision()
 		area.queue_free()
+	if area is FlagPole:
+		handle_flag_pole_collision(area)
 		
 func handle_enemy_collision(enemy: Enemy):
 	if enemy == null && is_dead:
@@ -266,7 +268,7 @@ func handle_movement_collision(collision: KinematicCollision2D):
 		if collision.get_collider() is PipeConnector:
 			if Input.is_action_just_pressed("right"):
 				handle_pipe_connector_entrance_collision(collision)
-			
+		
 	
 func handle_shroom_collision(_area: Node2D):
 	if player_mode == PlayerMode.SMALL:
@@ -337,6 +339,23 @@ func handle_pipe_connector_entrance_collision(pipe_collision: KinematicCollision
 	var pipe_tween = get_tree().create_tween()
 	pipe_tween.tween_property(self, "position", position + Vector2(32, 0), 1)
 	pipe_tween.tween_callback(switch_to_main)
+	
+func handle_flag_pole_collision(pole: Area2D):
+	velocity = Vector2.ZERO
+	set_physics_process(false)
+	animated_sprite_2d.trigger_animation(Vector2.ZERO, 1, player_mode)
+	global_position.x = pole.global_position.x
+	var pole_tween = get_tree().create_tween()
+	pole_tween.tween_property(self, "position", position + Vector2(0, 56 - position.y),abs(55 - position.y) * 0.1 / 5)
+	await(pole_tween.finished)
+	animation_player.play("pole_go_away")
+	await(animation_player.animation_finished)
+	animation_player.play("RESET")
+	await(animation_player.animation_finished)
+	position += Vector2(25, 17)
+	var pole_tween2 = get_tree().create_tween()
+	pole_tween2.tween_property(self, "position", position + Vector2(150,0),3.5)
+	animated_sprite_2d.trigger_animation(Vector2.RIGHT, 1, player_mode)
 
 func switch_to_underground():
 	if next_destination:
@@ -353,4 +372,3 @@ func _on_animation_player_animation_finished(anim_name):
 		animated_sprite_2d.reset_player_properties()
 		emit_signal("start_over")
 		
-

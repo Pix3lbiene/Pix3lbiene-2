@@ -32,8 +32,16 @@ shape = SubResource("RectangleShape2D_28ikv")
 
 [node name="Player" parent="." node_paths=PackedStringArray("camera_sync") instance=ExtResource("1_76ldt")]
 collision_mask = 150
+run_speed_damping = 0.5
+speed = 200.0
+jump_velocity = -350
+min_stomp_degree = 35
+max_stomp_degree = 145
+stomp_y_velocity = -150
 camera_sync = NodePath("../WorldCam")
 should_camera_sync = false
+camera_tolerance = 40
+is_dead = false
 
 [node name="WorldCam" type="Camera2D" parent="."]
 zoom = Vector2(2.75, 2.75)
