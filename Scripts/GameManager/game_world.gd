@@ -98,6 +98,9 @@ func _on_player_start_over():
 	
 func stop_level():
 	current_level.process_mode = Node.PROCESS_MODE_DISABLED
+	
+func resume_level():
+	current_level.process_mode = Node.PROCESS_MODE_INHERIT
 
 func check_camera_setup():
 	if current_level.find_child("camera_start") && current_level.find_child("camera_end"):

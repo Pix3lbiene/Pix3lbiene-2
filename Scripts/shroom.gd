@@ -2,7 +2,7 @@ extends Area2D
 
 class_name Shroom
 
-@export var horizontal_speed = -20
+@export var horizontal_speed = 0
 @export var max_vertical_speed = 120
 @export var vertical_velocity_gain = .1
 

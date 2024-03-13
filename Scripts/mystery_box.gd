@@ -53,7 +53,7 @@ func spawn_coin():
 	
 func spawn_shroom():
 	var shroom = SHROOM_SCENE.instantiate()
-	shroom.global_position = global_position
+	shroom.global_position = Vector2(global_position.x, global_position.y - 10)
 	get_parent().add_child(shroom)
 	
 func spawn_flower():
