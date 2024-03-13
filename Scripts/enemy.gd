@@ -29,10 +29,10 @@ func _process(delta):
 	if !ground_raycast.is_colliding():
 		position.y += gravity * delta 
 		
-	if animated_sprite_2d.scale.x == 1 && sign(horizontal_speed) == -1:
-			animated_sprite_2d.scale.x = -1
-	elif animated_sprite_2d.scale.x == -1 && sign (horizontal_speed) == 1:
-			animated_sprite_2d.scale.x = 1
+	if sign(animated_sprite_2d.scale.x) == 1 && sign(horizontal_speed) == -1:
+			animated_sprite_2d.scale.x = animated_sprite_2d.scale.x*-1
+	elif sign(animated_sprite_2d.scale.x) == -1 && sign (horizontal_speed) == 1:
+			animated_sprite_2d.scale.x = abs(animated_sprite_2d.scale.x)
 		
 
 

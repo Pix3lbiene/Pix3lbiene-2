@@ -49,7 +49,7 @@ position = Vector2(-112, 40)
 position = Vector2(-8, 56)
 
 [node name="Koopa" parent="." instance=ExtResource("6_5g3pe")]
-position = Vector2(80, 72)
+position = Vector2(80, 74)
 vertical_speed = 0
 
 [node name="return_point_1" type="Marker2D" parent="."]

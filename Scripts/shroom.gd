@@ -15,7 +15,7 @@ var vertical_speed = 0
 
 func _ready():
 	var spawn_tween = get_tree().create_tween()
-	spawn_tween.tween_property(self, "position", position + Vector2(0, -16), .4)
+	spawn_tween.tween_property(self, "position", position + Vector2(0, -10), .4)
 	spawn_tween.tween_callback(func (): allow_horizontal_movement = true)
 
 func _process(delta):

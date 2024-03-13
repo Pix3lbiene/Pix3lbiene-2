@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://dg20ly5ek1o3n"]
+[gd_scene load_steps=37 format=3 uid="uid://dg20ly5ek1o3n"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_cqfcf"]
 [ext_resource type="Texture2D" uid="uid://ct8uqpacoxaq1" path="res://Assets/Sprites/Mario_Big_Idle.png" id="2_0kyi5"]
@@ -116,6 +116,11 @@ animations = [{
 }],
 "loop": true,
 "name": &"death",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"flower",
 "speed": 5.0
 }, {
 "frames": [{
@@ -326,6 +331,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1e-05),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_df7gq"]
 resource_name = "death"
@@ -376,10 +393,26 @@ tracks/0/keys = {
 "values": [Vector2(0, 0), Vector2(0, -48), Vector2(0, 256)]
 }
 
+[sub_resource type="Animation" id="Animation_5ut3j"]
+resource_name = "flower"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1e-05, 8.9361e-05, 1e-05, 8.9361e-05, 1e-05, 8.9361e-05, 1e-05, 8.9361e-05, 1e-05, 8.9361e-05),
+"update": 0,
+"values": [-0.698132, -0.523599, -0.698132, -0.523599, -0.698132, -0.523599, -0.698132, -0.523599, -0.698132, -0.523599]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pxbvf"]
 _data = {
 "RESET": SubResource("Animation_4k122"),
 "enemy_death": SubResource("Animation_df7gq"),
+"flower": SubResource("Animation_5ut3j"),
 "invincible": SubResource("Animation_eyrl3"),
 "player_death": SubResource("Animation_x8827")
 }
@@ -393,7 +426,8 @@ script = ExtResource("1_cqfcf")
 position = Vector2(-2.16667, -1.5)
 scale = Vector2(0.395833, 0.395833)
 sprite_frames = SubResource("SpriteFrames_58rr8")
-animation = &"big_run"
+animation = &"small_idle"
+frame_progress = 0.732751
 script = ExtResource("24_wd5v6")
 
 [node name="Area2D" type="Area2D" parent="."]

@@ -180,7 +180,7 @@ func _on_area_2d_area_entered(area):
 		handle_enemy_collision(area)
 	if (area is Shroom && area.get_tree().current_scene == get_tree().current_scene):
 		handle_shroom_collision(area)
-		area.queue_free()
+
 	if area is ShootingFlower:
 		handle_flower_collision()
 		area.queue_free()
@@ -272,7 +272,14 @@ func handle_shroom_collision(_area: Node2D):
 	if player_mode == PlayerMode.SMALL:
 		game_world.stop_level()
 		set_physics_process(false)
-		position.y -= 16
+		#position.y -= 16
+		global_position = Vector2(_area.global_position.x - 8,_area.global_position.y - 7)
+		if(!sign(animated_sprite_2d.scale.x)==1):
+			animated_sprite_2d.scale.x = animated_sprite_2d.scale.x*-1
+		animation_player.play("flower")
+		await(animation_player.animation_finished)
+		animation_player.play("RESET")
+		_area.queue_free()
 		animated_sprite_2d.play("small_to_big")
 		player_mode = PlayerMode.BIG
 		set_collision_shapes(false)
