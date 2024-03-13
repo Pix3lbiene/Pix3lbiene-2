@@ -5,6 +5,7 @@ class_name PlayerAnimatedSprite
 @onready var animation_player = $"../AnimationPlayer"
 @onready var area_2d = $"../Area2D"
 
+
 var frame_count = 0
 func trigger_animation(velocity: Vector2, direction: int, player_mode: Player.PlayerMode):
 	var animation_prefix
@@ -50,20 +51,21 @@ func _on_animation_finished():
 		get_parent().set_physics_process(true)
 
 
-func _on_frame_changed():
-	if animation == "small_to_big" || animation == "small_to_shooting":
-		var player_mode = get_parent().player_mode
-		frame_count += 1
-		
-		if frame_count % 2 == 1:
-			offset = Vector2(0, 0 if player_mode == Player.PlayerMode.BIG else - 8)
-		else:
-			offset = Vector2(0, 8 if player_mode == Player.PlayerMode.BIG else 0)
-		
+#func _on_frame_changed():
+	#if animation == "small_to_big" || animation == "small_to_shooting":
+		#var player_mode = get_parent().player_mode
+		#frame_count += 1
+		#
+		#if frame_count % 2 == 1:
+			#offset = Vector2(0, 0 if player_mode == Player.PlayerMode.BIG else - 8)
+		#else:
+			#offset = Vector2(0, 8 if player_mode == Player.PlayerMode.BIG else 0)
+		#
 		
 		
 func reset_player_properties():
 	animation_player.play("RESET")
+	get_parent().is_dead = false
 	offset = Vector2.ZERO
 	get_parent().set_physics_process(true)
 	get_parent().set_collision_layer_value(1, true)

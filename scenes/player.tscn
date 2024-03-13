@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://crqgheu7ndoxs" path="res://Assets/Sprites/Mario_Big_Pole.png" id="4_5v2m4"]
 [ext_resource type="Texture2D" uid="uid://bpylqwxr3puw2" path="res://Assets/Sprites/Pixelbiene/big_walking_1.png" id="5_me7fi"]
 [ext_resource type="Texture2D" uid="uid://cdpfi4t0p61be" path="res://Assets/Sprites/Pixelbiene/big_walking_2.png" id="6_8p6u7"]
-[ext_resource type="Texture2D" uid="uid://bywnw0pju1uhp" path="res://Assets/Sprites/Pixelbiene/big_walking_3.png" id="7_536sc"]
 [ext_resource type="Texture2D" uid="uid://k303fjvwyalc" path="res://Assets/Sprites/Mario_Big_Slide.png" id="8_t4lad"]
 [ext_resource type="Texture2D" uid="uid://4axg8se7m40x" path="res://Assets/Sprites/Mario_Shooting_Idle.png" id="9_2pubx"]
 [ext_resource type="Texture2D" uid="uid://d3uo5k25wnw3f" path="res://Assets/Sprites/Pixelbiene/dead.png" id="10_4ekud"]
@@ -24,6 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://v4it70h5vhr5" path="res://Assets/Sprites/Pixelbiene/walking_3.png" id="21_ul4oa"]
 [ext_resource type="Texture2D" uid="uid://dchiauyo5xx5i" path="res://Assets/Sprites/Pixelbiene/walking_2.png" id="21_yakkk"]
 [ext_resource type="Texture2D" uid="uid://cal7r48xqmfrt" path="res://Assets/Sprites/Mario_Small_Slide.png" id="23_8vr0q"]
+[ext_resource type="Texture2D" uid="uid://dou4ainf81n6x" path="res://Assets/Sprites/Pixelbiene/small_idle_01.png" id="24_atgm2"]
 [ext_resource type="Texture2D" uid="uid://d2r1f4s1maaa4" path="res://Assets/Sprites/Mario_Small_Idle_Spawn.png" id="24_hrpby"]
 [ext_resource type="Script" path="res://Scripts/player_animated_sprite.gd" id="24_wd5v6"]
 [ext_resource type="Shape2D" uid="uid://s0jsgikxy4kd" path="res://Resources/CollisionShapes/small_mario_collision_shape.tres" id="25_5dkwh"]
@@ -61,13 +61,13 @@ animations = [{
 "texture": ExtResource("5_me7fi")
 }, {
 "duration": 1.0,
+"texture": ExtResource("2_spkrv")
+}, {
+"duration": 1.0,
 "texture": ExtResource("6_8p6u7")
 }, {
 "duration": 1.0,
 "texture": ExtResource("2_spkrv")
-}, {
-"duration": 1.0,
-"texture": ExtResource("7_536sc")
 }],
 "loop": true,
 "name": &"big_run",
@@ -220,28 +220,28 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("17_uckpb")
+"texture": ExtResource("24_atgm2")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_0kyi5")
+"texture": ExtResource("2_spkrv")
 }, {
 "duration": 1.0,
-"texture": ExtResource("17_uckpb")
+"texture": ExtResource("24_atgm2")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_0kyi5")
+"texture": ExtResource("2_spkrv")
 }, {
 "duration": 1.0,
-"texture": ExtResource("17_uckpb")
+"texture": ExtResource("24_atgm2")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_0kyi5")
+"texture": ExtResource("2_spkrv")
 }, {
 "duration": 1.0,
-"texture": ExtResource("17_uckpb")
+"texture": ExtResource("24_atgm2")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_0kyi5")
+"texture": ExtResource("2_spkrv")
 }],
 "loop": false,
 "name": &"small_to_big",
@@ -393,7 +393,7 @@ script = ExtResource("1_cqfcf")
 position = Vector2(-2.16667, -1.5)
 scale = Vector2(0.395833, 0.395833)
 sprite_frames = SubResource("SpriteFrames_58rr8")
-animation = &"shooting_idle"
+animation = &"big_run"
 script = ExtResource("24_wd5v6")
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -404,7 +404,7 @@ position = Vector2(0, -1)
 shape = ExtResource("25_5dkwh")
 
 [node name="BodyCollisionShape" type="CollisionShape2D" parent="."]
-position = Vector2(0, -1)
+position = Vector2(0, -1.5)
 shape = ExtResource("25_5dkwh")
 
 [node name="ShootingPoint" type="Marker2D" parent="."]

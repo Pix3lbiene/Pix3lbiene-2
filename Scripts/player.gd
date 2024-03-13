@@ -67,7 +67,7 @@ var next_destination: String
 var return_point: String
 
 # Player state flags
-var is_dead = false
+@export var is_dead = false
 var invincible_time = 0.0
 var invincible = false
 
@@ -234,9 +234,13 @@ func die():
 			
 		
 		else:
+			game_world.stop_level()
 			big_to_small()
 			invincible_time = 2
 			invincible = true
+			var timer = get_tree().create_timer(1.5)
+			await(timer.timeout)
+			game_world.resume_level()
 	
 func on_enemy_stomped():
 	velocity.y = stomp_y_velocity
@@ -266,11 +270,15 @@ func handle_movement_collision(collision: KinematicCollision2D):
 	
 func handle_shroom_collision(_area: Node2D):
 	if player_mode == PlayerMode.SMALL:
+		game_world.stop_level()
 		set_physics_process(false)
 		position.y -= 16
 		animated_sprite_2d.play("small_to_big")
 		player_mode = PlayerMode.BIG
 		set_collision_shapes(false)
+		var timer = get_tree().create_timer(1.5)
+		await(timer.timeout)
+		game_world.resume_level()
 
 func handle_flower_collision():
 	set_physics_process(false)
