@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://dnueprcsq460g"]
+[gd_scene load_steps=3 format=3 uid="uid://d1exi5klfusp6"]
 
 [ext_resource type="FontFile" uid="uid://dm3ch1vmt4ixr" path="res://Assets/Fonts/font.ttf" id="1_a4n87"]
 [ext_resource type="Script" path="res://Scripts/points_label.gd" id="2_t33jn"]
@@ -6,6 +6,7 @@
 [node name="PointsLabel" type="Label"]
 offset_right = 40.0
 offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_a4n87")
 theme_override_font_sizes/font_size = 10
 text = "100"

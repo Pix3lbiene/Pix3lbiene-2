@@ -86,3 +86,4 @@ textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true
 environment/defaults/default_clear_color=Color(0.14902, 0.513726, 0.886275, 1)
+anti_aliasing/quality/msaa_2d=2

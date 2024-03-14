@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ddg8ds1ckh8ud"]
+
+[ext_resource type="Script" path="res://Nodes/PointsHandler/points_handler.gd" id="1_anmly"]
+
+[node name="PointsHandler" type="Node"]
+script = ExtResource("1_anmly")

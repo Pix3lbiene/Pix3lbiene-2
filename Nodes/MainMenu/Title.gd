@@ -12,6 +12,7 @@ func _on_button_pressed():
 	start_game()
 
 func start_game():
+	BackgroundMusic.stop()
 	start_sfx.play()
 	emit_signal("starting")
 	await(start_sfx.finished)

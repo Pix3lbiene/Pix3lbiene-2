@@ -230,7 +230,7 @@ func die():
 			
 			BackgroundMusic.stop()
 			death_sound.play()
-		
+			game_world.add_lifes(-1)
 			animation_player.play("player_death")
 			
 			
@@ -287,6 +287,7 @@ func handle_shroom_collision(_area: Node2D):
 		set_collision_shapes(false)
 		var timer = get_tree().create_timer(1.5)
 		await(timer.timeout)
+		game_world.add_points(1000)
 		game_world.resume_level()
 
 func handle_flower_collision():

@@ -23,7 +23,8 @@ func _on_game_load():
 		game_world.connect('end_game', open_main_menu)
 	else:
 		add_child(game_world)
-	BackgroundMusic.play_music("res://Assets/Sound/Music/main_loop.wav")
+		game_world._ready()
+	
 	#ScreenFader.fade_in()
 	
 

@@ -12,7 +12,7 @@ size = Vector2(4, 494)
 
 [node name="GameWorld" type="Node2D"]
 script = ExtResource("1_nn0fv")
-start_level = "res://Nodes/Levels/Level1/level_1_overworld.tscn"
+START_LEVEL = "res://Nodes/Levels/Level1/level_1_overworld.tscn"
 
 [node name="Levels" type="Node2D" parent="."]
 
@@ -152,6 +152,31 @@ theme_override_fonts/font = ExtResource("4_ftnhr")
 theme_override_font_sizes/font_size = 25
 text = "000000"
 horizontal_alignment = 2
+
+[node name="GameOver" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="GameOver" type="CenterContainer" parent="GameOver"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="GameOver/GameOver"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_ftnhr")
+theme_override_font_sizes/font_size = 60
+text = "GAME OVER"
+
+[node name="ColorRect" type="ColorRect" parent="GameOver"]
+z_index = -1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
 
 [node name="Level-Announcer" parent="." instance=ExtResource("4_rla1e")]
 

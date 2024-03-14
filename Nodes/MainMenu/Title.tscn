@@ -1,9 +1,92 @@
-[gd_scene load_steps=5 format=3 uid="uid://b5h3u1lmd0xwt"]
+[gd_scene load_steps=13 format=3 uid="uid://b5h3u1lmd0xwt"]
 
-[ext_resource type="Texture2D" uid="uid://cbvvvoa1ij15k" path="res://Assets/Textures/background.png" id="1_d5xlf"]
 [ext_resource type="Script" path="res://Nodes/MainMenu/Title.gd" id="1_h1wgu"]
 [ext_resource type="FontFile" uid="uid://dvpj6k5ulpj0f" path="res://Assets/Fonts/PressStart2P-Regular.ttf" id="2_hhh7q"]
 [ext_resource type="AudioStream" uid="uid://f53218f3fisb" path="res://Assets/Sound/Effects/powerup.wav" id="4_jebwk"]
+[ext_resource type="Texture2D" uid="uid://dnl6ho871h6uf" path="res://Assets/Sprites/UI/title_screen.png" id="5_avff4"]
+[ext_resource type="Texture2D" uid="uid://3kusvt6w7gpt" path="res://Assets/Sprites/UI/title_screen_pixelbiene.png" id="5_inl85"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q3u4u"]
+bg_color = Color(0.266667, 0.266667, 0.266667, 1)
+border_width_left = 20
+border_width_top = 20
+border_width_right = 20
+border_width_bottom = 20
+border_color = Color(0.266667, 0.266667, 0.266667, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kivo2"]
+bg_color = Color(0.196078, 0.196078, 0.196078, 1)
+border_width_left = 20
+border_width_top = 20
+border_width_right = 20
+border_width_bottom = 20
+border_color = Color(0.196078, 0.196078, 0.196078, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_auoiy"]
+bg_color = Color(0.196078, 0.196078, 0.196078, 1)
+border_width_left = 20
+border_width_top = 20
+border_width_right = 20
+border_width_bottom = 20
+border_color = Color(0.196078, 0.196078, 0.196078, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l1bap"]
+bg_color = Color(0.266667, 0.266667, 0.266667, 1)
+border_width_left = 20
+border_width_top = 20
+border_width_right = 20
+border_width_bottom = 20
+border_color = Color(0.266667, 0.266667, 0.266667, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0l311"]
+bg_color = Color(0.266667, 0.266667, 0.266667, 1)
+border_width_left = 20
+border_width_top = 20
+border_width_right = 20
+border_width_bottom = 20
+border_color = Color(0.266667, 0.266667, 0.266667, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="Animation" id="Animation_krcuv"]
+resource_name = "hover"
+length = 5.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TitleScreen:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.5, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(421, 256), Vector2(421, 270), Vector2(421, 256)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i8rg7"]
+_data = {
+"hover": SubResource("Animation_krcuv")
+}
 
 [node name="Title" type="ColorRect"]
 z_index = -1
@@ -14,7 +97,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_h1wgu")
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Background" type="ColorRect" parent="."]
 z_index = 1
 layout_mode = 1
 anchors_preset = 15
@@ -22,8 +105,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_d5xlf")
-expand_mode = 3
+color = Color(0, 0, 0, 1)
 
 [node name="Button" type="Button" parent="."]
 z_index = 2
@@ -33,19 +115,46 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -4.0
-offset_top = -4.0
-offset_right = 4.0
-offset_bottom = 4.0
+offset_left = -193.0
+offset_top = 200.0
+offset_right = 562.0
+offset_bottom = 305.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/outline_size = -120
 theme_override_fonts/font = ExtResource("2_hhh7q")
 theme_override_font_sizes/font_size = 65
+theme_override_styles/normal = SubResource("StyleBoxFlat_q3u4u")
+theme_override_styles/hover = SubResource("StyleBoxFlat_kivo2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_auoiy")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_l1bap")
+theme_override_styles/focus = SubResource("StyleBoxFlat_0l311")
 toggle_mode = true
-text = "Start Game"
+text = "Drück Start"
 
 [node name="StartSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_jebwk")
 volume_db = 10.895
+
+[node name="TitleScreen" type="Sprite2D" parent="."]
+z_index = 1
+texture_filter = 6
+position = Vector2(421, 262.382)
+rotation = -0.0285864
+scale = Vector2(0.412147, 0.412147)
+texture = ExtResource("5_avff4")
+
+[node name="Sprite2D" type="Sprite2D" parent="TitleScreen"]
+texture_filter = 6
+position = Vector2(-11.8266, 158.936)
+rotation = -0.00698132
+scale = Vector2(1.25507, 1.25507)
+texture = ExtResource("5_inl85")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_i8rg7")
+}
+autoplay = "hover"
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

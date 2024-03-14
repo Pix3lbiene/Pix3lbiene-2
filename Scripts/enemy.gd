@@ -58,6 +58,7 @@ func die_from_hit():
 		var points_label = POINTS_LABEL_SCENE.instantiate()
 		points_label.position = self.position + Vector2(-20, -20)
 		get_tree().root.add_child(points_label)
+		
 	
 func _on_area_entered(area):
 	if area is Koopa and (area as Koopa).in_a_shell and (area as Koopa).horizontal_speed != 0:

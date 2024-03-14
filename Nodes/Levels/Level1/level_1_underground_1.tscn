@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://ck0pdafapnwhr"]
+[gd_scene load_steps=7 format=3 uid="uid://ck0pdafapnwhr"]
 
+[ext_resource type="Script" path="res://Nodes/Levels/Level1/level_1_underground_1.gd" id="1_hm5hp"]
 [ext_resource type="Texture2D" uid="uid://cbvvvoa1ij15k" path="res://Assets/Textures/background.png" id="1_k7wyo"]
 [ext_resource type="TileSet" uid="uid://d0s7u36k35fya" path="res://Resources/TileSets/ground_mario.tres" id="1_petlh"]
 [ext_resource type="PackedScene" uid="uid://bdvmvw5kdlgkt" path="res://Scenes/goomba.tscn" id="2_r0j0a"]
@@ -7,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://bei1c0pe6xtcd" path="res://Scenes/pipe.tscn" id="4_fecqc"]
 
 [node name="Level1Underground1" type="Node2D"]
+script = ExtResource("1_hm5hp")
+level_name = "1 - Underground"
 
 [node name="ColorRect" type="TextureRect" parent="."]
 z_index = -2
