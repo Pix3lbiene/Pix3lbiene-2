@@ -36,8 +36,8 @@ const FIREBALL_SCENE = preload("res://Scenes/fireball.tscn")
 @onready var animation_player = $AnimationPlayer
 @onready var game_world = $".."
 @onready var levels = $"../Levels"
-@onready var camera_collider_left = $"../Levels/camera_collider_left"
-@onready var camera_collider_right = $"../Levels/camera_collider_right"
+@onready var camera_collider_left = $"../camera_collider_left"
+@onready var camera_collider_right = $"../camera_collider_right"
 
 
 
@@ -259,7 +259,7 @@ func handle_movement_collision(collision: KinematicCollision2D):
 		if collision.get_collider() is Block:
 			var collision_angle = rad_to_deg(collision.get_angle())
 			if roundf(collision_angle) == 180:
-				(collision.get_collider() as Block).bump(player_mode)
+				(collision.get_collider() as Block).bump(self)
 		
 		if collision.get_collider() is Pipe:
 			var collision_angle = rad_to_deg(collision.get_angle())
@@ -348,15 +348,20 @@ func handle_flag_pole_collision(pole: Area2D):
 	global_position.x = pole.global_position.x
 	var pole_tween = get_tree().create_tween()
 	pole_tween.tween_property(self, "position", position + Vector2(0, 56 - position.y),abs(55 - position.y) * 0.1 / 5)
+	pole.hit()
 	await(pole_tween.finished)
 	animation_player.play("pole_go_away")
 	await(animation_player.animation_finished)
+	
+	animated_sprite_2d.position = Vector2(-2.167, -1.5)
+	position += Vector2(25, 17)
 	animation_player.play("RESET")
 	await(animation_player.animation_finished)
-	position += Vector2(25, 17)
 	var pole_tween2 = get_tree().create_tween()
 	pole_tween2.tween_property(self, "position", position + Vector2(150,0),3.5)
 	animated_sprite_2d.trigger_animation(Vector2.RIGHT, 1, player_mode)
+	await(pole_tween2.finished)
+	
 
 func switch_to_underground():
 	if next_destination:

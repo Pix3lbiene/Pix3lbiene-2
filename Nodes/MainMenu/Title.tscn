@@ -89,7 +89,7 @@ _data = {
 }
 
 [node name="Title" type="ColorRect"]
-z_index = -1
+z_index = 2
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

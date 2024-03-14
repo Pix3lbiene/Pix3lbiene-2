@@ -2,6 +2,8 @@ extends Control
 
 @onready var start_sfx = $StartSFX
 
+var already_pressed = false
+
 signal starting
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -9,7 +11,10 @@ func _ready():
 
 
 func _on_button_pressed():
-	start_game()
+	if(!already_pressed):
+		already_pressed = true
+		start_game()
+		
 
 func start_game():
 	BackgroundMusic.stop()

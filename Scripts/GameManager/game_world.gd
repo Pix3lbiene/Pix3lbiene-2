@@ -15,13 +15,14 @@ extends Node2D
 @onready var ui = $UI
 @onready var game_over = $GameOver
 
+
 @onready var announcer_level_label = $"Level-Announcer/CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer2/level_path"
 
 
 @export var current_level: Node2D
 
 @export var lifes = 3
-@export var coins = 3
+@export var coins = 0
 @export var score = 0
 
 var overworld: Node2D
@@ -34,6 +35,11 @@ signal end_game
 
 func _ready():
 	levels.visible = false
+	
+	lifes = 3
+	coins = 0
+	score = 0
+	
 	remove_child(player)
 	level_announcer_canvas.visible = true
 	ui.visible = false
@@ -133,6 +139,7 @@ func _on_player_start_over():
 	else:
 		game_over.visible = true
 		ui.visible = false
+		current_level.free()
 		var timer = get_tree().create_timer(4)
 		await(timer.timeout)
 		emit_signal("end_game")

@@ -22,7 +22,7 @@ var is_empty = false
 func _ready():
 	animated_sprite_2d.visible = !invisible
 	
-func bump(player_mode: Player.PlayerMode):
+func bump(player: Player):
 	if is_empty:
 		return
 		
@@ -30,12 +30,12 @@ func bump(player_mode: Player.PlayerMode):
 		animated_sprite_2d.visible = true
 		invisible = !invisible
 	
-	super.bump(player_mode)
+	super.bump(player)
 	make_empty()
 	
 	match bonus_type:
 		BonusType.COIN:
-			spawn_coin()
+			spawn_coin(player)
 		BonusType.SHROOM:
 			spawn_shroom()
 		BonusType.FLOWER:
@@ -45,11 +45,12 @@ func make_empty():
 	is_empty = true
 	animated_sprite_2d.play("empty")
 	
-func spawn_coin():
+func spawn_coin(player: Player):
 	var coin = COIN_SCENE.instantiate()
 	coin.global_position = global_position + Vector2(0, -16)
 	get_parent().add_child(coin)
-	#get_tree().get_first_node_in_group("level_manager").on_coin_collected()
+	player.game_world.add_coins(1)
+	player.game_world.add_points(100)
 	
 func spawn_shroom():
 	var shroom = SHROOM_SCENE.instantiate()

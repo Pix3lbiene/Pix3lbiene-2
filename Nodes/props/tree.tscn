@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://deg5c4agi2vob"]
+
+[ext_resource type="Texture2D" uid="uid://bhiuuosp06grf" path="res://Assets/Sprites/Level1/tree.png" id="1_owm0t"]
+
+[node name="tree" type="Sprite2D"]
+z_index = -3
+texture = ExtResource("1_owm0t")

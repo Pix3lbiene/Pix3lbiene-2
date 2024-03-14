@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://byukfx252hyyy"]
+
+[ext_resource type="Texture2D" uid="uid://cftv11p1b0fxy" path="res://Assets/Sprites/Level1/sign_pole.png" id="1_rwxeu"]
+[ext_resource type="Texture2D" uid="uid://d0ax7qbkx8qrc" path="res://Assets/Sprites/Level1/sign_ziel.png" id="2_d7vhk"]
+
+[node name="sign_ziel" type="Sprite2D"]
+z_index = -3
+texture = ExtResource("1_rwxeu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -14)
+texture = ExtResource("2_d7vhk")

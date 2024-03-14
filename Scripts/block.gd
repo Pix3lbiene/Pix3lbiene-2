@@ -4,7 +4,7 @@ class_name Block
 
 @onready var ray_cast_2d = $RayCast2D as RayCast2D
 
-func bump(_player_mode: Player.PlayerMode):
+func bump(player: Player):
 	var bump_tween = get_tree().create_tween()
 	bump_tween.tween_property(self, "position", position + Vector2(0, -5), .12)
 	bump_tween.chain().tween_property(self, "position", position, .12)

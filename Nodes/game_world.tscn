@@ -16,19 +16,19 @@ START_LEVEL = "res://Nodes/Levels/Level1/level_1_overworld.tscn"
 
 [node name="Levels" type="Node2D" parent="."]
 
-[node name="camera_collider_left" type="StaticBody2D" parent="Levels"]
+[node name="camera_collider_left" type="StaticBody2D" parent="."]
 position = Vector2(-210, 0)
 collision_layer = 128
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Levels/camera_collider_left"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="camera_collider_left"]
 position = Vector2(-2, 0)
 shape = SubResource("RectangleShape2D_28ikv")
 
-[node name="camera_collider_right" type="StaticBody2D" parent="Levels"]
+[node name="camera_collider_right" type="StaticBody2D" parent="."]
 position = Vector2(210, 0)
 collision_layer = 128
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Levels/camera_collider_right"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="camera_collider_right"]
 position = Vector2(2, 0)
 shape = SubResource("RectangleShape2D_28ikv")
 

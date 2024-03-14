@@ -1,20 +1,37 @@
-[gd_scene load_steps=11 format=3 uid="uid://dyq1xtr7grww0"]
+[gd_scene load_steps=16 format=3 uid="uid://dyq1xtr7grww0"]
 
 [ext_resource type="Script" path="res://Nodes/Levels/Level1/level_1_overworld.gd" id="1_2cchp"]
 [ext_resource type="TileSet" uid="uid://d0s7u36k35fya" path="res://Resources/TileSets/ground_mario.tres" id="1_730if"]
+<<<<<<< Updated upstream
 [ext_resource type="PackedScene" uid="uid://cvgndqh5bvlmq" path="res://scenes/mystery_box.tscn" id="2_qvnaa"]
 [ext_resource type="PackedScene" uid="uid://bei1c0pe6xtcd" path="res://scenes/pipe.tscn" id="3_cdrfy"]
+=======
+[ext_resource type="PackedScene" uid="uid://cvgndqh5bvlmq" path="res://Scenes/mystery_box.tscn" id="2_qvnaa"]
+[ext_resource type="TileSet" uid="uid://cpgixl2a2ddtr" path="res://Resources/TileSets/ground_platform.tres" id="2_rh2xt"]
+[ext_resource type="PackedScene" uid="uid://bei1c0pe6xtcd" path="res://Scenes/pipe.tscn" id="3_cdrfy"]
+>>>>>>> Stashed changes
 [ext_resource type="PackedScene" uid="uid://c3y0q3tjyb177" path="res://Nodes/Flag/flag_pole.tscn" id="3_xwgsg"]
 [ext_resource type="PackedScene" uid="uid://bdvmvw5kdlgkt" path="res://scenes/goomba.tscn" id="4_asx7y"]
 [ext_resource type="PackedScene" uid="uid://vtbdytksr0ju" path="res://scenes/koopa.tscn" id="6_5g3pe"]
 [ext_resource type="PackedScene" uid="uid://cn4mdlc8am053" path="res://Nodes/Enemy/Ice/ice.tscn" id="7_w7q7n"]
 [ext_resource type="PackedScene" uid="uid://dmsetu713bew3" path="res://scenes/collectable_coin.tscn" id="8_u2kff"]
 [ext_resource type="Texture2D" uid="uid://j5hqcnppe23q" path="res://Assets/Textures/background_long_05.png" id="10_pcyri"]
+[ext_resource type="PackedScene" uid="uid://deg5c4agi2vob" path="res://Nodes/props/tree.tscn" id="12_yvtxe"]
+[ext_resource type="PackedScene" uid="uid://dsva0623prqq8" path="res://Nodes/props/tree_high.tscn" id="13_fxknj"]
+[ext_resource type="PackedScene" uid="uid://byukfx252hyyy" path="res://Nodes/props/sign_ziel.tscn" id="14_nvkbg"]
+[ext_resource type="PackedScene" uid="uid://qd007ac2di83" path="res://Nodes/props/sign_arrow.tscn" id="15_lu3y3"]
 
 [node name="Level1Overworld" type="Node2D"]
 z_as_relative = false
 script = ExtResource("1_2cchp")
 level_name = "1"
+
+[node name="platform_tilemap" type="TileMap" parent="."]
+z_index = -2
+z_as_relative = false
+tile_set = ExtResource("2_rh2xt")
+collision_visibility_mode = 1
+format = 2
 
 [node name="solid_tilemap" type="TileMap" parent="."]
 z_index = -1
@@ -31,7 +48,6 @@ position = Vector2(384, 56)
 
 [node name="MysteryBox" parent="." instance=ExtResource("2_qvnaa")]
 position = Vector2(-64, 32)
-bonus_type = 1
 
 [node name="Pipe" parent="." node_paths=PackedStringArray("return_point") instance=ExtResource("3_cdrfy")]
 z_index = 1
@@ -75,7 +91,7 @@ position = Vector2(504, 16)
 [node name="MysteryBox2" parent="." instance=ExtResource("2_qvnaa")]
 position = Vector2(344, 32)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="background" type="Sprite2D" parent="."]
 z_index = -10
 z_as_relative = false
 texture_repeat = 2
@@ -83,7 +99,23 @@ position = Vector2(111, -67)
 scale = Vector2(0.21875, 0.21875)
 texture = ExtResource("10_pcyri")
 region_enabled = true
+<<<<<<< Updated upstream
 region_rect = Rect2(0, 0, 5000, 1440)
 
 [node name="MysteryBox3" parent="." instance=ExtResource("2_qvnaa")]
 position = Vector2(-165, 31)
+=======
+region_rect = Rect2(0, 0, 4500, 1440)
+
+[node name="tree" parent="." instance=ExtResource("12_yvtxe")]
+position = Vector2(205, 56)
+
+[node name="tree_high" parent="." instance=ExtResource("13_fxknj")]
+position = Vector2(227, 55)
+
+[node name="sign_arrow2" parent="." instance=ExtResource("15_lu3y3")]
+position = Vector2(314, 75)
+
+[node name="sign_arrow" parent="." instance=ExtResource("14_nvkbg")]
+position = Vector2(441, 75)
+>>>>>>> Stashed changes
