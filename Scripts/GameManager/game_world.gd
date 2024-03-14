@@ -7,11 +7,18 @@ extends Node2D
 @onready var level_announcer = $"Level-Announcer"
 @onready var level_announcer_canvas = $"Level-Announcer/CanvasLayer"
 @onready var world_cam = $WorldCam
+@onready var life_counter_annoucer = $"Level-Announcer/CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer/life_counter"
+
+@onready var coins_counter = $UI/coins/HBoxContainer/MarginContainer/HBoxContainer/coins_counter
+@onready var heart_counter = $UI/heart/HBoxContainer/MarginContainer/HBoxContainer/heart_counter
 
 @onready var announcer_level_label = $"Level-Announcer/CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer2/level_path"
 
 
 @export var current_level: Node2D
+@export var lifes = 3
+@export var coins = 3
+
 var overworld: Node2D
 var underground: Node2D
 var paused = false

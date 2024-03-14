@@ -1,19 +1,18 @@
 [gd_scene load_steps=4 format=3 uid="uid://dmsetu713bew3"]
 
 [ext_resource type="Script" path="res://Scripts/collectable_coin.gd" id="1_f8104"]
-[ext_resource type="Texture2D" uid="uid://hktlm2glgxi2" path="res://Assets/Sprites/Coin_Underground.png" id="2_44ejy"]
+[ext_resource type="Texture2D" uid="uid://ca3arvpp77372" path="res://Assets/Sprites/Coin/coin_small.png" id="2_w3n5u"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xm7qn"]
-radius = 5.0
-height = 18.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_oo7ib"]
+radius = 9.0
 
 [node name="CollectableCoin" type="Area2D"]
 script = ExtResource("1_f8104")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_44ejy")
+texture = ExtResource("2_w3n5u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_xm7qn")
+shape = SubResource("CircleShape2D_oo7ib")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

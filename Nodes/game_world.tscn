@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://b622s05lge801"]
+[gd_scene load_steps=8 format=3 uid="uid://b622s05lge801"]
 
 [ext_resource type="PackedScene" uid="uid://dg20ly5ek1o3n" path="res://Scenes/player.tscn" id="1_76ldt"]
 [ext_resource type="Script" path="res://Scripts/GameManager/game_world.gd" id="1_nn0fv"]
-[ext_resource type="Script" path="res://Scripts/timer.gd" id="2_2t84h"]
+[ext_resource type="FontFile" uid="uid://dvpj6k5ulpj0f" path="res://Assets/Fonts/PressStart2P-Regular.ttf" id="4_ftnhr"]
 [ext_resource type="PackedScene" uid="uid://dx0cv1fstva8n" path="res://Nodes/LevelAnnouncer/level_announcer.tscn" id="4_rla1e"]
+[ext_resource type="Texture2D" uid="uid://b077jrcdpwixn" path="res://Assets/Sprites/UI/heart.png" id="5_jrkch"]
+[ext_resource type="Texture2D" uid="uid://ca3arvpp77372" path="res://Assets/Sprites/Coin/coin_small.png" id="6_f27av"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_28ikv"]
 size = Vector2(4, 494)
@@ -32,27 +34,124 @@ shape = SubResource("RectangleShape2D_28ikv")
 
 [node name="Player" parent="." node_paths=PackedStringArray("camera_sync") instance=ExtResource("1_76ldt")]
 collision_mask = 150
-run_speed_damping = 0.5
-speed = 200.0
-jump_velocity = -350
-min_stomp_degree = 35
-max_stomp_degree = 145
-stomp_y_velocity = -150
 camera_sync = NodePath("../WorldCam")
 should_camera_sync = false
-camera_tolerance = 40
-is_dead = false
 
 [node name="WorldCam" type="Camera2D" parent="."]
 zoom = Vector2(2.75, 2.75)
 
-[node name="timer" type="Label" parent="."]
-offset_left = 107.0
-offset_top = -81.0
-offset_right = 147.0
-offset_bottom = -58.0
-text = "0000"
-script = ExtResource("2_2t84h")
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 5
+
+[node name="heart" type="MarginContainer" parent="UI"]
+offset_right = 900.0
+offset_bottom = 20.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/heart"]
+layout_mode = 2
+
+[node name="Die Biene" type="Label" parent="UI/heart/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_ftnhr")
+theme_override_font_sizes/font_size = 25
+text = "Die Biene"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/heart/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/heart/HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TextureRect" type="TextureRect" parent="UI/heart/HBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("5_jrkch")
+expand_mode = 3
+
+[node name="heart_times" type="Label" parent="UI/heart/HBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_ftnhr")
+theme_override_font_sizes/font_size = 25
+text = "X"
+horizontal_alignment = 1
+
+[node name="heart_counter" type="Label" parent="UI/heart/HBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_ftnhr")
+theme_override_font_sizes/font_size = 25
+text = "03"
+horizontal_alignment = 1
+
+[node name="coins" type="MarginContainer" parent="UI"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -451.0
+offset_right = 449.0
+offset_bottom = 45.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/coins"]
+layout_mode = 2
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/coins/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/coins/HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TextureRect" type="TextureRect" parent="UI/coins/HBoxContainer/MarginContainer/HBoxContainer"]
+clip_contents = true
+layout_mode = 2
+texture = ExtResource("6_f27av")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="coins_times" type="Label" parent="UI/coins/HBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_ftnhr")
+theme_override_font_sizes/font_size = 25
+text = "X"
+horizontal_alignment = 1
+
+[node name="coins_counter" type="Label" parent="UI/coins/HBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_ftnhr")
+theme_override_font_sizes/font_size = 25
+text = "03"
+horizontal_alignment = 1
+
+[node name="points" type="MarginContainer" parent="UI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -470.0
+offset_bottom = 45.0
+grow_horizontal = 0
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+
+[node name="points_label" type="Label" parent="UI/points"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_ftnhr")
+theme_override_font_sizes/font_size = 25
+text = "000000"
+horizontal_alignment = 2
 
 [node name="Level-Announcer" parent="." instance=ExtResource("4_rla1e")]
 

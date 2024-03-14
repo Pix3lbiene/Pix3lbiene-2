@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dyq1xtr7grww0"]
+[gd_scene load_steps=11 format=3 uid="uid://dyq1xtr7grww0"]
 
 [ext_resource type="Script" path="res://Nodes/Levels/Level1/level_1_overworld.gd" id="1_2cchp"]
 [ext_resource type="TileSet" uid="uid://d0s7u36k35fya" path="res://Resources/TileSets/ground_mario.tres" id="1_730if"]
@@ -8,11 +8,13 @@
 [ext_resource type="PackedScene" uid="uid://bdvmvw5kdlgkt" path="res://Scenes/goomba.tscn" id="4_asx7y"]
 [ext_resource type="PackedScene" uid="uid://vtbdytksr0ju" path="res://Scenes/koopa.tscn" id="6_5g3pe"]
 [ext_resource type="PackedScene" uid="uid://cn4mdlc8am053" path="res://Nodes/Enemy/Ice/ice.tscn" id="7_w7q7n"]
+[ext_resource type="PackedScene" uid="uid://dmsetu713bew3" path="res://Scenes/collectable_coin.tscn" id="8_u2kff"]
+[ext_resource type="Texture2D" uid="uid://j5hqcnppe23q" path="res://Assets/Textures/background_long_05.png" id="10_pcyri"]
 
 [node name="Level1Overworld" type="Node2D"]
 z_as_relative = false
 script = ExtResource("1_2cchp")
-level_name = "1 - 5"
+level_name = "1"
 
 [node name="solid_tilemap" type="TileMap" parent="."]
 z_index = -1
@@ -23,9 +25,6 @@ layer_0/tile_data = PackedInt32Array(524264, 3, 0, 458736, 3, 0, 458738, 3, 0, 5
 
 [node name="camera_start" type="Marker2D" parent="."]
 position = Vector2(-128, 56)
-
-[node name="Node2D" parent="camera_start" instance=ExtResource("3_xwgsg")]
-position = Vector2(400, -40)
 
 [node name="camera_end" type="Marker2D" parent="."]
 position = Vector2(384, 56)
@@ -63,3 +62,25 @@ position = Vector2(144, 24)
 position = Vector2(104, 64)
 horizontal_speed = 0
 vertical_speed = 0
+
+[node name="CollectableCoin2" parent="." instance=ExtResource("8_u2kff")]
+position = Vector2(288, 33)
+
+[node name="CollectableCoin" parent="." instance=ExtResource("8_u2kff")]
+position = Vector2(248, 32)
+
+[node name="flag" parent="." instance=ExtResource("3_xwgsg")]
+position = Vector2(504, 16)
+
+[node name="MysteryBox2" parent="." instance=ExtResource("2_qvnaa")]
+position = Vector2(344, 32)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -10
+z_as_relative = false
+texture_repeat = 2
+position = Vector2(111, -67)
+scale = Vector2(0.21875, 0.21875)
+texture = ExtResource("10_pcyri")
+region_enabled = true
+region_rect = Rect2(0, 0, 4500, 1440)
