@@ -26,8 +26,8 @@ func _process(delta):
 		horizontal_speed = horizontal_speed*-1.0
 	
 	
-	if !ground_raycast.is_colliding():
-		position.y += gravity * delta 
+	#if !ground_raycast.is_colliding():
+		#position.y += gravity * delta 
 		
 	if sign(animated_sprite_2d.scale.x) == 1 && sign(horizontal_speed) == -1:
 			animated_sprite_2d.scale.x = animated_sprite_2d.scale.x*-1
@@ -40,6 +40,7 @@ func die():
 	horizontal_speed = 0
 	vertical_speed = 0
 	animated_sprite_2d.play("dead")
+	get_parent().get_parent().get_parent().add_points(100)
 	
 func die_from_hit():
 	if !already_hit:
@@ -58,6 +59,7 @@ func die_from_hit():
 		var points_label = POINTS_LABEL_SCENE.instantiate()
 		points_label.position = self.position + Vector2(-20, -20)
 		get_tree().root.add_child(points_label)
+		get_parent().get_parent().get_parent().add_points(100)
 		
 	
 func _on_area_entered(area):

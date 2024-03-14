@@ -28,13 +28,14 @@ func _on_game_load():
 	#ScreenFader.fade_in()
 	
 
-func open_main_menu():
+func open_main_menu(won: bool):
 	ScreenFader.fade_out()
 	remove_child(game_world)
 	get_tree().paused = false
 	
 	var main_menu = load("res://Nodes/MainMenu/Title.tscn").instantiate()
 	add_child(main_menu)
+	if(won):main_menu.thanks_for_playing()
 	main_menu.connect('starting', _on_game_load)
 	ScreenFader.fade_in()
 	

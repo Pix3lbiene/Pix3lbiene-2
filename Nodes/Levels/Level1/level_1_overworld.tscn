@@ -2,19 +2,14 @@
 
 [ext_resource type="Script" path="res://Nodes/Levels/Level1/level_1_overworld.gd" id="1_2cchp"]
 [ext_resource type="TileSet" uid="uid://d0s7u36k35fya" path="res://Resources/TileSets/ground_mario.tres" id="1_730if"]
-<<<<<<< Updated upstream
-[ext_resource type="PackedScene" uid="uid://cvgndqh5bvlmq" path="res://scenes/mystery_box.tscn" id="2_qvnaa"]
-[ext_resource type="PackedScene" uid="uid://bei1c0pe6xtcd" path="res://scenes/pipe.tscn" id="3_cdrfy"]
-=======
 [ext_resource type="PackedScene" uid="uid://cvgndqh5bvlmq" path="res://Scenes/mystery_box.tscn" id="2_qvnaa"]
 [ext_resource type="TileSet" uid="uid://cpgixl2a2ddtr" path="res://Resources/TileSets/ground_platform.tres" id="2_rh2xt"]
 [ext_resource type="PackedScene" uid="uid://bei1c0pe6xtcd" path="res://Scenes/pipe.tscn" id="3_cdrfy"]
->>>>>>> Stashed changes
 [ext_resource type="PackedScene" uid="uid://c3y0q3tjyb177" path="res://Nodes/Flag/flag_pole.tscn" id="3_xwgsg"]
-[ext_resource type="PackedScene" uid="uid://bdvmvw5kdlgkt" path="res://scenes/goomba.tscn" id="4_asx7y"]
-[ext_resource type="PackedScene" uid="uid://vtbdytksr0ju" path="res://scenes/koopa.tscn" id="6_5g3pe"]
+[ext_resource type="PackedScene" uid="uid://bdvmvw5kdlgkt" path="res://Scenes/goomba.tscn" id="4_asx7y"]
+[ext_resource type="PackedScene" uid="uid://vtbdytksr0ju" path="res://Scenes/koopa.tscn" id="6_5g3pe"]
 [ext_resource type="PackedScene" uid="uid://cn4mdlc8am053" path="res://Nodes/Enemy/Ice/ice.tscn" id="7_w7q7n"]
-[ext_resource type="PackedScene" uid="uid://dmsetu713bew3" path="res://scenes/collectable_coin.tscn" id="8_u2kff"]
+[ext_resource type="PackedScene" uid="uid://dmsetu713bew3" path="res://Scenes/collectable_coin.tscn" id="8_u2kff"]
 [ext_resource type="Texture2D" uid="uid://j5hqcnppe23q" path="res://Assets/Textures/background_long_05.png" id="10_pcyri"]
 [ext_resource type="PackedScene" uid="uid://deg5c4agi2vob" path="res://Nodes/props/tree.tscn" id="12_yvtxe"]
 [ext_resource type="PackedScene" uid="uid://dsva0623prqq8" path="res://Nodes/props/tree_high.tscn" id="13_fxknj"]
@@ -44,7 +39,7 @@ layer_0/tile_data = PackedInt32Array(524264, 3, 0, 458736, 3, 0, 458738, 3, 0, 5
 position = Vector2(-128, 56)
 
 [node name="camera_end" type="Marker2D" parent="."]
-position = Vector2(384, 56)
+position = Vector2(705, 56)
 
 [node name="MysteryBox" parent="." instance=ExtResource("2_qvnaa")]
 position = Vector2(-64, 32)
@@ -57,6 +52,7 @@ height = 48
 is_traversable = true
 destination = "res://Nodes/Levels/Level1/level_1_underground_1.tscn"
 return_point = NodePath("../return_point_1")
+die_on_exit = true
 
 [node name="Goomba" parent="." instance=ExtResource("4_asx7y")]
 position = Vector2(40, 72)
@@ -99,13 +95,10 @@ position = Vector2(111, -67)
 scale = Vector2(0.21875, 0.21875)
 texture = ExtResource("10_pcyri")
 region_enabled = true
-<<<<<<< Updated upstream
-region_rect = Rect2(0, 0, 5000, 1440)
+region_rect = Rect2(0, 0, 4500, 1440)
 
 [node name="MysteryBox3" parent="." instance=ExtResource("2_qvnaa")]
 position = Vector2(-165, 31)
-=======
-region_rect = Rect2(0, 0, 4500, 1440)
 
 [node name="tree" parent="." instance=ExtResource("12_yvtxe")]
 position = Vector2(205, 56)
@@ -118,4 +111,3 @@ position = Vector2(314, 75)
 
 [node name="sign_arrow" parent="." instance=ExtResource("14_nvkbg")]
 position = Vector2(441, 75)
->>>>>>> Stashed changes

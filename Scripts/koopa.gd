@@ -18,6 +18,8 @@ func _ready():
 func die():
 	if !in_a_shell:
 		super.die()
+	else:
+		get_parent().get_parent().get_parent().add_points(100)
 		
 	collision_shape_2d.set_deferred("shape", KOOPA_SHELL_COLLISION_SHAPE)
 	collision_shape_2d.set_deferred("position", KOOPA_SHELL_COLLISION_SHAPE_POSITION)
@@ -28,7 +30,6 @@ func on_stomp(player_position: Vector2):
 	set_collision_mask_value(1, false)
 	set_collision_layer_value(3, false)
 	set_collision_layer_value(4, true)
-	print_debug("this is called")
 	if !sliding:
 		var movement_direction = 1 if player_position.x <= global_position.x else - 1
 		horizontal_speed = -movement_direction * slide_speed

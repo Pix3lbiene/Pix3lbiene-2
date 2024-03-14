@@ -3,7 +3,7 @@ extends CharacterBody2D
 class_name Player
 
 signal points_scored(points: int)
-signal pipe_switch(destination: String)
+signal pipe_switch(destination: String, die: bool)
 signal pipe_connector(return_point_name: String)
 signal start_over
 
@@ -64,6 +64,7 @@ const FIREBALL_SCENE = preload("res://Scenes/fireball.tscn")
 var player_mode = PlayerMode.SMALL
 
 var next_destination: String
+var die_on_next_destination: bool
 var return_point: String
 
 # Player state flags
@@ -197,7 +198,7 @@ func handle_enemy_collision(enemy: Enemy):
 			on_enemy_stomped()
 			spawn_points_label(enemy)
 			(enemy as Koopa).on_stomp(global_position)
-			print_debug("lmao")
+			
 			
 		elif !(enemy as Koopa).sliding:
 			(enemy as Koopa).on_stomp(global_position)
@@ -325,6 +326,7 @@ func handle_pipe_collision(pipe_collision: KinematicCollision2D):
 	levels.process_mode = Node.PROCESS_MODE_DISABLED
 	animated_sprite_2d.trigger_animation(Vector2.ZERO, 1, player_mode)
 	next_destination = pipe_collision.get_collider().destination
+	die_on_next_destination = pipe_collision.get_collider().die_on_exit
 	var pipe_tween = get_tree().create_tween()
 	pipe_tween.tween_property(self, "position", position + Vector2(pipe_collision.get_collider().position.x - position.x, 0), abs(pipe_collision.get_collider().position.x - position.x) * 0.1 / 5)
 	pipe_tween.chain().tween_property(self, "position", position + Vector2(pipe_collision.get_collider().position.x - position.x, 32), 1)
@@ -361,11 +363,13 @@ func handle_flag_pole_collision(pole: Area2D):
 	pole_tween2.tween_property(self, "position", position + Vector2(150,0),3.5)
 	animated_sprite_2d.trigger_animation(Vector2.RIGHT, 1, player_mode)
 	await(pole_tween2.finished)
-	
+	var timer = get_tree().create_timer(2)
+	await(timer.timeout)
+	game_world.player_won()
 
 func switch_to_underground():
 	if next_destination:
-		emit_signal("pipe_switch", next_destination)
+		emit_signal("pipe_switch", next_destination, die_on_next_destination)
 
 func switch_to_main():
 	emit_signal("pipe_connector", return_point)
@@ -378,3 +382,23 @@ func _on_animation_player_animation_finished(anim_name):
 		animated_sprite_2d.reset_player_properties()
 		emit_signal("start_over")
 		
+		
+func die_tween():
+	is_dead = true
+	set_physics_process(false)
+	area_collision_shape.process_mode = Node.PROCESS_MODE_DISABLED
+	body_collision_shape.process_mode = Node.PROCESS_MODE_DISABLED
+	animated_sprite_2d.play("death")
+	BackgroundMusic.stop()
+	game_world.add_lifes(-1)
+	var die_tween = get_tree().create_tween()
+	die_tween.tween_property(self, "position", position + Vector2(0, -80), 4)
+	var timer = get_tree().create_timer(2)
+	await(timer.timeout)
+	death_sound.play()
+	await(die_tween.finished)
+	var timer2 = get_tree().create_timer(1)
+	await(timer2.timeout)
+	velocity = Vector2.ZERO
+	animated_sprite_2d.reset_player_properties()
+	emit_signal("start_over")

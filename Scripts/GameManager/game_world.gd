@@ -29,7 +29,7 @@ var overworld: Node2D
 var underground: Node2D
 var paused = false
 
-signal end_game
+signal end_game(won: bool)
 
 # Called when the node enters the scene tree for the first time.
 
@@ -97,7 +97,7 @@ func _input(event):
 		levels.process_mode = Node.PROCESS_MODE_INHERIT
 
 
-func _on_pipe_switch(destination):
+func _on_pipe_switch(destination, die_here):
 	overworld = current_level
 	current_level = load(destination).instantiate()
 	levels.remove_child(overworld)
@@ -107,8 +107,12 @@ func _on_pipe_switch(destination):
 	check_camera_setup()
 	var timer = get_tree().create_timer(0.2)
 	await(timer.timeout)
-	player.set_physics_process(true)
-	levels.process_mode = Node.PROCESS_MODE_INHERIT
+	if(!die_here):
+		player.set_physics_process(true)
+		levels.process_mode = Node.PROCESS_MODE_INHERIT
+	else:
+		player.die_tween()
+		levels.process_mode = Node.PROCESS_MODE_INHERIT
 	
 func _on_connector_switch(return_point: String):
 	print_debug(return_point)
@@ -133,7 +137,11 @@ func _on_player_start_over():
 		ui.visible = false
 		current_level = load(START_LEVEL).instantiate()
 		levels.add_child(current_level)
+		check_camera_setup()
 		player.global_position = current_level.get_node('SpawnMarker').global_position
+		score = 0
+		coins = 0
+		update_labels()
 		BackgroundMusic.play()
 		ui.visible = true
 	else:
@@ -142,7 +150,7 @@ func _on_player_start_over():
 		current_level.free()
 		var timer = get_tree().create_timer(4)
 		await(timer.timeout)
-		emit_signal("end_game")
+		emit_signal("end_game", false)
 		
 		
 		
@@ -180,3 +188,6 @@ func add_coins(amount: float):
 func add_lifes(amount: float):
 	lifes += amount
 	update_labels()
+
+func player_won():
+	emit_signal("end_game", true)

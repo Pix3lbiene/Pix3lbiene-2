@@ -8,6 +8,7 @@ const TOP_PIPE_HEIGHT = 16
 @export var is_traversable = false
 @export var destination: String
 @export var return_point: Marker2D
+@export var die_on_exit = false
 
 @onready var collision_shape_2d = $CollisionShape2D
 @onready var pipe_body_sprite = $PipeBodySprite
