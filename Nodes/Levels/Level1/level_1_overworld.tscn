@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dyq1xtr7grww0"]
+[gd_scene load_steps=18 format=3 uid="uid://dyq1xtr7grww0"]
 
 [ext_resource type="Script" path="res://Nodes/Levels/Level1/level_1_overworld.gd" id="1_2cchp"]
 [ext_resource type="TileSet" uid="uid://d0s7u36k35fya" path="res://Resources/TileSets/ground_mario.tres" id="1_730if"]
@@ -6,7 +6,6 @@
 [ext_resource type="TileSet" uid="uid://cpgixl2a2ddtr" path="res://Resources/TileSets/ground_platform.tres" id="2_rh2xt"]
 [ext_resource type="PackedScene" uid="uid://bei1c0pe6xtcd" path="res://Scenes/pipe.tscn" id="3_cdrfy"]
 [ext_resource type="PackedScene" uid="uid://c3y0q3tjyb177" path="res://Nodes/Flag/flag_pole.tscn" id="3_xwgsg"]
-[ext_resource type="PackedScene" uid="uid://bdvmvw5kdlgkt" path="res://Scenes/goomba.tscn" id="4_asx7y"]
 [ext_resource type="PackedScene" uid="uid://vtbdytksr0ju" path="res://Scenes/koopa.tscn" id="6_5g3pe"]
 [ext_resource type="PackedScene" uid="uid://cn4mdlc8am053" path="res://Nodes/Enemy/Ice/ice.tscn" id="7_w7q7n"]
 [ext_resource type="PackedScene" uid="uid://dmsetu713bew3" path="res://Scenes/collectable_coin.tscn" id="8_u2kff"]
@@ -55,9 +54,6 @@ is_traversable = true
 destination = "res://Nodes/Levels/Level1/level_1_underground_1.tscn"
 return_point = NodePath("../return_point_1")
 die_on_exit = true
-
-[node name="Goomba" parent="." instance=ExtResource("4_asx7y")]
-position = Vector2(3, -86)
 
 [node name="SpawnMarker" type="Marker2D" parent="."]
 position = Vector2(-321, 66)

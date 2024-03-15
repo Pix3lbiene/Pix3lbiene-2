@@ -7,12 +7,12 @@
 [ext_resource type="Texture2D" uid="uid://b1dn2dux27ft3" path="res://Assets/Sprites/WaterWorld/wave_left_2.png" id="4_t8xgs"]
 [ext_resource type="Texture2D" uid="uid://cmd4xalxymmj4" path="res://Assets/Sprites/WaterWorld/wave_left_3.png" id="5_a6ho2"]
 [ext_resource type="Texture2D" uid="uid://dspeu2844vr0w" path="res://Assets/Sprites/WaterWorld/wave_right_1.png" id="6_mk7ac"]
-[ext_resource type="PackedScene" uid="uid://vtbdytksr0ju" path="res://scenes/koopa.tscn" id="7_gtouo"]
+[ext_resource type="PackedScene" uid="uid://vtbdytksr0ju" path="res://Scenes/koopa.tscn" id="7_gtouo"]
 [ext_resource type="Texture2D" uid="uid://drsgb1f7w2w4r" path="res://Assets/Sprites/WaterWorld/wave_right_2.png" id="7_rtg4m"]
 [ext_resource type="Texture2D" uid="uid://6kqtvlsgsmyx" path="res://Assets/Sprites/WaterWorld/wave_right_3.png" id="8_ve10t"]
 [ext_resource type="PackedScene" uid="uid://c3y0q3tjyb177" path="res://Nodes/Flag/flag_pole.tscn" id="10_uwucq"]
 [ext_resource type="Texture2D" uid="uid://j5hqcnppe23q" path="res://Assets/Textures/background_long_05.png" id="11_luq87"]
-[ext_resource type="PackedScene" uid="uid://bei1c0pe6xtcd" path="res://scenes/pipe.tscn" id="14_og12l"]
+[ext_resource type="PackedScene" uid="uid://bei1c0pe6xtcd" path="res://Scenes/pipe.tscn" id="14_og12l"]
 [ext_resource type="PackedScene" uid="uid://qd007ac2di83" path="res://Nodes/props/sign_arrow.tscn" id="15_4iw5n"]
 [ext_resource type="Texture2D" uid="uid://b3mo42i2vidxr" path="res://Assets/Sprites/WaterWorld/grass_2.png" id="15_i6e8x"]
 [ext_resource type="Texture2D" uid="uid://bxuc3pg6f2h6e" path="res://Assets/Sprites/WaterWorld/grass_5.png" id="16_l3e38"]
@@ -22,9 +22,9 @@
 [ext_resource type="Texture2D" uid="uid://w2u4t4bk752l" path="res://Assets/Sprites/WaterWorld/grass_1.png" id="20_sora3"]
 [ext_resource type="Texture2D" uid="uid://bjg7wb31rj5pb" path="res://Assets/Sprites/WaterWorld/grass_4.png" id="21_8eykv"]
 [ext_resource type="Texture2D" uid="uid://t55idvshc3n8" path="res://Assets/Sprites/WaterWorld/grass_3.png" id="22_jyctp"]
-[ext_resource type="PackedScene" uid="uid://cvgndqh5bvlmq" path="res://scenes/mystery_box.tscn" id="23_crust"]
-[ext_resource type="PackedScene" uid="uid://dmsetu713bew3" path="res://scenes/collectable_coin.tscn" id="24_mmgo2"]
-[ext_resource type="PackedScene" uid="uid://d0mecj3uphl0n" path="res://scenes/fish.tscn" id="25_xqycg"]
+[ext_resource type="PackedScene" uid="uid://cvgndqh5bvlmq" path="res://Scenes/mystery_box.tscn" id="23_crust"]
+[ext_resource type="PackedScene" uid="uid://dmsetu713bew3" path="res://Scenes/collectable_coin.tscn" id="24_mmgo2"]
+[ext_resource type="PackedScene" uid="uid://d0mecj3uphl0n" path="res://Scenes/fish.tscn" id="25_xqycg"]
 [ext_resource type="PackedScene" uid="uid://cn4mdlc8am053" path="res://Nodes/Enemy/Ice/ice.tscn" id="26_tjh8i"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_37qwe"]
@@ -113,9 +113,11 @@ region_rect = Rect2(0, 0, 20000, 1440)
 
 [node name="Koopa" parent="." instance=ExtResource("7_gtouo")]
 position = Vector2(386, 58)
+horizontal_speed = 0
 
 [node name="Koopa2" parent="." instance=ExtResource("7_gtouo")]
 position = Vector2(481, 58)
+horizontal_speed = 0
 
 [node name="sign_arrow" parent="." instance=ExtResource("15_4iw5n")]
 position = Vector2(1984, 75)
