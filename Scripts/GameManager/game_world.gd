@@ -49,6 +49,8 @@ func _ready():
 	current_level = load(START_LEVEL).instantiate()
 	if(next_start_cheat):
 		next_start_cheat = false
+		current_level.get_node("weed_box").visible = true
+		current_level.get_node("weed_box").process_mode = Node.PROCESS_MODE_INHERIT
 	update_labels()
 	
 	ScreenFader.fade_in()
@@ -58,6 +60,7 @@ func _ready():
 	ScreenFader.fade_out()
 	await(ScreenFader.faded_out)
 	add_child(player)
+	player.process_mode = Node.PROCESS_MODE_INHERIT
 	player.global_position = current_level.get_node('SpawnMarker').global_position
 	player.set_physics_process(false)
 	levels.add_child(current_level)
@@ -146,6 +149,7 @@ func _on_player_start_over():
 		BackgroundMusic.play()
 		ui.visible = true
 	else:
+		player.process_mode = Node.PROCESS_MODE_DISABLED
 		game_over.visible = true
 		ui.visible = false
 		current_level.free()

@@ -174,6 +174,9 @@ func _process(delta):
 		# Left camera movement
 		elif global_position.x < camera_sync.global_position.x -camera_tolerance && start_position.global_position.x < camera_sync.global_position.x:
 			camera_sync.global_position.x = global_position.x +  camera_tolerance
+		
+	if(global_position.y > 180 && !is_dead):
+		die(true)
 	
 	
 
@@ -188,6 +191,7 @@ func _on_area_2d_area_entered(area):
 		area.queue_free()
 	if area is FlagPole:
 		handle_flag_pole_collision(area)
+	
 		
 func handle_enemy_collision(enemy: Enemy):
 	if enemy == null && is_dead:
@@ -246,13 +250,17 @@ func die(instant: bool = false):
 				await(timer.timeout)
 				game_world.resume_level()
 	else:
+		is_dead = true
+		set_physics_process(false)
 		game_world.stop_level()
-		big_to_small()
-		invincible_time = 2
-		invincible = true
-		var timer = get_tree().create_timer(1.5)
-		await(timer.timeout)
-		game_world.resume_level()
+		area_collision_shape.process_mode = Node.PROCESS_MODE_DISABLED
+		body_collision_shape.process_mode = Node.PROCESS_MODE_DISABLED
+		#animated_sprite_2d.play("death")
+				
+		BackgroundMusic.stop()
+		death_sound.play()
+		game_world.add_lifes(-1)
+		animation_player.play("player_death")
 	
 func on_enemy_stomped():
 	velocity.y = stomp_y_velocity
@@ -301,6 +309,7 @@ func handle_shroom_collision(_area: Node2D):
 		game_world.resume_level()
 
 func handle_flower_collision(flower):
+	BackgroundMusic.stop()
 	var weed_biene = WEED_SCENE.instantiate()
 	weed_biene.global_position = Vector2(global_position.x, -67)
 	weed_biene.camera_sync = camera_sync
@@ -368,7 +377,7 @@ func handle_flag_pole_collision(pole: Area2D):
 	animated_sprite_2d.trigger_animation(Vector2.ZERO, 1, player_mode)
 	global_position.x = pole.global_position.x
 	var pole_tween = get_tree().create_tween()
-	pole_tween.tween_property(self, "position", position + Vector2(0, 56 - position.y),abs(55 - position.y) * 0.1 / 5)
+	pole_tween.tween_property(self, "position", position + Vector2(0, 17 - position.y),abs(17 - position.y) * 0.1 / 5)
 	pole.hit()
 	await(pole_tween.finished)
 	animation_player.play("pole_go_away")

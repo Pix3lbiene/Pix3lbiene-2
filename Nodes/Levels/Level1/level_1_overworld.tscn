@@ -153,6 +153,8 @@ position = Vector2(909, 8)
 texture = ExtResource("18_pck3n")
 
 [node name="weed_box" parent="." instance=ExtResource("2_qvnaa")]
+process_mode = 4
+visible = false
 position = Vector2(-250, -8)
 bonus_type = 2
 

@@ -8,6 +8,7 @@ extends AnimatedSprite2D
 @export var camera_tolerance = 40
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	BackgroundMusic.play_music("res://Assets/Sound/Music/weed_music.wav")
 	var timer = get_tree().create_timer(1)
 	await(timer.timeout)
 	play("flying")
@@ -38,5 +39,6 @@ func fly_finish():
 	player.velocity = Vector2.ZERO
 	player.set_physics_process(true)
 	player.animated_sprite_2d.visible = true
+	BackgroundMusic.play_music("res://Assets/Sound/Music/main_loop.wav")
 	queue_free()
 	

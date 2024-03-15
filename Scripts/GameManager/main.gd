@@ -19,11 +19,13 @@ func _on_game_load(cheat: bool):
 	if !instantiated_game_world:
 			instantiated_game_world = true
 			game_world = load(game_scene).instantiate()
-			game_world.next_start_cheat = true
+			game_world.next_start_cheat = cheat
+			print_debug(cheat)
 			add_child(game_world)
 			game_world.connect('end_game', open_main_menu)
 	else:
 		add_child(game_world)
+		game_world.next_start_cheat = cheat
 		game_world._ready()
 	
 	#ScreenFader.fade_in()

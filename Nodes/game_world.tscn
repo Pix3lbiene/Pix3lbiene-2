@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b622s05lge801"]
+[gd_scene load_steps=10 format=3 uid="uid://b622s05lge801"]
 
 [ext_resource type="PackedScene" uid="uid://dg20ly5ek1o3n" path="res://Scenes/player.tscn" id="1_76ldt"]
 [ext_resource type="Script" path="res://Scripts/GameManager/game_world.gd" id="1_nn0fv"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dx0cv1fstva8n" path="res://Nodes/LevelAnnouncer/level_announcer.tscn" id="4_rla1e"]
 [ext_resource type="Texture2D" uid="uid://b077jrcdpwixn" path="res://Assets/Sprites/UI/heart.png" id="5_jrkch"]
 [ext_resource type="Texture2D" uid="uid://ca3arvpp77372" path="res://Assets/Sprites/Coin/coin_small.png" id="6_f27av"]
+[ext_resource type="Script" path="res://Nodes/death_collider.gd" id="7_dc0cl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_28ikv"]
 size = Vector2(4, 494)
@@ -183,6 +184,8 @@ color = Color(0, 0, 0, 1)
 
 [node name="death_collider" type="StaticBody2D" parent="."]
 position = Vector2(-210, 0)
+collision_layer = 512
+script = ExtResource("7_dc0cl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="death_collider"]
 position = Vector2(210, 168)
