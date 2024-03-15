@@ -11,16 +11,17 @@ func _ready():
 
 
 
-func _on_game_load():
+func _on_game_load(cheat: bool):
 	ScreenFader.fade_out()
 	await(ScreenFader.faded_out)
 	# Die Spiel-Welt instanzieren und dann zur Main-Node hinzufügen
 	# Nur dann instanzieren, wenn sie nicht vorher schon mal geladen wurde
 	if !instantiated_game_world:
-		instantiated_game_world = true
-		game_world = load(game_scene).instantiate()
-		add_child(game_world)
-		game_world.connect('end_game', open_main_menu)
+			instantiated_game_world = true
+			game_world = load(game_scene).instantiate()
+			game_world.next_start_cheat = true
+			add_child(game_world)
+			game_world.connect('end_game', open_main_menu)
 	else:
 		add_child(game_world)
 		game_world._ready()

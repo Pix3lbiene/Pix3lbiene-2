@@ -8,12 +8,12 @@
 [ext_resource type="Texture2D" uid="uid://d0c35mo3g3w5e" path="res://Assets/Sprites/UI/title_thank_you.png" id="6_v36do"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q3u4u"]
-bg_color = Color(0.266667, 0.266667, 0.266667, 1)
+bg_color = Color(0.266667, 0.266667, 0.266667, 0)
 border_width_left = 20
 border_width_top = 20
 border_width_right = 20
 border_width_bottom = 20
-border_color = Color(0.266667, 0.266667, 0.266667, 1)
+border_color = Color(0.266667, 0.266667, 0.266667, 0)
 corner_radius_top_left = 15
 corner_radius_top_right = 15
 corner_radius_bottom_right = 15
@@ -179,6 +179,30 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_0l311")
 toggle_mode = true
 text = "Drück Start"
 
+[node name="cheat_button" type="Button" parent="."]
+z_index = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 484.0
+offset_top = -322.0
+offset_right = 575.0
+offset_bottom = -234.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = -120
+theme_override_fonts/font = ExtResource("2_hhh7q")
+theme_override_font_sizes/font_size = 65
+theme_override_styles/normal = SubResource("StyleBoxFlat_q3u4u")
+theme_override_styles/hover = SubResource("StyleBoxFlat_kivo2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_auoiy")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_l1bap")
+theme_override_styles/focus = SubResource("StyleBoxFlat_0l311")
+toggle_mode = true
+
 [node name="StartSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_jebwk")
 volume_db = 10.895
@@ -221,3 +245,4 @@ libraries = {
 autoplay = "hover_a"
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="cheat_button" to="." method="_on_button_pressed_cheat"]

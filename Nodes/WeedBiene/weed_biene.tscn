@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://bjfg46fldjxjx"]
+
+[ext_resource type="Texture2D" uid="uid://dq4m0u5f7o7vu" path="res://Assets/Sprites/Pixelbiene/weed_player_rainbow_down.png" id="1_vj11b"]
+[ext_resource type="Texture2D" uid="uid://db6n0wyb3ubc3" path="res://Assets/Sprites/Pixelbiene/weed_player_rainbow_up.png" id="2_c8cm7"]
+[ext_resource type="Texture2D" uid="uid://hshdnbmogbwx" path="res://Assets/Sprites/Pixelbiene/weed_player.png" id="3_7nchk"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3rdwj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_vj11b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_c8cm7")
+}],
+"loop": true,
+"name": &"flying",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_7nchk")
+}],
+"loop": true,
+"name": &"starting",
+"speed": 5.0
+}]
+
+[node name="weed_biene" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_3rdwj")
+animation = &"flying"
+autoplay = "starting"
+frame_progress = 0.00817159
+offset = Vector2(-29, 0)

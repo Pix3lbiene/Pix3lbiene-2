@@ -24,6 +24,7 @@ extends Node2D
 @export var lifes = 3
 @export var coins = 0
 @export var score = 0
+@export var next_start_cheat = false
 
 var overworld: Node2D
 var underground: Node2D
@@ -70,9 +71,7 @@ func _ready():
 	
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+
 
 func _input(event):
 	if event.is_action_pressed("exit"):
@@ -191,3 +190,4 @@ func add_lifes(amount: float):
 
 func player_won():
 	emit_signal("end_game", true)
+	
