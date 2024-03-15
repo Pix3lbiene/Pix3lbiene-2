@@ -1,0 +1,62 @@
+[gd_scene load_steps=7 format=3 uid="uid://d0mecj3uphl0n"]
+
+[ext_resource type="Script" path="res://Scripts/goomba.gd" id="1_6xi7s"]
+[ext_resource type="Texture2D" uid="uid://dl0kuv8e1o6n3" path="res://Assets/Sprites/Goomba_Flat.png" id="2_5254u"]
+[ext_resource type="Texture2D" uid="uid://3fw8dxk4sgyv" path="res://Assets/Sprites/Fish/fish1.png" id="3_i4i1y"]
+[ext_resource type="Texture2D" uid="uid://7u0s1c71q0q6" path="res://Assets/Sprites/Fish/fish2.png" id="4_ogoe0"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tpm4e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_5254u")
+}],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_i4i1y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ogoe0")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oejgn"]
+size = Vector2(16, 16)
+
+[node name="fish" type="Area2D"]
+collision_layer = 4
+collision_mask = 9
+script = ExtResource("1_6xi7s")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_tpm4e")
+animation = &"walk"
+autoplay = "walk"
+frame = 1
+frame_progress = 0.914151
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_oejgn")
+
+[node name="GroundRaycast" type="RayCast2D" parent="."]
+target_position = Vector2(0, 8)
+collision_mask = 18
+
+[node name="LeftRaycast" type="RayCast2D" parent="."]
+position = Vector2(0, 1)
+target_position = Vector2(-8, 0)
+collision_mask = 18
+
+[node name="RightRaycast" type="RayCast2D" parent="."]
+position = Vector2(0, 1)
+target_position = Vector2(8, 0)
+collision_mask = 18
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

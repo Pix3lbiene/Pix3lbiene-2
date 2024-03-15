@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://b622s05lge801"]
 
-[ext_resource type="PackedScene" uid="uid://dg20ly5ek1o3n" path="res://scenes/player.tscn" id="1_76ldt"]
+[ext_resource type="PackedScene" uid="uid://dg20ly5ek1o3n" path="res://Scenes/player.tscn" id="1_76ldt"]
 [ext_resource type="Script" path="res://Scripts/GameManager/game_world.gd" id="1_nn0fv"]
 [ext_resource type="FontFile" uid="uid://dvpj6k5ulpj0f" path="res://Assets/Fonts/PressStart2P-Regular.ttf" id="4_ftnhr"]
 [ext_resource type="PackedScene" uid="uid://dx0cv1fstva8n" path="res://Nodes/LevelAnnouncer/level_announcer.tscn" id="4_rla1e"]
