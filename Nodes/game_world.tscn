@@ -34,9 +34,9 @@ collision_layer = 128
 position = Vector2(2, 0)
 shape = SubResource("RectangleShape2D_28ikv")
 
-[node name="Player" parent="." instance=ExtResource("1_76ldt")]
+[node name="Player" parent="." node_paths=PackedStringArray("camera_sync") instance=ExtResource("1_76ldt")]
 collision_mask = 150
-should_camera_sync = false
+camera_sync = NodePath("../WorldCam")
 
 [node name="WorldCam" type="Camera2D" parent="."]
 zoom = Vector2(2.75, 2.75)
