@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://dg20ly5ek1o3n"]
+[gd_scene load_steps=39 format=3 uid="uid://dg20ly5ek1o3n"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_cqfcf"]
 [ext_resource type="Texture2D" uid="uid://ct8uqpacoxaq1" path="res://Assets/Sprites/Mario_Big_Idle.png" id="2_0kyi5"]
@@ -27,6 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://d2r1f4s1maaa4" path="res://Assets/Sprites/Mario_Small_Idle_Spawn.png" id="24_hrpby"]
 [ext_resource type="Script" path="res://Scripts/player_animated_sprite.gd" id="24_wd5v6"]
 [ext_resource type="Shape2D" uid="uid://s0jsgikxy4kd" path="res://Resources/CollisionShapes/small_mario_collision_shape.tres" id="25_5dkwh"]
+[ext_resource type="Texture2D" uid="uid://o74xlnyftgey" path="res://Assets/Sprites/Pixelbiene/weed_player_crop.png" id="25_76eaq"]
 [ext_resource type="AudioStream" uid="uid://gbqg7agdb10u" path="res://Assets/Sound/Effects/death_01.wav" id="26_t3746"]
 [ext_resource type="AudioStream" uid="uid://f53218f3fisb" path="res://Assets/Sound/Effects/powerup.wav" id="28_8ko6c"]
 
@@ -283,6 +284,29 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("25_76eaq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_c8kxn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_76eaq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_c8kxn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_76eaq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_c8kxn")
+}],
+"loop": false,
+"name": &"small_weed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("24_hrpby")
 }, {
 "duration": 1.0,
@@ -455,8 +479,9 @@ script = ExtResource("1_cqfcf")
 position = Vector2(-2.16667, -1.5)
 scale = Vector2(0.395833, 0.395833)
 sprite_frames = SubResource("SpriteFrames_58rr8")
-animation = &"small_idle"
-frame_progress = 0.732751
+animation = &"small_weed"
+frame = 1
+frame_progress = 0.640189
 script = ExtResource("24_wd5v6")
 
 [node name="Area2D" type="Area2D" parent="."]

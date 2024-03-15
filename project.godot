@@ -23,6 +23,7 @@ ScreenFader="*res://Nodes/FadeLayer/fade_layer.tscn"
 
 [display]
 
+window/size/mode=3
 window/stretch/mode="canvas_items"
 
 [input]

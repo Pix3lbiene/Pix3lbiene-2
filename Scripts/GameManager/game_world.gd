@@ -47,6 +47,8 @@ func _ready():
 	game_over.visible = false
 	
 	current_level = load(START_LEVEL).instantiate()
+	if(next_start_cheat):
+		next_start_cheat = false
 	update_labels()
 	
 	ScreenFader.fade_in()

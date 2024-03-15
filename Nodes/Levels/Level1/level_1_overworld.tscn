@@ -2,21 +2,21 @@
 
 [ext_resource type="Script" path="res://Nodes/Levels/Level1/level_1_overworld.gd" id="1_2cchp"]
 [ext_resource type="TileSet" uid="uid://d0s7u36k35fya" path="res://Resources/TileSets/ground_mario.tres" id="1_730if"]
-[ext_resource type="PackedScene" uid="uid://cvgndqh5bvlmq" path="res://scenes/mystery_box.tscn" id="2_qvnaa"]
+[ext_resource type="PackedScene" uid="uid://cvgndqh5bvlmq" path="res://Scenes/mystery_box.tscn" id="2_qvnaa"]
 [ext_resource type="TileSet" uid="uid://cpgixl2a2ddtr" path="res://Resources/TileSets/ground_platform.tres" id="2_rh2xt"]
-[ext_resource type="PackedScene" uid="uid://bei1c0pe6xtcd" path="res://scenes/pipe.tscn" id="3_cdrfy"]
+[ext_resource type="PackedScene" uid="uid://bei1c0pe6xtcd" path="res://Scenes/pipe.tscn" id="3_cdrfy"]
 [ext_resource type="PackedScene" uid="uid://c3y0q3tjyb177" path="res://Nodes/Flag/flag_pole.tscn" id="3_xwgsg"]
-[ext_resource type="PackedScene" uid="uid://bdvmvw5kdlgkt" path="res://scenes/goomba.tscn" id="4_asx7y"]
-[ext_resource type="PackedScene" uid="uid://vtbdytksr0ju" path="res://scenes/koopa.tscn" id="6_5g3pe"]
+[ext_resource type="PackedScene" uid="uid://bdvmvw5kdlgkt" path="res://Scenes/goomba.tscn" id="4_asx7y"]
+[ext_resource type="PackedScene" uid="uid://vtbdytksr0ju" path="res://Scenes/koopa.tscn" id="6_5g3pe"]
 [ext_resource type="PackedScene" uid="uid://cn4mdlc8am053" path="res://Nodes/Enemy/Ice/ice.tscn" id="7_w7q7n"]
-[ext_resource type="PackedScene" uid="uid://dmsetu713bew3" path="res://scenes/collectable_coin.tscn" id="8_u2kff"]
+[ext_resource type="PackedScene" uid="uid://dmsetu713bew3" path="res://Scenes/collectable_coin.tscn" id="8_u2kff"]
 [ext_resource type="Texture2D" uid="uid://j5hqcnppe23q" path="res://Assets/Textures/background_long_05.png" id="10_pcyri"]
 [ext_resource type="PackedScene" uid="uid://deg5c4agi2vob" path="res://Nodes/props/tree.tscn" id="12_yvtxe"]
 [ext_resource type="PackedScene" uid="uid://dsva0623prqq8" path="res://Nodes/props/tree_high.tscn" id="13_fxknj"]
 [ext_resource type="PackedScene" uid="uid://byukfx252hyyy" path="res://Nodes/props/sign_ziel.tscn" id="14_nvkbg"]
 [ext_resource type="PackedScene" uid="uid://qd007ac2di83" path="res://Nodes/props/sign_arrow.tscn" id="15_lu3y3"]
 [ext_resource type="Texture2D" uid="uid://cpqqm1fdoykoi" path="res://Assets/Sprites/Level1/tree_high.png" id="16_scybo"]
-[ext_resource type="PackedScene" uid="uid://ctdftomcy6wds" path="res://scenes/shroom.tscn" id="17_rbujw"]
+[ext_resource type="PackedScene" uid="uid://ctdftomcy6wds" path="res://Scenes/shroom.tscn" id="17_rbujw"]
 [ext_resource type="Texture2D" uid="uid://bhiuuosp06grf" path="res://Assets/Sprites/Level1/tree.png" id="18_pck3n"]
 
 [node name="Level1Overworld" type="Node2D"]
@@ -42,7 +42,7 @@ layer_0/tile_data = PackedInt32Array(524264, 3, 0, 458736, 3, 0, 458738, 3, 0, 5
 position = Vector2(-160, 47)
 
 [node name="camera_end" type="Marker2D" parent="."]
-position = Vector2(1817, 8)
+position = Vector2(1975, 8)
 
 [node name="MysteryBox" parent="." instance=ExtResource("2_qvnaa")]
 position = Vector2(216, 24)
@@ -103,7 +103,7 @@ position = Vector2(819, -30)
 scale = Vector2(0.21875, 0.21875)
 texture = ExtResource("10_pcyri")
 region_enabled = true
-region_rect = Rect2(0, 0, 12000, 1440)
+region_rect = Rect2(0, 0, 14000, 1440)
 
 [node name="MysteryBox3" parent="." instance=ExtResource("2_qvnaa")]
 position = Vector2(440, 24)
@@ -151,3 +151,15 @@ position = Vector2(331, 55)
 [node name="Tree" type="Sprite2D" parent="."]
 position = Vector2(909, 8)
 texture = ExtResource("18_pck3n")
+
+[node name="weed_box" parent="." instance=ExtResource("2_qvnaa")]
+position = Vector2(-250, -8)
+bonus_type = 2
+
+[node name="Pipe2" parent="." node_paths=PackedStringArray("return_point") instance=ExtResource("3_cdrfy")]
+z_index = 1
+z_as_relative = false
+position = Vector2(2038, 72)
+is_traversable = true
+destination = "res://Nodes/Levels/Level2/level_2.tscn"
+return_point = NodePath("../SpawnMarker")

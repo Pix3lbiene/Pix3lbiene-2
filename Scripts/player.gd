@@ -23,6 +23,7 @@ const POINTS_LABEL_SCENE = preload("res://Scenes/points_label.tscn")
 const SMALL_MARIO_COLLISION_SHAPE = preload("res://Resources/CollisionShapes/small_mario_collision_shape.tres")
 const BIG_MARIO_COLLISION_SHAPE = preload("res://Resources/CollisionShapes/big_mario_collision_shape.tres")
 const FIREBALL_SCENE = preload("res://Scenes/fireball.tscn")
+const WEED_SCENE = preload("res://Nodes/WeedBiene/weed_biene.tscn")
 
 
 # On ready
@@ -42,7 +43,7 @@ const FIREBALL_SCENE = preload("res://Scenes/fireball.tscn")
 
 
 @export_group("Locomotion")
-@export var run_speed_damping = 0.5
+@export var run_speed_damping = 1
 @export var speed = 200.0
 @export var jump_velocity = -350
 @export_group("")
@@ -183,7 +184,7 @@ func _on_area_2d_area_entered(area):
 		handle_shroom_collision(area)
 
 	if area is ShootingFlower:
-		handle_flower_collision()
+		handle_flower_collision(area)
 		area.queue_free()
 	if area is FlagPole:
 		handle_flag_pole_collision(area)
@@ -216,34 +217,42 @@ func handle_enemy_collision(enemy: Enemy):
 		else:
 			die()
 		
-func die():
-	
-	if(!invincible):
-		if player_mode == PlayerMode.SMALL:
-			is_dead = true
-			set_physics_process(false)
-			game_world.stop_level()
-			area_collision_shape.process_mode = Node.PROCESS_MODE_DISABLED
-			body_collision_shape.process_mode = Node.PROCESS_MODE_DISABLED
-			animated_sprite_2d.play("death")
+func die(instant: bool = false):
+	if(!instant):
+		if(!invincible):
+			if player_mode == PlayerMode.SMALL:
+				is_dead = true
+				set_physics_process(false)
+				game_world.stop_level()
+				area_collision_shape.process_mode = Node.PROCESS_MODE_DISABLED
+				body_collision_shape.process_mode = Node.PROCESS_MODE_DISABLED
+				animated_sprite_2d.play("death")
+				
+				
+				
+				BackgroundMusic.stop()
+				death_sound.play()
+				game_world.add_lifes(-1)
+				animation_player.play("player_death")
+				
+				
 			
-			
-			
-			BackgroundMusic.stop()
-			death_sound.play()
-			game_world.add_lifes(-1)
-			animation_player.play("player_death")
-			
-			
-		
-		else:
-			game_world.stop_level()
-			big_to_small()
-			invincible_time = 2
-			invincible = true
-			var timer = get_tree().create_timer(1.5)
-			await(timer.timeout)
-			game_world.resume_level()
+			else:
+				game_world.stop_level()
+				big_to_small()
+				invincible_time = 2
+				invincible = true
+				var timer = get_tree().create_timer(1.5)
+				await(timer.timeout)
+				game_world.resume_level()
+	else:
+		game_world.stop_level()
+		big_to_small()
+		invincible_time = 2
+		invincible = true
+		var timer = get_tree().create_timer(1.5)
+		await(timer.timeout)
+		game_world.resume_level()
 	
 func on_enemy_stomped():
 	velocity.y = stomp_y_velocity
@@ -291,12 +300,22 @@ func handle_shroom_collision(_area: Node2D):
 		game_world.add_points(1000)
 		game_world.resume_level()
 
-func handle_flower_collision():
+func handle_flower_collision(flower):
+	var weed_biene = WEED_SCENE.instantiate()
+	weed_biene.global_position = Vector2(global_position.x, -67)
+	weed_biene.camera_sync = camera_sync
+	weed_biene.start_position = start_position
+	weed_biene.end_position = end_position
+	weed_biene.should_camera_sync = should_camera_sync
+	weed_biene.camera_tolerance = camera_tolerance
 	set_physics_process(false)
-	var animation_name = "small_to_shooting" if player_mode == PlayerMode.SMALL else "big_to_shooting"
-	animated_sprite_2d.play(animation_name)
-	player_mode = PlayerMode.SHOOTING
-	set_collision_shapes(false)
+	animated_sprite_2d.play("small_weed")
+	await(animated_sprite_2d.animation_finished)
+	animated_sprite_2d.visible = false
+	
+	get_parent().add_child(weed_biene)
+	process_mode = Node.PROCESS_MODE_DISABLED
+	
 
 func set_collision_shapes(is_small: bool):
 	var collision_shape = SMALL_MARIO_COLLISION_SHAPE if is_small else BIG_MARIO_COLLISION_SHAPE

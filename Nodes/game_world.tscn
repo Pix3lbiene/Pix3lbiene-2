@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b622s05lge801"]
+[gd_scene load_steps=9 format=3 uid="uid://b622s05lge801"]
 
 [ext_resource type="PackedScene" uid="uid://dg20ly5ek1o3n" path="res://Scenes/player.tscn" id="1_76ldt"]
 [ext_resource type="Script" path="res://Scripts/GameManager/game_world.gd" id="1_nn0fv"]
@@ -9,6 +9,8 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_28ikv"]
 size = Vector2(4, 494)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_84a1r"]
 
 [node name="GameWorld" type="Node2D"]
 script = ExtResource("1_nn0fv")
@@ -32,10 +34,8 @@ collision_layer = 128
 position = Vector2(2, 0)
 shape = SubResource("RectangleShape2D_28ikv")
 
-[node name="Player" parent="." node_paths=PackedStringArray("camera_sync") instance=ExtResource("1_76ldt")]
+[node name="Player" parent="." instance=ExtResource("1_76ldt")]
 collision_mask = 150
-run_speed_damping = 1.0
-camera_sync = NodePath("../WorldCam")
 should_camera_sync = false
 
 [node name="WorldCam" type="Camera2D" parent="."]
@@ -180,6 +180,14 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="Level-Announcer" parent="." instance=ExtResource("4_rla1e")]
+
+[node name="death_collider" type="StaticBody2D" parent="."]
+position = Vector2(-210, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="death_collider"]
+position = Vector2(210, 168)
+scale = Vector2(10000, 0.878)
+shape = SubResource("RectangleShape2D_84a1r")
 
 [connection signal="pipe_connector" from="Player" to="." method="_on_connector_switch"]
 [connection signal="pipe_switch" from="Player" to="." method="_on_pipe_switch"]
